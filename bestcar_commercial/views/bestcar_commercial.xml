@@ -23,7 +23,7 @@
             </field>
         </record>
         <record id="open_view_bestcar_commercial_action" model="ir.actions.act_window">
-            <field name="name">Catalogue</field>
+            <field name="name">Catalog</field>
             <field name="res_model">bestcar.commercial</field>
             <field name="view_mode">form</field>
         </record>
@@ -32,7 +32,7 @@
                   web_icon="bestcar_commercial,static/description/icon.png"
                   sequence="0"
         />
-        <menuitem id="bestcar_commercial_catalogue"
+        <menuitem id="bestcar_commercial_catalog"
                   name="Bestcar"
                   parent="bestcar_commercial_root"
                   sequence="1"
