@@ -10,6 +10,8 @@
                         <group>
                             <field name="name" placeholder="Car"/>
                             <field name="image" widget="image" class="oe_avatar"/>
+                            <field name="is_new"/>
+                            <field name="is_used"/>
                         </group>
                     </sheet>
                 </form>
