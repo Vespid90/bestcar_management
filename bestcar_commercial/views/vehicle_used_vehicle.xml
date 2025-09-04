@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="used_vehicle_view_from" model="ir.ui.view">
+            <field name="name">used.vehicle.form</field>
+            <field name="model">used.vehicle</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" placeholder="Car"/>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="used_vehicle_view_kanban" model="ir.ui.view">
+            <field name="name">used.vehicle.kanban</field>
+            <field name="model">used.vehicle</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <t t-name="card">
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <field name="name"/>
+                    </t>
+                </kanban>
+            </field>
+        </record>
+        <record id="open_view_used_vehicle_action" model="ir.actions.act_window">
+            <field name="name">Used vehicle</field>
+            <field name="res_model">used.vehicle</field>
+            <field name="view_mode">kanban,form</field>
+        </record>
+        <menuitem id="used_vehicle" name="Used vehicle" parent="bestcar_commercial_vehicle_menu"
+                  action="open_view_used_vehicle_action"
+                  sequence="1"/>
+    </data>
+</odoo>
