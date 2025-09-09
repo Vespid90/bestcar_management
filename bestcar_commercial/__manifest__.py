@@ -26,6 +26,9 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'data/vehicle_data.xml',
         'views/vehicle_views.xml',
+        'views/vehicle_actions.xml',
+        'views/vehicle_menu.xml',
+
     ],
     # only loaded in demonstration mode
     # 'demo': [
@@ -34,4 +37,3 @@ Long description of module's purpose
     "application": True,
     "sequence": -100,
 }
-

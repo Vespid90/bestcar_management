@@ -13,7 +13,7 @@ class ProductTemplate(models.Model):
     body_color = fields.Char(string="Color")
     emissions_standard = fields.Char(string="Emission Standard")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", default="Nouveau véhicule")
+    name = fields.Char(string="Name", default="New vehicle")
     reference_number = fields.Char(string="Reference Number")
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
@@ -56,15 +56,6 @@ class ProductTemplate(models.Model):
 
     ]
 
-    # vehicle_brand = fields.Selection(
-    #     [("audi", "Audi"),
-    #      ("vw", "Volkswagen"),
-    #      ("seat", "Seat"),
-    #      ("skoda", "Skoda"),
-    #      ("porsche", "Porsche"),
-    #      ("bentley", "Bentley")], string="Brand"
-    # )
-
     energy_type = fields.Selection(
         [
             ("petrol", "Petrol"),
@@ -83,13 +74,6 @@ class ProductTemplate(models.Model):
         string="Vehicle Nature",
     )
 
-    # product_id = fields.Many2one(
-    #     "product.template",
-    #     string="Product",
-    #     required=True,
-    #     ondelete="cascade",
-    # )
-
     currency_id = fields.Many2one("res.currency",
                                   string="Currency",
                                   default=lambda self: self.env.company.currency_id.id,
@@ -105,7 +89,6 @@ class ProductTemplate(models.Model):
     # Connect the vehicle to a warehouse location
     # location_id = fields.Many2one("stock.location", string="Stock Location")
 
-    # Connect the vehicle to a supplier
     supplier_id = fields.Many2one(
         "res.partner",
         string="Supplier",
@@ -114,6 +97,10 @@ class ProductTemplate(models.Model):
     vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Brand")
     vehicle_model_id = fields.Many2one(comodel_name="vehicle.model", string="Model",
                                        domain="[('brand_id', '=', vehicle_brand_id)]")
+    vehicle_type_id = fields.Many2one(comodel_name="vehicle.type",
+                                      string="Type",
+                                      related="vehicle_model_id.type_id",
+                                      readonly=True)
 
     def _default_uom_id(self):
         return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id
@@ -140,25 +127,4 @@ class ProductTemplate(models.Model):
     #     ],
     #     string="Status",
     #     default="added",
-    # )
-    # vehicle_type = fields.Selection(
-    #     [
-    #         ("sedan", "Sedan"),
-    #         ("station_wagon", "Station Wagon"),
-    #         ("suv", "SUV"),
-    #         ("city_car", "City Car"),
-    #         ("coupe", "Coupe"),
-    #         ("convertible", "Convertible"),
-    #         ("minivan", "Minivan"),
-    #         ("van", "Van"),
-    #         ("pick_up", "Pick-up"),
-    #         ("other", "Other"),
-    #     ],
-    #     string="Vehicle Type",
-    # )
-    # Connect the vehicle to a list of configurable options
-    # option_line_ids = fields.One2many(
-    #     "vehicle.option",
-    #     "vehicle_id",
-    #     string="Options (name + value)",
     # )

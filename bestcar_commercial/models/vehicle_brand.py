@@ -4,5 +4,5 @@ class VehicleBrand(models.Model):
     _name="vehicle.brand"
     _description="Vehicle Brand"
 
-    name= fields.Char(string="Brand")
+    name= fields.Char(string="Manufacturer")
     model_ids = fields.One2many("vehicle.model", "brand_id", string="Models")
