@@ -1,12 +1,16 @@
 <odoo>
     <data>
-
         <!-- ===== Vue LISTE ===== -->
         <record id="view_vehicle_list" model="ir.ui.view">
             <field name="name">vehicle.list</field>
             <field name="model">product.template</field>
             <field name="arch" type="xml">
                 <list string="Vehicles">
+                    <field name="name" string="Nom du véhicule"/>
+                    <field name="uom_id" invisible="1"/>
+                    <field name="uom_po_id" invisible="1"/>
+                    <field name="categ_id" invisible="1"/>
+                    <field name="type" invisible="1"/>
                     <field name="vehicle_brand"/>
                     <field name="vehicle_model"/>
                     <field name="vehicle_version"/>
@@ -28,6 +32,11 @@
                 <form string="Vehicle">
                     <sheet>
                         <group>
+                            <field name="name" string="Nom du véhicule"/>
+                            <field name="uom_id" invisible="1"/>
+                            <field name="uom_po_id" invisible="1"/>
+                            <field name="categ_id" invisible="1"/>
+                            <field name="type" invisible="1"/>
                             <field name="vehicle_brand"/>
                             <field name="vehicle_model"/>
                             <field name="vehicle_version"/>
@@ -72,7 +81,6 @@
                             <field name="list_price"/>
                             <field name="stock_time_days"/>
                             <field name="supplier_id"/>
-                            <field name="location_id"/>
                         </group>
 
                         <group string="Others">
@@ -97,7 +105,6 @@
             <field name="view_mode">list,form</field>
             <field name="domain">[('nature','=','new')]</field>
             <field name="context">{'default_nature':'new'}</field>
-            <field name="view_id" ref="view_vehicle_list"/>
         </record>
 
         <!-- ===== Action USED VEHICLE ===== -->
@@ -107,10 +114,49 @@
             <field name="view_mode">list,form</field>
             <field name="domain">[('nature','=','used')]</field>
             <field name="context">{'default_nature':'used'}</field>
-            <field name="view_id" ref="view_vehicle_list"/>
+        </record>
+
+        <!-- ===== Lier explicitement les views à chaque action (ir.actions.act_window.view) ===== -->
+        <!-- NEW -->
+        <record id="action_new_vehicle_view_list" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="bestcar_commercial.view_vehicle_list"/>
+            <field name="sequence" eval="1"/>
+        </record>
+        <record id="action_new_vehicle_view_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bestcar_commercial.view_vehicle_form"/>
+            <field name="sequence" eval="2"/>
+        </record>
+
+        <!-- USED -->
+        <record id="action_used_vehicle_view_list" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="bestcar_commercial.view_vehicle_list"/>
+            <field name="sequence" eval="1"/>
+        </record>
+        <record id="action_used_vehicle_view_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bestcar_commercial.view_vehicle_form"/>
+            <field name="sequence" eval="2"/>
         </record>
 
         <!-- ===== Menus ===== -->
+
+        <menuitem id="bestcar_commercial_root"
+                  name="Bestcar"
+                  web_icon="bestcar_commercial,static/description/icon.png"
+                  sequence="0"
+        />
+        <menuitem id="bestcar_commercial_vehicle_menu"
+                  name="Vehicle"
+                  parent="bestcar_commercial_root"
+                  sequence="1"
+        />
         <menuitem id="new_vehicle_menu"
                   name="New Vehicles"
                   parent="bestcar_commercial_vehicle_menu"

@@ -4,7 +4,15 @@ from odoo import models, fields, api
 class product_template(models.Model):
     _inherit = "product.template"
 
-    name = fields.Char('Name', required=True)
+    name = fields.Char(string="Name", default="Nouveau véhicule")
+    sale_ok = fields.Boolean(default=True)
+    purchase_ok = fields.Boolean(default=True)
+    list_price = fields.Float(default=0.0)
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        default=lambda self: self.env.company.id,
+    )
 
     active = fields.Boolean(default=True)
     is_new = fields.Boolean(string="New vehicle YES / NO")
@@ -19,12 +27,12 @@ class product_template(models.Model):
             "unique(license_plate)",
             "The license plate must be unique for each vehicle.",
         ),
+        ('vin_number_unique', 'unique(vin)', "The VIN must be unique!")
+
     ]
     reference_number = fields.Char(string="Reference Number")
     vin = fields.Char(string="VIN")
-    _sql_constraints = [
-        ('vin_number_unique', 'unique(vin)', "The VIN must be unique!")
-    ]
+
     vehicle_brand = fields.Char(string="Brand")
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
@@ -53,7 +61,6 @@ class product_template(models.Model):
 
     image = fields.Image("Logo", max_width=128, max_height=128)
 
-
     purchase_price = fields.Monetary(string="Purchase Price", currency_field="currency_id")
 
     energy_type = fields.Selection(
@@ -74,17 +81,22 @@ class product_template(models.Model):
         string="Vehicle Nature",
     )
 
-    product_id = fields.Many2one(
-        "product.template",
-        string="Product",
-        required=True,
-        ondelete="cascade",
-    )
+    # product_id = fields.Many2one(
+    #     "product.template",
+    #     string="Product",
+    #     required=True,
+    #     ondelete="cascade",
+    # )
+
+    currency_id = fields.Many2one("res.currency",
+                                  string="Currency",
+                                  default=lambda self: self.env.company.currency_id.id,
+                                  )
 
     country_of_origin_id = fields.Many2one("res.country", string="Country of Origin")
 
     # Connect the vehicle to a warehouse location
-    location_id = fields.Many2one("stock.location", string="Stock Location")
+    # location_id = fields.Many2one("stock.location", string="Stock Location")
 
     # Connect the vehicle to a supplier
     supplier_id = fields.Many2one(
@@ -92,6 +104,18 @@ class product_template(models.Model):
         string="Supplier",
     )
 
+    def _default_uom_id(self):
+        return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id
+
+    def _default_categ_id(self):
+        return self.env.ref("product.product_category_all", raise_if_not_found=False).id
+
+    uom_id = fields.Many2one("uom.uom", string="Unit of measure",
+                             default=_default_uom_id)
+    uom_po_id = fields.Many2one("uom.uom", string="Purchase Unit of Measure",
+                                default=_default_uom_id)
+    categ_id = fields.Many2one("product.category", string="Category",
+                               default=_default_categ_id)
     # status = fields.Selection(
     #     [
     #         ("added", "File Added"),
@@ -121,17 +145,9 @@ class product_template(models.Model):
     #     ],
     #     string="Vehicle Type",
     # )
-    # Specify the currency for the purchase_price field. By default, it assumes the company currency
-    # currency_id = fields.Many2one(
-    #     "res.currency",
-    #     string="Currency",
-    #     default=lambda self: self.env.company.currency_id.id,
-    #     required=True,
-    # )
     # Connect the vehicle to a list of configurable options
     # option_line_ids = fields.One2many(
     #     "vehicle.option",
     #     "vehicle_id",
     #     string="Options (name + value)",
     # )
-
