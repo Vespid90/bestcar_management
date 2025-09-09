@@ -73,6 +73,25 @@ class product_template(models.Model):
         [("new", "New"), ("used", "Used"), ("demo", "Demo")],
         string="Vehicle Nature",
     )
+
+    product_id = fields.Many2one(
+        "product.template",
+        string="Product",
+        required=True,
+        ondelete="cascade",
+    )
+
+    country_of_origin_id = fields.Many2one("res.country", string="Country of Origin")
+
+    # Connect the vehicle to a warehouse location
+    location_id = fields.Many2one("stock.location", string="Stock Location")
+
+    # Connect the vehicle to a supplier
+    supplier_id = fields.Many2one(
+        "res.partner",
+        string="Supplier",
+    )
+
     # status = fields.Selection(
     #     [
     #         ("added", "File Added"),
@@ -102,16 +121,6 @@ class product_template(models.Model):
     #     ],
     #     string="Vehicle Type",
     # )
-
-    product_id = fields.Many2one(
-        "product.template",
-        string="Product",
-        required=True,
-        ondelete="cascade",
-    )
-
-    country_of_origin_id = fields.Many2one("res.country", string="Country of Origin")
-
     # Specify the currency for the purchase_price field. By default, it assumes the company currency
     # currency_id = fields.Many2one(
     #     "res.currency",
@@ -119,17 +128,6 @@ class product_template(models.Model):
     #     default=lambda self: self.env.company.currency_id.id,
     #     required=True,
     # )
-
-    # Connect the vehicle to a warehouse location
-    location_id = fields.Many2one("stock.location", string="Stock Location")
-
-    # Connect the vehicle to a supplier
-    supplier_id = fields.Many2one(
-        "res.partner",
-        string="Supplier",
-        domain="[('supplier_rank','>',0)]",
-    )
-
     # Connect the vehicle to a list of configurable options
     # option_line_ids = fields.One2many(
     #     "vehicle.option",

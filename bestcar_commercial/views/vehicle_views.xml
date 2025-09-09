@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+
+        <!-- ===== Vue LISTE ===== -->
+        <record id="view_vehicle_list" model="ir.ui.view">
+            <field name="name">vehicle.list</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <list string="Vehicles">
+                    <field name="vehicle_brand"/>
+                    <field name="vehicle_model"/>
+                    <field name="vehicle_version"/>
+                    <field name="nature"/>
+                    <field name="license_plate"/>
+                    <field name="vin"/>
+                    <field name="mileage_km"/>
+                    <field name="list_price"/>
+                    <field name="purchase_price"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ===== Vue FORMULAIRE ===== -->
+        <record id="view_vehicle_form" model="ir.ui.view">
+            <field name="name">vehicle.form</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form string="Vehicle">
+                    <sheet>
+                        <group>
+                            <field name="vehicle_brand"/>
+                            <field name="vehicle_model"/>
+                            <field name="vehicle_version"/>
+                            <field name="nature"/>
+                            <field name="energy_type"/>
+                            <field name="gearbox"/>
+                            <field name="body_color"/>
+                        </group>
+
+                        <group string="Identification">
+                            <field name="license_plate"/>
+                            <field name="vin"/>
+                            <field name="reference_number"/>
+                            <field name="country_of_origin_id"/>
+                        </group>
+
+                        <group string="Technical Specs">
+                            <field name="horsepower_hp"/>
+                            <field name="engine_capacity_cc"/>
+                            <field name="cylinders"/>
+                            <field name="doors"/>
+                            <field name="fiscal_power_cv"/>
+                        </group>
+
+                        <group string="Dimensions">
+                            <field name="length_mm"/>
+                            <field name="width_mm"/>
+                            <field name="height_mm"/>
+                            <field name="gross_weight_kg"/>
+                            <field name="kerb_weight_kg"/>
+                        </group>
+
+                        <group string="Dates">
+                            <field name="date_arrival"/>
+                            <field name="date_first_registration"/>
+                            <field name="date_purchase"/>
+                            <field name="date_sale"/>
+                        </group>
+
+                        <group string="Commercial Info">
+                            <field name="purchase_price"/>
+                            <field name="list_price"/>
+                            <field name="stock_time_days"/>
+                            <field name="supplier_id"/>
+                            <field name="location_id"/>
+                        </group>
+
+                        <group string="Others">
+                            <field name="co2_g_km"/>
+                            <field name="fuel_tank_volume_l"/>
+                            <field name="mileage_km"/>
+                            <field name="warranty_km"/>
+                        </group>
+
+                        <group string="Image">
+                            <field name="image" widget="image"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ===== Action NEW VEHICLE ===== -->
+        <record id="action_new_vehicle" model="ir.actions.act_window">
+            <field name="name">New Vehicles</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('nature','=','new')]</field>
+            <field name="context">{'default_nature':'new'}</field>
+            <field name="view_id" ref="view_vehicle_list"/>
+        </record>
+
+        <!-- ===== Action USED VEHICLE ===== -->
+        <record id="action_used_vehicle" model="ir.actions.act_window">
+            <field name="name">Used Vehicles</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('nature','=','used')]</field>
+            <field name="context">{'default_nature':'used'}</field>
+            <field name="view_id" ref="view_vehicle_list"/>
+        </record>
+
+        <!-- ===== Menus ===== -->
+        <menuitem id="new_vehicle_menu"
+                  name="New Vehicles"
+                  parent="bestcar_commercial_vehicle_menu"
+                  action="action_new_vehicle"
+                  sequence="0"/>
+
+        <menuitem id="used_vehicle_menu"
+                  name="Used Vehicles"
+                  parent="bestcar_commercial_vehicle_menu"
+                  action="action_used_vehicle"
+                  sequence="1"/>
+    </data>
+</odoo>

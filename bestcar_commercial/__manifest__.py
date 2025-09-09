@@ -25,7 +25,8 @@ Long description of module's purpose
     'data': [
         'security/ir.model.access.csv',
         'views/bestcar_commercial.xml',
-        'views/product_template_view.xml',
+        # 'views/product_template_view.xml',
+        'views/vehicle_views.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [
