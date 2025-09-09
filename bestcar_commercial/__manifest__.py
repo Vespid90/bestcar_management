@@ -24,6 +24,7 @@ Long description of module's purpose
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'data/vehicle_data.xml',
         'views/vehicle_views.xml',
     ],
     # only loaded in demonstration mode

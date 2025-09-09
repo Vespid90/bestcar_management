@@ -11,8 +11,8 @@
                     <field name="uom_po_id" invisible="1"/>
                     <field name="categ_id" invisible="1"/>
                     <field name="type" invisible="1"/>
-                    <field name="vehicle_brand"/>
-                    <field name="vehicle_model"/>
+                    <field name="vehicle_brand_id"/>
+                    <field name="vehicle_model_id"/>
                     <field name="vehicle_version"/>
                     <field name="nature"/>
                     <field name="license_plate"/>
@@ -37,8 +37,8 @@
                             <field name="uom_po_id" invisible="1"/>
                             <field name="categ_id" invisible="1"/>
                             <field name="type" invisible="1"/>
-                            <field name="vehicle_brand"/>
-                            <field name="vehicle_model"/>
+                            <field name="vehicle_brand_id"/>
+                            <field name="vehicle_model_id"/>
                             <field name="vehicle_version"/>
                             <field name="nature"/>
                             <field name="energy_type"/>

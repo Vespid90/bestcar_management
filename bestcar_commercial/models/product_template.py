@@ -1,41 +1,23 @@
 from odoo import models, fields, api
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
-
-    name = fields.Char(string="Name", default="Nouveau véhicule")
-    sale_ok = fields.Boolean(default=True)
-    purchase_ok = fields.Boolean(default=True)
-    list_price = fields.Float(default=0.0)
-    company_id = fields.Many2one(
-        "res.company",
-        string="Company",
-        default=lambda self: self.env.company.id,
-    )
 
     active = fields.Boolean(default=True)
     is_new = fields.Boolean(string="New vehicle YES / NO")
     is_used = fields.Boolean(string="Used vehicle YES / NO")
+    sale_ok = fields.Boolean(default=True)
+    purchase_ok = fields.Boolean(default=True)
 
     body_color = fields.Char(string="Color")
     emissions_standard = fields.Char(string="Emission Standard")
     license_plate = fields.Char(string="License Plate")
-    _sql_constraints = [
-        (
-            "unique_license_plate",
-            "unique(license_plate)",
-            "The license plate must be unique for each vehicle.",
-        ),
-        ('vin_number_unique', 'unique(vin)', "The VIN must be unique!")
-
-    ]
+    name = fields.Char(string="Name", default="Nouveau véhicule")
     reference_number = fields.Char(string="Reference Number")
-    vin = fields.Char(string="VIN")
-
-    vehicle_brand = fields.Char(string="Brand")
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
+    vin = fields.Char(string="VIN")
 
     date_arrival = fields.Date(string="Arrival Date")
     date_first_registration = fields.Date(string="First Registration Date")
@@ -48,6 +30,7 @@ class product_template(models.Model):
     height_mm = fields.Float(string="Height (mm)")
     kerb_weight_kg = fields.Float(string="Kerb Weight (kg)")
     length_mm = fields.Float(string="Length (mm)")
+    list_price = fields.Float(default=0.0)
     stock_time_days = fields.Float(string="Stock Time (days)")
     width_mm = fields.Float(string="Width (mm)")
 
@@ -62,6 +45,25 @@ class product_template(models.Model):
     image = fields.Image("Logo", max_width=128, max_height=128)
 
     purchase_price = fields.Monetary(string="Purchase Price", currency_field="currency_id")
+
+    _sql_constraints = [
+        (
+            "unique_license_plate",
+            "unique(license_plate)",
+            "The license plate must be unique for each vehicle.",
+        ),
+        ('vin_number_unique', 'unique(vin)', "The VIN must be unique!")
+
+    ]
+
+    # vehicle_brand = fields.Selection(
+    #     [("audi", "Audi"),
+    #      ("vw", "Volkswagen"),
+    #      ("seat", "Seat"),
+    #      ("skoda", "Skoda"),
+    #      ("porsche", "Porsche"),
+    #      ("bentley", "Bentley")], string="Brand"
+    # )
 
     energy_type = fields.Selection(
         [
@@ -94,6 +96,11 @@ class product_template(models.Model):
                                   )
 
     country_of_origin_id = fields.Many2one("res.country", string="Country of Origin")
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        default=lambda self: self.env.company.id,
+    )
 
     # Connect the vehicle to a warehouse location
     # location_id = fields.Many2one("stock.location", string="Stock Location")
@@ -103,6 +110,10 @@ class product_template(models.Model):
         "res.partner",
         string="Supplier",
     )
+
+    vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Brand")
+    vehicle_model_id = fields.Many2one(comodel_name="vehicle.model", string="Model",
+                                       domain="[('brand_id', '=', vehicle_brand_id)]")
 
     def _default_uom_id(self):
         return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id

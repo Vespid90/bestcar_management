@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 
 
-class bestcar_commercial(models.Model):
+class BestcarCommercial(models.Model):
     _name = 'bestcar.commercial'
     _description = 'bestcar commercial'
 

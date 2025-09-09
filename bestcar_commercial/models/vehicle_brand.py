@@ -1,0 +1,8 @@
+from odoo import models, fields, api
+
+class VehicleBrand(models.Model):
+    _name="vehicle.brand"
+    _description="Vehicle Brand"
+
+    name= fields.Char(string="Brand")
+    model_ids = fields.One2many("vehicle.model", "brand_id", string="Models")
