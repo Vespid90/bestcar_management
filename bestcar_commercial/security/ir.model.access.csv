@@ -1,3 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_bestcar_commercial_group_user,bestcar_commercial group_user,model_bestcar_commercial,base.group_user,1,0,0,0
 access_bestcar_commercial_group_system,bestcar_commercial group_system,model_bestcar_commercial,base.group_system,1,1,1,1
+
+access_vehicle_brand_group_user,vehicle_brand group_user,model_vehicle_brand,base.group_user,1,0,0,0
+access_vehicle_brand_group_system,vehicle_brand group_system,model_vehicle_brand,base.group_system,1,1,1,1
+
+access_vehicle_model_group_user,vehicle_model group_user,model_vehicle_model,base.group_user,1,0,0,0
+access_vehicle_model_group_system,vehicle_model group_system,model_vehicle_model,base.group_system,1,1,1,1
+
+access_vehicle_type_group_user,vehicle_type group_user,model_vehicle_type,base.group_user,1,0,0,0
+access_vehicle_type_group_system,vehicle_type group_system,model_vehicle_type,base.group_system,1,1,1,1

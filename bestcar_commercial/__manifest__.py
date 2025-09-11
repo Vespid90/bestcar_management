@@ -19,12 +19,16 @@ Long description of module's purpose
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','project'],
+    'depends': ['base','product','sale','project'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/bestcar_commercial.xml',
+        'data/vehicle_data.xml',
+        'views/vehicle_views.xml',
+        'views/vehicle_actions.xml',
+        'views/vehicle_menu.xml',
+
     ],
     # only loaded in demonstration mode
     # 'demo': [
