@@ -1,0 +1,256 @@
+<odoo>
+    <!--    type of vehicle-->
+    <record id="vehicle_type_citadine" model="vehicle.type">
+        <field name="name">Citadine</field>
+    </record>
+    <record id="vehicle_type_hatchback" model="vehicle.type">
+        <field name="name">Hatchback</field>
+    </record>
+    <record id="vehicle_type_break" model="vehicle.type">
+        <field name="name">Break</field>
+    </record>
+    <record id="vehicle_type_berline" model="vehicle.type">
+        <field name="name">Berline</field>
+    </record>
+    <record id="vehicle_type_suv" model="vehicle.type">
+        <field name="name">SUV</field>
+    </record>
+    <record id="vehicle_type_coupe" model="vehicle.type">
+        <field name="name">Coupé</field>
+    </record>
+    <record id="vehicle_type_coupe_sport" model="vehicle.type">
+        <field name="name">Coupé Sport</field>
+    </record>
+    <record id="vehicle_type_hatchback" model="vehicle.type">
+        <field name="name">Hatchback</field>
+    </record>
+    <!-- Audi -->
+    <record id="vehicle_brand_audi" model="vehicle.brand">
+        <field name="name">Audi</field>
+    </record>
+    <record id="vehicle_model_audi_a1" model="vehicle.model">
+        <field name="name">A1</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_citadine"/>
+    </record>
+    <record id="vehicle_model_audi_a3" model="vehicle.model">
+        <field name="name">A3</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_hatchback"/>
+    </record>
+    <record id="vehicle_model_audi_a4" model="vehicle.model">
+        <field name="name">A4</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_break"/>
+    </record>
+    <record id="vehicle_model_audi_a5" model="vehicle.model">
+        <field name="name">A5</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_audi_a6" model="vehicle.model">
+        <field name="name">A6</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_audi_a7" model="vehicle.model">
+        <field name="name">A7</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_audi_a8" model="vehicle.model">
+        <field name="name">A8</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_audi_q2" model="vehicle.model">
+        <field name="name">Q2</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_audi_q3" model="vehicle.model">
+        <field name="name">Q3</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_audi_q4" model="vehicle.model">
+        <field name="name">Q4</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_audi_q5" model="vehicle.model">
+        <field name="name">Q5</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_audi_q7" model="vehicle.model">
+        <field name="name">Q7</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_audi_q8" model="vehicle.model">
+        <field name="name">Q8</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_audi_tt" model="vehicle.model">
+        <field name="name">TT</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_coupe"/>
+    </record>
+    <record id="vehicle_model_audi_r8" model="vehicle.model">
+        <field name="name">R8</field>
+        <field name="brand_id" ref="vehicle_brand_audi"/>
+        <field name="type_id" ref="vehicle_type_coupe_sport"/>
+    </record>
+
+    <!-- Volkswagen -->
+    <record id="vehicle_brand_volkswagen" model="vehicle.brand">
+        <field name="name">Volkswagen</field>
+    </record>
+    <record id="vehicle_model_volkswagen_polo" model="vehicle.model">
+        <field name="name">Polo</field>
+        <field name="brand_id" ref="vehicle_brand_volkswagen"/>
+        <field name="type_id" ref="vehicle_type_citadine"/>
+    </record>
+    <record id="vehicle_model_volkswagen_golf" model="vehicle.model">
+        <field name="name">Golf</field>
+        <field name="brand_id" ref="vehicle_brand_volkswagen"/>
+        <field name="type_id" ref="vehicle_type_hatchback"/>
+    </record>
+    <record id="vehicle_model_volkswagen_passat" model="vehicle.model">
+        <field name="name">Passat</field>
+        <field name="brand_id" ref="vehicle_brand_volkswagen"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_volkswagen_arteon" model="vehicle.model">
+        <field name="name">Arteon</field>
+        <field name="brand_id" ref="vehicle_brand_volkswagen"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_volkswagen_tiguan" model="vehicle.model">
+        <field name="name">Tiguan</field>
+        <field name="brand_id" ref="vehicle_brand_volkswagen"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_volkswagen_touareg" model="vehicle.model">
+        <field name="name">Touareg</field>
+        <field name="brand_id" ref="vehicle_brand_volkswagen"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_volkswagen_id_polo" model="vehicle.model">
+        <field name="name">ID.Polo</field>
+        <field name="brand_id" ref="vehicle_brand_volkswagen"/>
+        <field name="type_id" ref="vehicle_type_citadine"/>
+    </record>
+
+    <!-- SEAT -->
+    <record id="vehicle_brand_seat" model="vehicle.brand">
+        <field name="name">SEAT</field>
+    </record>
+    <record id="vehicle_model_seat_ibiza" model="vehicle.model">
+        <field name="name">Ibiza</field>
+        <field name="brand_id" ref="vehicle_brand_seat"/>
+        <field name="type_id" ref="vehicle_type_citadine"/>
+    </record>
+    <record id="vehicle_model_seat_leon" model="vehicle.model">
+        <field name="name">Leon</field>
+        <field name="brand_id" ref="vehicle_brand_seat"/>
+        <field name="type_id" ref="vehicle_type_hatchback"/>
+    </record>
+    <record id="vehicle_model_seat_ateca" model="vehicle.model">
+        <field name="name">Ateca</field>
+        <field name="brand_id" ref="vehicle_brand_seat"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_seat_arona" model="vehicle.model">
+        <field name="name">Arona</field>
+        <field name="brand_id" ref="vehicle_brand_seat"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+
+    <!-- Škoda -->
+    <record id="vehicle_brand_skoda" model="vehicle.brand">
+        <field name="name">Škoda</field>
+    </record>
+    <record id="vehicle_model_skoda_fabia" model="vehicle.model">
+        <field name="name">Fabia</field>
+        <field name="brand_id" ref="vehicle_brand_skoda"/>
+        <field name="type_id" ref="vehicle_type_citadine"/>
+    </record>
+    <record id="vehicle_model_skoda_octavia" model="vehicle.model">
+        <field name="name">Octavia</field>
+        <field name="brand_id" ref="vehicle_brand_skoda"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_skoda_superb" model="vehicle.model">
+        <field name="name">Superb</field>
+        <field name="brand_id" ref="vehicle_brand_skoda"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_skoda_kodiaq" model="vehicle.model">
+        <field name="name">Kodiaq</field>
+        <field name="brand_id" ref="vehicle_brand_skoda"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_skoda_enyaq" model="vehicle.model">
+        <field name="name">Enyaq</field>
+        <field name="brand_id" ref="vehicle_brand_skoda"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_skoda_elroq" model="vehicle.model">
+        <field name="name">Elroq</field>
+        <field name="brand_id" ref="vehicle_brand_skoda"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+
+    <!-- Porsche -->
+    <record id="vehicle_brand_porsche" model="vehicle.brand">
+        <field name="name">Porsche</field>
+    </record>
+    <record id="vehicle_model_porsche_911" model="vehicle.model">
+        <field name="name">911</field>
+        <field name="brand_id" ref="vehicle_brand_porsche"/>
+        <field name="type_id" ref="vehicle_type_coupe_sport"/>
+    </record>
+    <record id="vehicle_model_porsche_718" model="vehicle.model">
+        <field name="name">718</field>
+        <field name="brand_id" ref="vehicle_brand_porsche"/>
+        <field name="type_id" ref="vehicle_type_coupe_sport"/>
+    </record>
+    <record id="vehicle_model_porsche_macan" model="vehicle.model">
+        <field name="name">Macan</field>
+        <field name="brand_id" ref="vehicle_brand_porsche"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_porsche_cayenne" model="vehicle.model">
+        <field name="name">Cayenne</field>
+        <field name="brand_id" ref="vehicle_brand_porsche"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+    <record id="vehicle_model_porsche_taycan" model="vehicle.model">
+        <field name="name">Taycan</field>
+        <field name="brand_id" ref="vehicle_brand_porsche"/>
+        <field name="type_id" ref="vehicle_type_coupe_sport"/>
+    </record>
+
+    <!-- Bentley -->
+    <record id="vehicle_brand_bentley" model="vehicle.brand">
+        <field name="name">Bentley</field>
+    </record>
+    <record id="vehicle_model_bentley_continental" model="vehicle.model">
+        <field name="name">Continental</field>
+        <field name="brand_id" ref="vehicle_brand_bentley"/>
+        <field name="type_id" ref="vehicle_type_coupe_sport"/>
+    </record>
+    <record id="vehicle_model_bentley_flying_spur" model="vehicle.model">
+        <field name="name">Flying Spur</field>
+        <field name="brand_id" ref="vehicle_brand_bentley"/>
+        <field name="type_id" ref="vehicle_type_berline"/>
+    </record>
+    <record id="vehicle_model_bentley_bentayga" model="vehicle.model">
+        <field name="name">Bentayga</field>
+        <field name="brand_id" ref="vehicle_brand_bentley"/>
+        <field name="type_id" ref="vehicle_type_suv"/>
+    </record>
+</odoo>
