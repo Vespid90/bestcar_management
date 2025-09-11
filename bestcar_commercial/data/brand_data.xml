@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="vehicle_brand_audi" model="vehicle.brand">
+            <field name="name">Audi</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_audi-image.png"/>
+        </record>
+        <record id="vehicle_brand_bentley" model="vehicle.brand">
+            <field name="name">Bentley</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_bentley-image.png"/>
+        </record>
+        <record id="vehicle_brand_bugatti" model="vehicle.brand">
+            <field name="name">Bugatti</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_bugatti-image.png"/>
+        </record>
+        <record id="vehicle_brand_lamborghini" model="vehicle.brand">
+            <field name="name">Lamborghini</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_lamborghini-image.png"/>
+        </record>
+        <record id="vehicle_brand_maserati" model="vehicle.brand">
+            <field name="name">Maserati</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_maserati-image.png"/>
+        </record>
+        <record id="vehicle_brand_porsche" model="vehicle.brand">
+            <field name="name">Porsche</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_porsche-image.png"/>
+        </record>
+        <record id="vehicle_brand_skoda" model="vehicle.brand">
+            <field name="name">Skoda</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_skoda-image.png"/>
+        </record>
+        <record id="vehicle_brand_volkswagen" model="vehicle.brand">
+            <field name="name">Volkswagen</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_volkswagen-image.png"/>
+        </record>
+        <record id="vehicle_brand_seat" model="vehicle.brand">
+            <field name="name">Seat</field>
+            <field name="logo" type="base64" file="bestcar_commercial/static/img/brand_seat-image.png"/>
+        </record>
+    </data>
+</odoo>

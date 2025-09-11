@@ -25,9 +25,6 @@
         <field name="name">Hatchback</field>
     </record>
     <!-- Audi -->
-    <record id="vehicle_brand_audi" model="vehicle.brand">
-        <field name="name">Audi</field>
-    </record>
     <record id="vehicle_model_audi_a1" model="vehicle.model">
         <field name="name">A1</field>
         <field name="brand_id" ref="vehicle_brand_audi"/>
@@ -105,9 +102,7 @@
     </record>
 
     <!-- Volkswagen -->
-    <record id="vehicle_brand_volkswagen" model="vehicle.brand">
-        <field name="name">Volkswagen</field>
-    </record>
+
     <record id="vehicle_model_volkswagen_polo" model="vehicle.model">
         <field name="name">Polo</field>
         <field name="brand_id" ref="vehicle_brand_volkswagen"/>
@@ -145,9 +140,7 @@
     </record>
 
     <!-- SEAT -->
-    <record id="vehicle_brand_seat" model="vehicle.brand">
-        <field name="name">SEAT</field>
-    </record>
+
     <record id="vehicle_model_seat_ibiza" model="vehicle.model">
         <field name="name">Ibiza</field>
         <field name="brand_id" ref="vehicle_brand_seat"/>
@@ -170,9 +163,7 @@
     </record>
 
     <!-- Škoda -->
-    <record id="vehicle_brand_skoda" model="vehicle.brand">
-        <field name="name">Škoda</field>
-    </record>
+
     <record id="vehicle_model_skoda_fabia" model="vehicle.model">
         <field name="name">Fabia</field>
         <field name="brand_id" ref="vehicle_brand_skoda"/>
@@ -205,9 +196,7 @@
     </record>
 
     <!-- Porsche -->
-    <record id="vehicle_brand_porsche" model="vehicle.brand">
-        <field name="name">Porsche</field>
-    </record>
+
     <record id="vehicle_model_porsche_911" model="vehicle.model">
         <field name="name">911</field>
         <field name="brand_id" ref="vehicle_brand_porsche"/>
@@ -235,9 +224,7 @@
     </record>
 
     <!-- Bentley -->
-    <record id="vehicle_brand_bentley" model="vehicle.brand">
-        <field name="name">Bentley</field>
-    </record>
+
     <record id="vehicle_model_bentley_continental" model="vehicle.model">
         <field name="name">Continental</field>
         <field name="brand_id" ref="vehicle_brand_bentley"/>
