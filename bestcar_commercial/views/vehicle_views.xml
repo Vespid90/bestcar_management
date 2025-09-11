@@ -5,7 +5,16 @@
             <field name="model">product.template</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="name" string="Vehicle name"/>
+                    <field name="name"/>
+<!--                    <field name="vehicle_brand_id"/>-->
+<!--                    <field name="vehicle_model_id"/>-->
+<!--                    <field name="vehicle_type_id"/>-->
+
+<!--                    <group expand="1" string="Group By">-->
+<!--                        <filter name="group_by_brand" string="Brand" context="{'group_by': 'vehicle_brand_id'}"/>-->
+<!--                        <filter name="group_by_model" string="Model" context="{'group_by': 'vehicle_model_id'}"/>-->
+<!--                        <filter name="group_by_type" string="Type" context="{'group_by': 'vehicle_type_id'}"/>-->
+<!--                    </group>-->
                 </search>
             </field>
         </record>

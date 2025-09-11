@@ -5,16 +5,15 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     active = fields.Boolean(default=True)
-    is_new = fields.Boolean(string="New vehicle YES / NO")
-    is_used = fields.Boolean(string="Used vehicle YES / NO")
+    is_used = fields.Boolean(string="Used vehicle")
     sale_ok = fields.Boolean(default=True)
     purchase_ok = fields.Boolean(default=True)
 
     body_color = fields.Char(string="Color")
     emissions_standard = fields.Char(string="Emission Standard")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", default="New vehicle")
-    reference_number = fields.Char(string="Reference Number")
+    name = fields.Char(string="Name", default="Vehicle") #conca marque / model /  4 nb du vin(?)
+    reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
     vin = fields.Char(string="VIN")

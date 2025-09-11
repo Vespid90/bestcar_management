@@ -51,7 +51,8 @@
         <field name="name">Models</field>
         <field name="res_model">vehicle.model</field>
         <field name="view_mode">list,form</field>
-        <field name="context">{'search_default_manufacturer':1, 'group_by':'brand_id'}</field>
+        <field name="search_view_id" ref="view_vehicle_search"/>
+<!--        <field name="context">{'search_default_group_by_brand':1, 'search_default_name':'Manufacturer', 'group_by':'brand_id'}</field>-->
     </record>
 
     <record id="action_vehicle_type" model="ir.actions.act_window">
