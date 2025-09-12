@@ -135,9 +135,8 @@ class ProductTemplate(models.Model):
     # )
     @api.model_create_multi
     def create(self,vals_list):
-        templates = super(ProductTemplate, self).create(vals_list)
-        if templates:
-            product = templates[0]
+        result = super(ProductTemplate, self).create(vals_list)
+        for product in result:
             project = self.env['project.project'].create({
                         'active': True,
                         'name': f"{product.name} Reconditioning",
@@ -148,7 +147,7 @@ class ProductTemplate(models.Model):
                 stages_to_create.append({
                     'name': stage['name'],
                     'sequence': stage['sequence'],
-                    'project_ids': [(4, project.id)],  # link stage to project
+                    'project_ids': [(4, project.id)],
                 })
             self.env['project.task.type'].create(stages_to_create)
 
@@ -157,13 +156,9 @@ class ProductTemplate(models.Model):
                 'project_id': project.id,
                 'priority': '1'
             })
-            print(inspection_task.id)
-
             self.env['project.task'].create([
                 {'name': f"{product.name} Repair",'project_id': project.id, 'depend_on_ids': [(4, inspection_task.id)]},
                 {'name': f"{product.name} Maintenance",'project_id': project.id, 'depend_on_ids':[(4, inspection_task.id)]},
                 {'name': f"{product.name} Cleaning",'project_id': project.id, 'depend_on_ids': [(4, inspection_task.id)]}
               ])
-
-
-        return templates
+        return result
