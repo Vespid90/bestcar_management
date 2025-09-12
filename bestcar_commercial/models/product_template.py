@@ -137,6 +137,7 @@ class ProductTemplate(models.Model):
     def create(self,vals_list):
         result = super(ProductTemplate, self).create(vals_list)
         for product in result:
+            product.name = f"{product.vehicle_brand_id.name}/{product.vehicle_model_id.name}/{product.vin[:5]}"
             department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')], limit=1)
             print(department.manager_id.id)
             project = self.env['project.project'].create({
