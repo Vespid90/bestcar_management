@@ -23,11 +23,14 @@ Long description of module's purpose
 
     # always loaded
     'data': [
+        'security/res_groups.xml',
         'security/ir.model.access.csv',
+        'data/department_data.xml',
         'data/vehicle_data.xml',
         'views/vehicle_views.xml',
         'views/vehicle_actions.xml',
         'views/vehicle_menu.xml',
+        'views/project_project_views.xml'
 
     ],
     # only loaded in demonstration mode

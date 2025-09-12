@@ -137,9 +137,13 @@ class ProductTemplate(models.Model):
     def create(self,vals_list):
         result = super(ProductTemplate, self).create(vals_list)
         for product in result:
+            department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')], limit=1)
+            print(department.manager_id.id)
             project = self.env['project.project'].create({
                         'active': True,
                         'name': f"{product.name} Reconditioning",
+                        'user_id' : department.manager_id.user_id.id,
+                        'vehicle_id' : product.id,
                         'allow_task_dependencies': True
             })
             stages_to_create = []

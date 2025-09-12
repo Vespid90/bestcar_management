@@ -1,0 +1,5 @@
+<odoo>
+    <record id="hr_department_mechanical_workshop" model="hr.department">
+        <field name="name">Mechanical Workshop</field>
+    </record>
+</odoo>
