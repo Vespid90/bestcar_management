@@ -26,6 +26,7 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'data/brand_data.xml',
         'data/model_data.xml',
+        'views/product_template.xml',
         'views/vehicle_views.xml',
         'views/vehicle_actions.xml',
         'views/vehicle_menu.xml',

@@ -17,7 +17,7 @@
     <record id="action_new_vehicle_view_form" model="ir.actions.act_window.view">
         <field name="act_window_id" ref="action_new_vehicle"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="bestcar_commercial.view_vehicle_form"/>
+<!--        <field name="view_id" ref="bestcar_commercial.view_vehicle_form"/>-->
         <field name="sequence" eval="3"/>
     </record>
     <record id="action_new_vehicle_view_kanban" model="ir.actions.act_window.view">
@@ -44,7 +44,6 @@
     <record id="action_used_vehicle_view_form" model="ir.actions.act_window.view">
         <field name="act_window_id" ref="action_used_vehicle"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="bestcar_commercial.view_vehicle_form"/>
         <field name="sequence" eval="3"/>
     </record>
     <record id="action_used_vehicle_view_kanban" model="ir.actions.act_window.view">

@@ -32,7 +32,6 @@ class ProductTemplate(models.Model):
     height_mm = fields.Float(string="Height (mm)")
     kerb_weight_kg = fields.Float(string="Kerb Weight (kg)")
     length_mm = fields.Float(string="Length (mm)")
-    list_price = fields.Float(default=0.0)
     stock_time_days = fields.Float(string="Stock Time (days)")
     width_mm = fields.Float(string="Width (mm)")
 
