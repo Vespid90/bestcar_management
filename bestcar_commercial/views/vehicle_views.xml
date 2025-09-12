@@ -15,6 +15,8 @@
             <field name="arch" type="xml">
                 <list string="Vehicles">
                     <field name="name" string="Vehicle reference"/>
+                    <field name="is_used" invisible="1"/>
+                    <field name="is_vehicle" invisible="1"/>
                     <field name="vehicle_brand_id"/>
                     <field name="vehicle_model_id"/>
                     <field name="vehicle_type_id" readonly="1"/>
@@ -36,6 +38,7 @@
                             <group string="Summary">
                                 <field name="name" string="Vehicle reference"/>
                                 <field name="is_used"/>
+                                <field name="is_vehicle" invisible="1"/>
                                 <field name="vehicle_brand_id"/>
                                 <field name="vehicle_model_id"/>
                                 <field name="vehicle_type_id" readonly="1"/>
@@ -120,10 +123,20 @@
             <field name="arch" type="xml">
                 <kanban class="o_kanban_mobile">
                     <field name="name"/>
-                    <t t-name="card">
-                        <field name="image" widget="image"/>
-                        <main class="ms-2 mt-1">
-                            <field class="fw-bold fs-5" name="name"/>
+                    <t t-name="card" class="d-flex flex-row justify-content-between gap-5 p-1">
+                        <div class="w-50">
+                            <aside class="o_kanban_image me-2 w-100">
+                                <field name="image" widget="image"  options="{'size': [200]}"/>
+                            </aside>
+                        </div>
+                        <main>
+                            <field class="fw-bold fs-5" name="vehicle_brand_id"/>
+                            <field class="fw-bold fs-5" name="vehicle_model_id"/>
+                            <field class="fw-bold fs-6" name="gearbox"/>
+                            <field class="fw-bold fs-6" name="energy_type"/>
+                            <field class="fw-bold fs-6" name="date_first_registration"/>
+                            <field class="fw-bold fs-6" name="mileage_km"/>
+                            <field class="fw-bold fs-6 text-success" name="list_price"/>
                         </main>
                     </t>
                 </kanban>

@@ -32,7 +32,6 @@ Long description of module's purpose
         'views/vehicle_brand_views.xml',
         'views/vehicle_model_views.xml',
         'views/vehicle_type_views.xml',
-
     ],
     # only loaded in demonstration mode
     # 'demo': [

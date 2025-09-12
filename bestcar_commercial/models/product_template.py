@@ -6,6 +6,7 @@ class ProductTemplate(models.Model):
 
     active = fields.Boolean(default=True)
     is_used = fields.Boolean(string="Is used ?")
+    is_vehicle = fields.Boolean(string="Is vehicle?")
     sale_ok = fields.Boolean(default=True)
     purchase_ok = fields.Boolean(default=True)
 
@@ -14,7 +15,7 @@ class ProductTemplate(models.Model):
     class_of_emission = fields.Char(string="Class of emission")
     consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", default="Vehicle") #conca marque / model /  4 nb du vin(?)
+    name = fields.Char(string="Name", default="Vehicle") #conca marque / model /  5 nb du vin(?)
     reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
@@ -70,10 +71,21 @@ class ProductTemplate(models.Model):
         [("auto", "Automatic"), ("man", "Manual")],
         string="Gearbox",
     )
-    nature = fields.Selection(
-        [("new", "New"), ("used", "Used"), ("demo", "Demo")],
-        string="Vehicle Nature",
-    )
+
+    # status = fields.Selection(
+    #     [
+    #         ("added", "File Added"),
+    #         ("waiting_arrival", "Waiting for Arrival"),
+    #         ("reconditioning", "In Reconditioning"),
+    #         ("for_sale", "For Sale"),
+    #         ("reserved", "Reserved"),
+    #         ("payment", "In Payment"),
+    #         ("waiting_delivery", "Waiting for Delivery"),
+    #         ("delivered", "Delivered"),
+    #     ],
+    #     string="Status",
+    #     default="added",
+    # )
 
     currency_id = fields.Many2one("res.currency",
                                   string="Currency",
@@ -115,17 +127,3 @@ class ProductTemplate(models.Model):
                                 default=_default_uom_id)
     categ_id = fields.Many2one("product.category", string="Category",
                                default=_default_categ_id)
-    # status = fields.Selection(
-    #     [
-    #         ("added", "File Added"),
-    #         ("waiting_arrival", "Waiting for Arrival"),
-    #         ("reconditioning", "In Reconditioning"),
-    #         ("for_sale", "For Sale"),
-    #         ("reserved", "Reserved"),
-    #         ("payment", "In Payment"),
-    #         ("waiting_delivery", "Waiting for Delivery"),
-    #         ("delivered", "Delivered"),
-    #     ],
-    #     string="Status",
-    #     default="added",
-    # )
