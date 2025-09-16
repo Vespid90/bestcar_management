@@ -21,7 +21,7 @@ class ProductTemplate(models.Model):
     class_of_emission = fields.Char(string="Class of emission")
     consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", readonly=True) #conca marque / model /  5 nb du vin(?)
+    name = fields.Char(string="Name", compute='_compute_vehicle_name',store=True,readonly=True) #conca marque / model /  5 nb du vin(?)
     reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
@@ -146,12 +146,21 @@ class ProductTemplate(models.Model):
     #     string="Status",
     #     default="added",
     # )
+    @api.depends('vehicle_brand_id','vehicle_model_id','vehicle_version','vin')
+    def _compute_vehicle_name(self):
+        for rec in self:
+            if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
+                rec.name = "New Vehicle"
+            else:
+                rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[:5]}"
+
     @api.model_create_multi
     def create(self,vals_list):
+        for vals in vals_list:
+            vals["name"] = "New Vehicle"
         result = super(ProductTemplate, self).create(vals_list)
         for product in result:
             if product.is_vehicle:
-                product.name = f"{product.vehicle_brand_id.name}-{product.vehicle_model_id.name}-{product.vehicle_version}-{product.vin[:5]}"
                 department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')], limit=1)
                 project = self.env['project.project'].create({
                             'active': True,
