@@ -6,15 +6,6 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
-<!--                    <field name="vehicle_brand_id"/>-->
-<!--                    <field name="vehicle_model_id"/>-->
-<!--                    <field name="vehicle_type_id"/>-->
-
-<!--                    <group expand="1" string="Group By">-->
-<!--                        <filter name="group_by_brand" string="Brand" context="{'group_by': 'vehicle_brand_id'}"/>-->
-<!--                        <filter name="group_by_model" string="Model" context="{'group_by': 'vehicle_model_id'}"/>-->
-<!--                        <filter name="group_by_type" string="Type" context="{'group_by': 'vehicle_type_id'}"/>-->
-<!--                    </group>-->
                 </search>
             </field>
         </record>
@@ -23,98 +14,47 @@
             <field name="model">product.template</field>
             <field name="arch" type="xml">
                 <list string="Vehicles">
-                    <field name="name" string="Nom du véhicule"/>
-                    <field name="uom_id" invisible="1"/>
-                    <field name="uom_po_id" invisible="1"/>
-                    <field name="categ_id" invisible="1"/>
-                    <field name="type" invisible="1"/>
+                    <field name="name" string="Vehicle reference"/>
+                    <field name="is_used"/>
+                    <field name="is_vehicle" column_invisible="1"/>
                     <field name="vehicle_brand_id"/>
                     <field name="vehicle_model_id"/>
                     <field name="vehicle_type_id" readonly="1"/>
                     <field name="vehicle_version"/>
-                    <field name="nature"/>
-                    <field name="license_plate"/>
                     <field name="vin"/>
-                    <field name="mileage_km"/>
+                    <field class="fw-bold fs-6" name="mileage_km"/>
                     <field name="list_price"/>
                     <field name="purchase_price"/>
                 </list>
             </field>
         </record>
-        <record id="view_vehicle_form" model="ir.ui.view">
-            <field name="name">vehicle.form</field>
+        <record id="view_vehicle_kanban" model="ir.ui.view">
+            <field name="name">vehicle.kanban</field>
             <field name="model">product.template</field>
             <field name="arch" type="xml">
-                <form string="Vehicle">
-                    <sheet>
-                        <group string="Marque et modèle">
-                            <field name="vehicle_brand_id"/>
-                            <field name="vehicle_model_id"/>
-                            <field name="vehicle_type_id" readonly="1"/>
-                        </group>
-                        <group>
-                            <field name="name" string="Nom du véhicule"/>
-                            <field name="uom_id" invisible="1"/>
-                            <field name="uom_po_id" invisible="1"/>
-                            <field name="categ_id" invisible="1"/>
-                            <field name="type" invisible="1"/>
-                            <field name="vehicle_version"/>
-                            <field name="nature"/>
-                            <field name="energy_type"/>
-                            <field name="gearbox"/>
-                            <field name="body_color"/>
-                        </group>
-
-
-                        <group string="Identification">
-                            <field name="license_plate"/>
-                            <field name="vin"/>
-                            <field name="reference_number"/>
-                            <field name="country_of_origin_id"/>
-                        </group>
-
-                        <group string="Technical Specs">
-                            <field name="horsepower_hp"/>
-                            <field name="engine_capacity_cc"/>
-                            <field name="cylinders"/>
-                            <field name="doors"/>
-                            <field name="fiscal_power_cv"/>
-                        </group>
-
-                        <group string="Dimensions">
-                            <field name="length_mm"/>
-                            <field name="width_mm"/>
-                            <field name="height_mm"/>
-                            <field name="gross_weight_kg"/>
-                            <field name="kerb_weight_kg"/>
-                        </group>
-
-                        <group string="Dates">
-                            <field name="date_arrival"/>
-                            <field name="date_first_registration"/>
-                            <field name="date_purchase"/>
-                            <field name="date_sale"/>
-                        </group>
-
-                        <group string="Commercial Info">
-                            <field name="purchase_price"/>
-                            <field name="list_price"/>
-                            <field name="stock_time_days"/>
-                            <field name="supplier_id"/>
-                        </group>
-
-                        <group string="Others">
-                            <field name="co2_g_km"/>
-                            <field name="fuel_tank_volume_l"/>
-                            <field name="mileage_km"/>
-                            <field name="warranty_km"/>
-                        </group>
-
-                        <group string="Image">
-                            <field name="image" widget="image"/>
-                        </group>
-                    </sheet>
-                </form>
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <t t-name="card" class="d-flex flex-row justify-content-between gap-5 p-1">
+                        <div class="w-50">
+                            <aside class="o_kanban_image me-2 w-100">
+                                <field name="image_1920" widget="image" options="{'size': [200]}"/>
+                            </aside>
+                        </div>
+                        <main>
+                            <field class="fw-bold fs-5" name="vehicle_brand_id"/>
+                            <field class="fw-bold fs-5" name="currency_id" invisible="1"/>
+                            <field class="fw-bold fs-5" name="vehicle_model_id"/>
+                            <field class="fw-bold fs-6" name="gearbox"/>
+                            <field class="fw-bold fs-6" name="energy_type"/>
+                            <field class="fw-bold fs-6" name="date_first_registration"/>
+                            <span>
+                                <field class="fw-bold fs-6" name="mileage_km"/>
+                                km
+                            </span>
+                            <field class="text-success oe_inline oe_bold" name="list_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                        </main>
+                    </t>
+                </kanban>
             </field>
         </record>
     </data>

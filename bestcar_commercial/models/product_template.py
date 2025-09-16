@@ -11,19 +11,21 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     active = fields.Boolean(default=True)
-    is_used = fields.Boolean(string="Used vehicle")
-    is_vehicle = fields.Boolean(string="Is vehicle?", default=True)
+    is_used = fields.Boolean(string="Is used ?")
+    is_vehicle = fields.Boolean(string="Is vehicle?")
     sale_ok = fields.Boolean(default=True)
     purchase_ok = fields.Boolean(default=True)
 
     body_color = fields.Char(string="Color")
     emissions_standard = fields.Char(string="Emission Standard")
+    class_of_emission = fields.Char(string="Class of emission")
+    consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", default="Vehicle") #conca marque / model /  4 nb du vin(?)
+    name = fields.Char(string="Name", readonly=True) #conca marque / model /  5 nb du vin(?)
     reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
-    vin = fields.Char(string="VIN")
+    vin = fields.Char(string="VIN", required=True)
 
     date_arrival = fields.Date(string="Arrival Date")
     date_first_registration = fields.Date(string="First Registration Date")
@@ -36,7 +38,6 @@ class ProductTemplate(models.Model):
     height_mm = fields.Float(string="Height (mm)")
     kerb_weight_kg = fields.Float(string="Kerb Weight (kg)")
     length_mm = fields.Float(string="Length (mm)")
-    list_price = fields.Float(default=0.0)
     stock_time_days = fields.Float(string="Stock Time (days)")
     width_mm = fields.Float(string="Width (mm)")
 
@@ -48,7 +49,7 @@ class ProductTemplate(models.Model):
     warranty_km = fields.Integer(string="Warranty (km)")
     fiscal_power_cv = fields.Integer(string="Fiscal Power (CV)")
 
-    image = fields.Image("Logo", max_width=128, max_height=128)
+    image = fields.Image(string=" ",max_width=200, max_height=200)
 
     purchase_price = fields.Monetary(string="Purchase Price", currency_field="currency_id")
 
@@ -75,10 +76,21 @@ class ProductTemplate(models.Model):
         [("auto", "Automatic"), ("man", "Manual")],
         string="Gearbox",
     )
-    nature = fields.Selection(
-        [("new", "New"), ("used", "Used"), ("demo", "Demo")],
-        string="Vehicle Nature",
-    )
+
+    # status = fields.Selection(
+    #     [
+    #         ("added", "File Added"),
+    #         ("waiting_arrival", "Waiting for Arrival"),
+    #         ("reconditioning", "In Reconditioning"),
+    #         ("for_sale", "For Sale"),
+    #         ("reserved", "Reserved"),
+    #         ("payment", "In Payment"),
+    #         ("waiting_delivery", "Waiting for Delivery"),
+    #         ("delivered", "Delivered"),
+    #     ],
+    #     string="Status",
+    #     default="added",
+    # )
 
     currency_id = fields.Many2one("res.currency",
                                   string="Currency",
@@ -100,8 +112,8 @@ class ProductTemplate(models.Model):
         string="Supplier",
     )
 
-    vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Brand")
-    vehicle_model_id = fields.Many2one(comodel_name="vehicle.model", string="Model",
+    vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Make")
+    vehicle_model_id = fields.Many2one(comodel_name="vehicle.model",
                                        domain="[('brand_id', '=', vehicle_brand_id)]")
     vehicle_type_id = fields.Many2one(comodel_name="vehicle.type",
                                       string="Type",

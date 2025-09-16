@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+        <record id="view_product_template_form_inherit_car" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.car</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image_1920']" position="attributes">
+                    <attribute name="options">{'size': [400]}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='variants']" position="attributes">
+                    <attribute name="invisible">is_used</attribute>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="before">
+                    <page name="car_information" string="Vehicle Information" invisible="is_vehicle == False">
+                        <group>
+                            <group string="Summary">
+                                <field name="is_used"/>
+                                <field name="is_vehicle" invisible="1"/>
+                                <field name="vehicle_brand_id"/>
+                                <field name="vehicle_model_id"/>
+                                <field name="vehicle_type_id" readonly="1"/>
+                                <field name="vehicle_version"/>
+                                <field name="uom_id" invisible="1"/>
+                                <field name="uom_po_id" invisible="1"/>
+                                <field name="categ_id" invisible="1"/>
+                                <field name="type" invisible="1"/>
+                                <field name="energy_type"/>
+                            </group>
+                            <group string="Summery">
+                                <field name="class_of_emission"/>
+                                <field name="gearbox"/>
+                                <field name="body_color"/>
+                                <field name="horsepower_hp"/>
+                                <field name="cylinders"/>
+                                <field class="fw-bold fs-6" name="mileage_km"/>
+                                <field name="list_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Identification">
+                                <field name="vin"/>
+                                <field name="reference_number"/>
+                                <field name="country_of_origin_id"/>
+                            </group>
+
+                            <group string="Technical Specs">
+                                <field name="horsepower_hp"/>
+                                <field name="engine_capacity_cc"/>
+                                <field name="cylinders"/>
+                                <field name="doors"/>
+                                <field name="fiscal_power_cv"/>
+                                <field name="fuel_tank_volume_l"/>
+                            </group>
+                        </group>
+                        <group>
+
+
+                            <group string="Others">
+                                <field name="co2_g_km"/>
+                                <field name="class_of_emission"/>
+                                <field name="consumption"/>
+                                <field name="mileage_km"/>
+                                <field name="warranty_km"/>
+                            </group>
+                            <group string="Commercial Info">
+                                <field name="purchase_price"/>
+                                <field name="list_price"/>
+                                <field name="stock_time_days"/>
+                                <field name="supplier_id"/>
+                            </group>
+
+
+                        </group>
+                        <group>
+
+                            <group string="Dimensions">
+                                <field name="length_mm"/>
+                                <field name="width_mm"/>
+                                <field name="height_mm"/>
+                                <field name="gross_weight_kg"/>
+                                <field name="kerb_weight_kg"/>
+                            </group>
+
+                            <group string="Dates">
+                                <field name="date_arrival"/>
+                                <field name="date_first_registration"/>
+                                <field name="date_purchase"/>
+                                <field name="date_sale"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

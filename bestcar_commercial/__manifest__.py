@@ -25,16 +25,19 @@ Long description of module's purpose
     'data': [
         'security/res_groups.xml',
         'security/ir.model.access.csv',
+        'data/brand_data.xml',
+        'data/model_data.xml',
         'data/department_data.xml',
-        'data/vehicle_data.xml',
+        'views/product_template.xml',
         'views/vehicle_views.xml',
         'views/vehicle_actions.xml',
         'views/vehicle_menu.xml',
+        'views/vehicle_brand_views.xml',
+        'views/vehicle_model_views.xml',
+        'views/vehicle_type_views.xml',
         'views/project_project_views.xml'
         'reports/vehicle_report.xml',
         'reports/vehicle_templates.xml',
-
-
     ],
     # only loaded in demonstration mode
     # 'demo': [
@@ -43,4 +46,3 @@ Long description of module's purpose
     "application": True,
     "sequence": -100,
 }
-
