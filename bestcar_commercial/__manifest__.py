@@ -26,6 +26,8 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'data/vehicle_data.xml',
         'views/vehicle_views.xml',
+        'reports/vehicle_report.xml',
+        'reports/vehicle_templates.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [

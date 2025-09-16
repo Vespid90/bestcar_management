@@ -7,3 +7,5 @@ access_vehicle_brand_group_system,vehicle_brand group_system,model_vehicle_brand
 
 access_vehicle_model_group_user,vehicle_brand group_user,model_vehicle_brand,base.group_user,1,0,0,0
 access_vehicle_brand_group_system,vehicle_brand group_system,model_vehicle_brand,base.group_system,1,1,1,1
+
+bestcar_commercial.access_vehicle_model,access_vehicle_model,bestcar_commercial.model_vehicle_model,base.group_user,1,0,0,0
