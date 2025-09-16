@@ -1,20 +1,25 @@
 from odoo import models, fields, api
 
+PROJECT_STAGES = [
+    {'name': 'New', 'sequence': 1},
+    {'name': 'In Progress', 'sequence': 2},
+    {'name': 'Done', 'sequence': 3},
+    {'name': 'Cancelled', 'sequence': 4}
+    ]
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     active = fields.Boolean(default=True)
-    is_new = fields.Boolean(string="New vehicle YES / NO")
-    is_used = fields.Boolean(string="Used vehicle YES / NO")
+    is_used = fields.Boolean(string="Used vehicle")
     sale_ok = fields.Boolean(default=True)
     purchase_ok = fields.Boolean(default=True)
 
     body_color = fields.Char(string="Color")
     emissions_standard = fields.Char(string="Emission Standard")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", default="Nouveau véhicule")
-    reference_number = fields.Char(string="Reference Number")
+    name = fields.Char(string="Name", default="Vehicle") #conca marque / model /  4 nb du vin(?)
+    reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
     vin = fields.Char(string="VIN")
@@ -56,15 +61,6 @@ class ProductTemplate(models.Model):
 
     ]
 
-    # vehicle_brand = fields.Selection(
-    #     [("audi", "Audi"),
-    #      ("vw", "Volkswagen"),
-    #      ("seat", "Seat"),
-    #      ("skoda", "Skoda"),
-    #      ("porsche", "Porsche"),
-    #      ("bentley", "Bentley")], string="Brand"
-    # )
-
     energy_type = fields.Selection(
         [
             ("petrol", "Petrol"),
@@ -83,13 +79,6 @@ class ProductTemplate(models.Model):
         string="Vehicle Nature",
     )
 
-    # product_id = fields.Many2one(
-    #     "product.template",
-    #     string="Product",
-    #     required=True,
-    #     ondelete="cascade",
-    # )
-
     currency_id = fields.Many2one("res.currency",
                                   string="Currency",
                                   default=lambda self: self.env.company.currency_id.id,
@@ -105,7 +94,6 @@ class ProductTemplate(models.Model):
     # Connect the vehicle to a warehouse location
     # location_id = fields.Many2one("stock.location", string="Stock Location")
 
-    # Connect the vehicle to a supplier
     supplier_id = fields.Many2one(
         "res.partner",
         string="Supplier",
@@ -114,6 +102,10 @@ class ProductTemplate(models.Model):
     vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Brand")
     vehicle_model_id = fields.Many2one(comodel_name="vehicle.model", string="Model",
                                        domain="[('brand_id', '=', vehicle_brand_id)]")
+    vehicle_type_id = fields.Many2one(comodel_name="vehicle.type",
+                                      string="Type",
+                                      related="vehicle_model_id.type_id",
+                                      readonly=True)
 
     def _default_uom_id(self):
         return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id
@@ -141,24 +133,32 @@ class ProductTemplate(models.Model):
     #     string="Status",
     #     default="added",
     # )
-    # vehicle_type = fields.Selection(
-    #     [
-    #         ("sedan", "Sedan"),
-    #         ("station_wagon", "Station Wagon"),
-    #         ("suv", "SUV"),
-    #         ("city_car", "City Car"),
-    #         ("coupe", "Coupe"),
-    #         ("convertible", "Convertible"),
-    #         ("minivan", "Minivan"),
-    #         ("van", "Van"),
-    #         ("pick_up", "Pick-up"),
-    #         ("other", "Other"),
-    #     ],
-    #     string="Vehicle Type",
-    # )
-    # Connect the vehicle to a list of configurable options
-    # option_line_ids = fields.One2many(
-    #     "vehicle.option",
-    #     "vehicle_id",
-    #     string="Options (name + value)",
-    # )
+    @api.model_create_multi
+    def create(self,vals_list):
+        result = super(ProductTemplate, self).create(vals_list)
+        for product in result:
+            project = self.env['project.project'].create({
+                        'active': True,
+                        'name': f"{product.name} Reconditioning",
+                        'allow_task_dependencies': True
+            })
+            stages_to_create = []
+            for stage in PROJECT_STAGES:
+                stages_to_create.append({
+                    'name': stage['name'],
+                    'sequence': stage['sequence'],
+                    'project_ids': [(4, project.id)],
+                })
+            self.env['project.task.type'].create(stages_to_create)
+
+            inspection_task = self.env['project.task'].create({
+                'name': f"{product.name} Inspection",
+                'project_id': project.id,
+                'priority': '1'
+            })
+            self.env['project.task'].create([
+                {'name': f"{product.name} Repair",'project_id': project.id, 'depend_on_ids': [(4, inspection_task.id)]},
+                {'name': f"{product.name} Maintenance",'project_id': project.id, 'depend_on_ids':[(4, inspection_task.id)]},
+                {'name': f"{product.name} Cleaning",'project_id': project.id, 'depend_on_ids': [(4, inspection_task.id)]}
+              ])
+        return result
