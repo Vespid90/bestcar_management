@@ -9,6 +9,11 @@
               name="Vehicles"
               parent="bestcar_commercial_root"
               sequence="1"/>
+    <!--    menu item "Orders"-->
+    <menuitem id="bestcar_purchase_menu"
+              name="Orders"
+              parent="bestcar_commercial_root"
+              sequence="2"/>
     <!--menu item "configuration"-->
     <menuitem id="menu_vehicle_configuration"
               name="Configuration"
