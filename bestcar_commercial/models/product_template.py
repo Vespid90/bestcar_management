@@ -12,6 +12,7 @@ class ProductTemplate(models.Model):
 
     active = fields.Boolean(default=True)
     is_used = fields.Boolean(string="Used vehicle")
+    is_vehicle = fields.Boolean(string="Is vehicle?", default=True)
     sale_ok = fields.Boolean(default=True)
     purchase_ok = fields.Boolean(default=True)
 
@@ -137,28 +138,32 @@ class ProductTemplate(models.Model):
     def create(self,vals_list):
         result = super(ProductTemplate, self).create(vals_list)
         for product in result:
-            project = self.env['project.project'].create({
-                        'active': True,
-                        'name': f"{product.name} Reconditioning",
-                        'allow_task_dependencies': True
-            })
-            stages_to_create = []
-            for stage in PROJECT_STAGES:
-                stages_to_create.append({
-                    'name': stage['name'],
-                    'sequence': stage['sequence'],
-                    'project_ids': [(4, project.id)],
+            if product.is_vehicle:
+                product.name = f"{product.vehicle_brand_id.name}-{product.vehicle_model_id.name}-{product.vehicle_version}-{product.vin[:5]}"
+                department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')], limit=1)
+                project = self.env['project.project'].create({
+                            'active': True,
+                            'name': f"{product.name} Reconditioning",
+                            'user_id' : department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id,
+                            'vehicle_id' : product.id,
                 })
-            self.env['project.task.type'].create(stages_to_create)
-
-            inspection_task = self.env['project.task'].create({
-                'name': f"{product.name} Inspection",
-                'project_id': project.id,
-                'priority': '1'
-            })
-            self.env['project.task'].create([
-                {'name': f"{product.name} Repair",'project_id': project.id, 'depend_on_ids': [(4, inspection_task.id)]},
-                {'name': f"{product.name} Maintenance",'project_id': project.id, 'depend_on_ids':[(4, inspection_task.id)]},
-                {'name': f"{product.name} Cleaning",'project_id': project.id, 'depend_on_ids': [(4, inspection_task.id)]}
-              ])
+                stages_to_create = []
+                for stage in PROJECT_STAGES:
+                    stages_to_create.append({
+                        'name': stage['name'],
+                        'sequence': stage['sequence'],
+                        'project_ids': [(4, project.id)],
+                    })
+                self.env['project.task.type'].create(stages_to_create)
+                # inspection_task = self.env['project.task'].create({
+                #     'name': f"{product.name} Inspection",
+                #     'project_id': project.id,
+                #     'priority': '1'
+                # })
+                self.env['project.task'].create([
+                    {'name': f"{product.name} Inspection",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])],'priority': '1' },
+                    {'name': f"{product.name} Repair",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
+                    {'name': f"{product.name} Maintenance",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
+                    {'name': f"{product.name} Cleaning",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] }
+                ])
         return result
