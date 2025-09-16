@@ -2,6 +2,8 @@
 
 from . import bestcar_commercial
 from . import product_template
+from . import project_project
 from . import vehicle_brand
 from . import vehicle_model
 from . import vehicle_type
+

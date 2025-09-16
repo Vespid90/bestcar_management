@@ -1,5 +1,11 @@
 from odoo import models, fields, api
 
+PROJECT_STAGES = [
+    {'name': 'New', 'sequence': 1},
+    {'name': 'In Progress', 'sequence': 2},
+    {'name': 'Done', 'sequence': 3},
+    {'name': 'Cancelled', 'sequence': 4}
+    ]
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -126,3 +132,50 @@ class ProductTemplate(models.Model):
                                 default=_default_uom_id)
     categ_id = fields.Many2one("product.category", string="Category",
                                default=_default_categ_id)
+    # status = fields.Selection(
+    #     [
+    #         ("added", "File Added"),
+    #         ("waiting_arrival", "Waiting for Arrival"),
+    #         ("reconditioning", "In Reconditioning"),
+    #         ("for_sale", "For Sale"),
+    #         ("reserved", "Reserved"),
+    #         ("payment", "In Payment"),
+    #         ("waiting_delivery", "Waiting for Delivery"),
+    #         ("delivered", "Delivered"),
+    #     ],
+    #     string="Status",
+    #     default="added",
+    # )
+    @api.model_create_multi
+    def create(self,vals_list):
+        result = super(ProductTemplate, self).create(vals_list)
+        for product in result:
+            if product.is_vehicle:
+                product.name = f"{product.vehicle_brand_id.name}-{product.vehicle_model_id.name}-{product.vehicle_version}-{product.vin[:5]}"
+                department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')], limit=1)
+                project = self.env['project.project'].create({
+                            'active': True,
+                            'name': f"{product.name} Reconditioning",
+                            'user_id' : department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id,
+                            'vehicle_id' : product.id,
+                })
+                stages_to_create = []
+                for stage in PROJECT_STAGES:
+                    stages_to_create.append({
+                        'name': stage['name'],
+                        'sequence': stage['sequence'],
+                        'project_ids': [(4, project.id)],
+                    })
+                self.env['project.task.type'].create(stages_to_create)
+                # inspection_task = self.env['project.task'].create({
+                #     'name': f"{product.name} Inspection",
+                #     'project_id': project.id,
+                #     'priority': '1'
+                # })
+                self.env['project.task'].create([
+                    {'name': f"{product.name} Inspection",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])],'priority': '1' },
+                    {'name': f"{product.name} Repair",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
+                    {'name': f"{product.name} Maintenance",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
+                    {'name': f"{product.name} Cleaning",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] }
+                ])
+        return result
