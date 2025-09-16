@@ -94,5 +94,67 @@
             </field>
         </record>
 
+        <record id="action_new_vehicle" model="ir.actions.act_window">
+            <field name="name">New Vehicles</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="bestcar_commercial.view_vehicle_kanban"/>
+            <field name="domain">[('is_used','=',False),('is_vehicle','=',True)]</field>
+            <field name="context">{'default_is_used':False,'default_is_vehicle':True}</field>
+        </record>
+        <record id="action_new_vehicle_view_list" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_vehicle_list"/>
+            <field name="sequence" eval="2"/>
+        </record>
+        <record id="action_new_vehicle_view_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">form</field>
+            <field name="sequence" eval="3"/>
+        </record>
+        <record id="action_new_vehicle_view_kanban" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_vehicle_kanban"/>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="action_used_vehicle" model="ir.actions.act_window">
+            <field name="name">Used Vehicles</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="bestcar_commercial.view_vehicle_kanban"/>
+            <field name="domain">[('is_used','=',True),('is_vehicle','=',True)]</field>
+            <field name="context">{'default_is_used':True,'default_is_vehicle':True}</field>
+        </record>
+        <record id="action_used_vehicle_view_list" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_vehicle_list"/>
+            <field name="sequence" eval="2"/>
+        </record>
+        <record id="action_used_vehicle_view_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">form</field>
+            <field name="sequence" eval="3"/>
+        </record>
+        <record id="action_used_vehicle_view_kanban" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_vehicle_kanban"/>
+            <field name="sequence" eval="1"/>
+        </record>
+        <menuitem id="new_vehicle_menu"
+                  name="New Vehicles"
+                  parent="bestcar_commercial_vehicle_menu"
+                  action="action_new_vehicle"
+                  sequence="0"/>
+        <menuitem id="used_vehicle_menu"
+                  name="Used Vehicles"
+                  parent="bestcar_commercial_vehicle_menu"
+                  action="action_used_vehicle"
+                  sequence="1"/>
+
     </data>
 </odoo>

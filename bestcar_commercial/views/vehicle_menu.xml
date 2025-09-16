@@ -1,39 +1,18 @@
 <odoo>
+    <!--    logo and back to dashborad-->
     <menuitem id="bestcar_commercial_root"
               name="Bestcar"
               web_icon="bestcar_commercial,static/description/icon.png"
               sequence="0"/>
+    <!--    menu item "vehicle"-->
     <menuitem id="bestcar_commercial_vehicle_menu"
               name="Vehicles"
               parent="bestcar_commercial_root"
               sequence="1"/>
-    <menuitem id="new_vehicle_menu"
-              name="New Vehicles"
-              parent="bestcar_commercial_vehicle_menu"
-              action="action_new_vehicle"
-              sequence="0"/>
-    <menuitem id="used_vehicle_menu"
-              name="Used Vehicles"
-              parent="bestcar_commercial_vehicle_menu"
-              action="action_used_vehicle"
-              sequence="1"/>
+    <!--menu item "configuration"-->
     <menuitem id="menu_vehicle_configuration"
               name="Configuration"
               parent="bestcar_commercial_root"
               sequence="20"/>
-    <menuitem id="menu_vehicle_brand"
-              name="Manufacturer"
-              parent="menu_vehicle_configuration"
-              action="action_vehicle_brand"
-              sequence="1"/>
-    <menuitem id="menu_vehicle_model"
-              name="Models"
-              parent="menu_vehicle_configuration"
-              action="action_vehicle_model"
-              sequence="2"/>
-    <menuitem id="menu_vehicle_type"
-              name="Categories"
-              parent="menu_vehicle_configuration"
-              action="action_vehicle_type"
-              sequence="3"/>
+
 </odoo>

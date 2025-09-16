@@ -19,7 +19,7 @@ Long description of module's purpose
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','sale','project'],
+    'depends': ['base','product','sale','project', "hr"],
 
     # always loaded
     'data': [
@@ -30,12 +30,11 @@ Long description of module's purpose
         'data/department_data.xml',
         'views/product_template.xml',
         'views/vehicle_views.xml',
-        'views/vehicle_actions.xml',
         'views/vehicle_menu.xml',
         'views/vehicle_brand_views.xml',
         'views/vehicle_model_views.xml',
         'views/vehicle_type_views.xml',
-        'views/project_project_views.xml'
+        'views/project_project_views.xml',
         'reports/vehicle_report.xml',
         'reports/vehicle_templates.xml',
     ],
