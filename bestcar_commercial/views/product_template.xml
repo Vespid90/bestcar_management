@@ -6,7 +6,10 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='image_1920']" position="attributes">
-                    <attribute name="options">{'size':[100]}</attribute>
+                    <attribute name="options">{'size': [400]}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='variants']" position="attributes">
+                    <attribute name="invisible">is_used</attribute>
                 </xpath>
                 <xpath expr="//page[@name='general_information']" position="before">
                     <page name="car_information" string="Vehicle Information" invisible="is_vehicle == False">
