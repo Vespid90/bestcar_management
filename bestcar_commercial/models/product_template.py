@@ -15,11 +15,11 @@ class ProductTemplate(models.Model):
     class_of_emission = fields.Char(string="Class of emission")
     consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", default="Vehicle", readonly=True) #conca marque / model /  5 nb du vin(?)
+    name = fields.Char(string="Name", readonly=True) #conca marque / model /  5 nb du vin(?)
     reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
-    vin = fields.Char(string="VIN")
+    vin = fields.Char(string="VIN", required=True)
 
     date_arrival = fields.Date(string="Arrival Date")
     date_first_registration = fields.Date(string="First Registration Date")
