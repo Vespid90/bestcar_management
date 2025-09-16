@@ -176,11 +176,6 @@ class ProductTemplate(models.Model):
                         'project_ids': [(4, project.id)],
                     })
                 self.env['project.task.type'].create(stages_to_create)
-                # inspection_task = self.env['project.task'].create({
-                #     'name': f"{product.name} Inspection",
-                #     'project_id': project.id,
-                #     'priority': '1'
-                # })
                 self.env['project.task'].create([
                     {'name': f"{product.name} Inspection",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])],'priority': '1' },
                     {'name': f"{product.name} Repair",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
