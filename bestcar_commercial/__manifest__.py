@@ -28,6 +28,9 @@ Long description of module's purpose
         'views/vehicle_views.xml',
         'views/vehicle_actions.xml',
         'views/vehicle_menu.xml',
+        'reports/vehicle_report.xml',
+        'reports/vehicle_templates.xml',
+
 
     ],
     # only loaded in demonstration mode

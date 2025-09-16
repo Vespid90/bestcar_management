@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+  <template id="vehicle_sheet_body">
+    <t t-foreach="docs" t-as="o">
+
+      <t t-set="c" t-value="o.company_id or env.company"/>
+      <t t-set="p" t-value="c and c.partner_id"/>
+
+
+      <t t-set="v_name"    t-value="(c and c.name) or 'My Company (San Francisco)'"/>
+      <t t-set="v_street"  t-value="(p and p.street) or '250 Executive Park Blvd, Suite 3400'"/>
+      <t t-set="v_street2" t-value="(p and p.street2) or ''"/>
+      <t t-set="v_zip"     t-value="(p and p.zip) or '94134'"/>
+      <t t-set="v_city"    t-value="(p and p.city) or 'San Francisco'"/>
+      <t t-set="v_state"   t-value="(p and p.state_id and p.state_id.name) or 'California'"/>
+      <t t-set="v_country" t-value="(p and p.country_id and p.country_id.name) or 'United States'"/>
+      <t t-set="v_phone"   t-value="(c and c.phone) or '+1 555-555-5556'"/>
+      <t t-set="v_email"   t-value="(c and c.email) or 'info@yourcompany.com'"/>
+
+      <div class="page" style="font-size:12px;">
+
+
+        <div style="border:1px solid #cf2e2e; padding:14px; margin-bottom:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div style="max-width:180px; min-height:40px;">
+              <t t-if="c and c.logo">
+                <img t-att-src="'data:image/png;base64,%s' % c.logo"
+                     style="max-width:100%; max-height:60px; object-fit:contain;"/>
+              </t>
+              <t t-else="">
+                <div style="opacity:.7; font-weight:700; font-size:20px;">Your logo</div>
+              </t>
+            </div>
+            <div style="text-align:right; font-size:11px; line-height:1.35;">
+              <div t-esc="v_name"/>
+              <div>
+                <span t-esc="v_street"/>
+                <t t-if="v_street2">
+                  <span>, </span><span t-esc="v_street2"/>
+                </t>
+              </div>
+              <div><span t-esc="v_zip"/> <span t-esc="v_city"/></div>
+              <div t-esc="v_state"/>
+              <div t-esc="v_country"/>
+              <div t-esc="v_phone"/>
+              <div t-esc="v_email"/>
+            </div>
+          </div>
+        </div>
+
+
+        <div style="font-size:22px; font-weight:700; margin-bottom:8px;">
+          <span t-esc="o.vehicle_brand_id and o.vehicle_brand_id.name or ''"/>
+          <t t-if="o.name and (not o.vehicle_brand_id or not o.name.startswith(o.vehicle_brand_id.name))">
+            <span> </span><span t-esc="o.name"/>
+          </t>
+        </div>
+        <div style="font-size:12px; color:#555; margin-bottom:10px;">
+          <t t-if="o.vehicle_version"><span t-esc="o.vehicle_version"/></t>
+        </div>
+
+
+        <table style="width:100%; table-layout:fixed; border-collapse:separate; border-spacing:16px 0; margin-bottom:14px;">
+          <colgroup>
+            <col style="width:50%"/>
+            <col style="width:50%"/>
+          </colgroup>
+          <tbody>
+            <tr>
+              <td style="vertical-align:top;">
+                <div style="border:1px solid #ddd; height:240px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                  <t t-if="o.image_1920">
+                    <img t-att-src="'data:image/png;base64,%s' % o.image_1920" style="width:100%; height:100%; object-fit:cover;"/>
+                  </t>
+                  <t t-elif="o.image">
+                    <img t-att-src="'data:image/png;base64,%s' % o.image" style="width:100%; height:100%; object-fit:cover;"/>
+                  </t>
+                  <t t-else=""><div style="color:#999; font-size:11px;">PHOTO</div></t>
+                </div>
+              </td>
+
+              <td style="vertical-align:top;">
+                <div style="border:1px solid #ddd; height:240px;">
+                  <div style="background:#cf2e2e; color:white; height:30px; line-height:30px; padding:0 12px; font-weight:700;">
+                    Price
+                  </div>
+                  <div style="height:210px; padding:14px 16px; box-sizing:border-box;">
+                    <div style="font-size:32px; font-weight:800; margin-bottom:6px;">
+                      <span t-field="o.list_price"
+                            t-options='{"widget": "monetary", "display_currency": (c and c.currency_id) or o.env.company.currency_id}'/>
+                      <span style="font-size:14px; font-weight:600;"> Tax included</span>
+                    </div>
+                    <div style="font-size:12px; color:#666;">
+                      <div>
+                        <span>Net price: </span>
+                        <span t-field="o.purchase_price"
+                              t-options='{"widget": "monetary", "display_currency": o.currency_id or (c and c.currency_id) or o.env.company.currency_id}'/>
+                      </div>
+                      <div style="margin-top:4px;">* Terms and financing on request.</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <div style="margin-top:6px; border:1px solid #ddd;">
+          <div style="background:#cf2e2e; color:white; padding:6px 10px; font-weight:700;">Specifications</div>
+          <table style="width:100%; border-collapse:collapse; font-size:12px;">
+            <tbody>
+              <tr>
+                <td style="padding:6px 10px; width:25%; border-bottom:1px solid #eee;">First registration date</td>
+                <td style="padding:6px 10px; width:25%; border-bottom:1px solid #eee;">
+                  <span t-esc="o.date_first_registration and format_date(o.date_first_registration) or '-'"/>
+                </td>
+                <td style="padding:6px 10px; width:25%; border-bottom:1px solid #eee;">Emission standard</td>
+                <td style="padding:6px 10px; width:25%; border-bottom:1px solid #eee;" t-esc="o.emissions_standard or '-'"/>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Mileage</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <t t-if="o.mileage_km is not False"><span t-esc="o.mileage_km"/> km</t><t t-else="">-</t>
+                </td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Color</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;" t-esc="o.body_color or '-'"/>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Fuel</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <span t-esc="dict(o._fields['energy_type'].selection).get(o.energy_type, '-')"/>
+                </td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Transmission</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <span t-esc="dict(o._fields['gearbox'].selection).get(o.gearbox, '-')"/>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Power</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <t t-if="o.horsepower_hp is not False"><span t-esc="o.horsepower_hp"/> hp</t><t t-else="">-</t>
+                </td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Engine displacement</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <t t-if="o.engine_capacity_cc is not False"><span t-esc="o.engine_capacity_cc"/> cm³</t><t t-else="">-</t>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">CO₂ emissions</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <t t-if="o.co2_g_km is not False"><span t-esc="o.co2_g_km"/> g/km</t><t t-else="">-</t>
+                </td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Fiscal power</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <t t-if="o.fiscal_power_cv is not False"><span t-esc="o.fiscal_power_cv"/> CV</t><t t-else="">-</t>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Length</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <t t-if="o.length_mm is not False"><span t-esc="o.length_mm"/> mm</t><t t-else="">-</t>
+                </td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">Width</td>
+                <td style="padding:6px 10px; border-bottom:1px solid #eee;">
+                  <t t-if="o.width_mm is not False"><span t-esc="o.width_mm"/> mm</t><t t-else="">-</t>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px;">Height</td>
+                <td style="padding:6px 10px;">
+                  <t t-if="o.height_mm is not False"><span t-esc="o.height_mm"/> mm</t><t t-else="">-</t>
+                </td>
+                <td style="padding:6px 10px;">First registration</td>
+                <td style="padding:6px 10px;">
+                  <span t-esc="o.date_first_registration and format_date(o.date_first_registration) or '-'"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div style="margin-top:16px; background:#f9fafb; border:1px solid #e5e7eb; padding:8px 10px; font-size:10px; color:#444; line-height:1.45; page-break-inside:avoid;">
+          Legal notice — The information provided in this document is for guidance only and does not constitute a contractual offer. Vehicle availability, equipment, specifications and prices may change without prior notice. Prices may exclude registration, ownership or documentation fees unless expressly stated. Images are for illustration purposes only. Bestcar accepts no liability for typographical errors or omissions.
+        </div>
+
+      </div>
+    </t>
+  </template>
+
+
+  <template id="report_vehicle_sheet_html">
+    <t t-set="company" t-value="docs and docs[0].company_id or env.company"/>
+    <t t-call="web.basic_layout">
+      <style type="text/css">
+        * { font-family: "DejaVu Sans","Liberation Sans","Arial",sans-serif !important; }
+      </style>
+      <t t-call="bestcar_commercial.vehicle_sheet_body"/>
+    </t>
+  </template>
+
+  
+  <template id="report_vehicle_sheet_pdf">
+    <t t-set="company" t-value="docs and docs[0].company_id or env.company"/>
+    <t t-call="web.basic_layout">
+      <style type="text/css">
+        * { font-family: "DejaVu Sans","Liberation Sans","Arial",sans-serif !important; }
+      </style>
+      <t t-call="bestcar_commercial.vehicle_sheet_body"/>
+    </t>
+  </template>
+
+</odoo>
