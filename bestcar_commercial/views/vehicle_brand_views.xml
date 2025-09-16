@@ -52,5 +52,16 @@
                 </kanban>
             </field>
         </record>
+        <record id="action_vehicle_brand" model="ir.actions.act_window">
+            <field name="name">Manufacturers</field>
+            <field name="res_model">vehicle.brand</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="view_vehicle_brand_search"/>
+        </record>
+        <menuitem id="menu_vehicle_brand"
+                  name="Manufacturer"
+                  parent="menu_vehicle_configuration"
+                  action="action_vehicle_brand"
+                  sequence="1"/>
     </data>
 </odoo>
