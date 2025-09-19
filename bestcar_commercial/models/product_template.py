@@ -152,7 +152,7 @@ class ProductTemplate(models.Model):
             if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
                 rec.name = "New Vehicle"
             else:
-                rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[:5]}"
+                rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
 
     @api.model_create_multi
     def create(self,vals_list):

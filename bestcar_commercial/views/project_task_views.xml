@@ -4,8 +4,7 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
-            <xpath expr="//form//sheet" position="before">
-                <div class="oe_button_box" name="button_box">
+            <xpath expr="//div[@name='button_box']" position="inside">
                             <button name="open_view_vehicle" type="object" icon="fa-car"
                                     class="oe_stat_button" widget="statinfo">
                                 <div class="o_stat_info">
@@ -13,7 +12,6 @@
                                     <span class="o_stat_text">Vehicle</span>
                                 </div>
                             </button>
-                        </div>
             </xpath>
         </field>
     </record>
