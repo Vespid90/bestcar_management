@@ -4,7 +4,6 @@ from . import bestcar_commercial
 from . import product_template
 from . import sale_order
 from . import account_move
-from . import account_payment_register
 from . import project_project
 from . import project_task
 from . import vehicle_brand
