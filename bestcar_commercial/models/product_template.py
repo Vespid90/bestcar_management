@@ -77,20 +77,20 @@ class ProductTemplate(models.Model):
         string="Gearbox",
     )
 
-    # status = fields.Selection(
-    #     [
-    #         ("added", "File Added"),
-    #         ("waiting_arrival", "Waiting for Arrival"),
-    #         ("reconditioning", "In Reconditioning"),
-    #         ("for_sale", "For Sale"),
-    #         ("reserved", "Reserved"),
-    #         ("payment", "In Payment"),
-    #         ("waiting_delivery", "Waiting for Delivery"),
-    #         ("delivered", "Delivered"),
-    #     ],
-    #     string="Status",
-    #     default="added",
-    # )
+    status = fields.Selection(
+        [
+            ("added", "Vehicle Added"),
+            ("waiting_arrival", "Waiting for Arrival"),
+            ("reconditioning", "In Reconditioning"),
+            ("for_sale", "For Sale"),
+            ("reserved", "Reserved"),
+            ("payment", "In Payment"),
+            ("waiting_delivery", "Waiting for Delivery"),
+            ("delivered", "Delivered"),
+        ],
+        string="Status",
+        default="added",
+    )
 
     currency_id = fields.Many2one("res.currency",
                                   string="Currency",
@@ -132,20 +132,7 @@ class ProductTemplate(models.Model):
                                 default=_default_uom_id)
     categ_id = fields.Many2one("product.category", string="Category",
                                default=_default_categ_id)
-    # status = fields.Selection(
-    #     [
-    #         ("added", "File Added"),
-    #         ("waiting_arrival", "Waiting for Arrival"),
-    #         ("reconditioning", "In Reconditioning"),
-    #         ("for_sale", "For Sale"),
-    #         ("reserved", "Reserved"),
-    #         ("payment", "In Payment"),
-    #         ("waiting_delivery", "Waiting for Delivery"),
-    #         ("delivered", "Delivered"),
-    #     ],
-    #     string="Status",
-    #     default="added",
-    # )
+
     @api.depends('vehicle_brand_id','vehicle_model_id','vehicle_version','vin')
     def _compute_vehicle_name(self):
         for rec in self:
