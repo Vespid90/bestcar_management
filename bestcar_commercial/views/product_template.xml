@@ -5,6 +5,36 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_update_quantity_on_hand']" position="attributes">
+                    <attribute name="invisible">is_vehicle</attribute>
+                </xpath>
+
+                <xpath expr="//form/header/button[@type='action'][@groups='stock.group_stock_user']" position="attributes">
+                    <attribute name="invisible">is_vehicle</attribute>
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <field name="status" widget="statusbar" invisible="not is_vehicle"/>
+                </xpath>
+
+                <xpath expr="//header/button" position="before">
+                    <button name="button_buy"
+                            type="object"
+                            string="Buy Car"
+                            class="oe_highlight"
+                            data-hotkey="z"
+                            invisible="not is_vehicle"/>
+                </xpath>
+
+                <xpath expr="//form/header/button[@name='button_buy']" position="after">
+                    <button name="button_sale"
+                            type="object"
+                            string="Sell Car"
+                            class="oe_highlight"
+                            data-hotkey="z"
+                            invisible="not qty_available or not is_vehicle"/>
+                </xpath>
+
                 <xpath expr="//field[@name='image_1920']" position="attributes">
                     <attribute name="options">{'size': [400]}</attribute>
                 </xpath>
@@ -27,7 +57,7 @@
                                 <field name="type" invisible="1"/>
                                 <field name="energy_type"/>
                             </group>
-                            <group string="Summery">
+                            <group string="Summary">
                                 <field name="class_of_emission"/>
                                 <field name="gearbox"/>
                                 <field name="body_color"/>
@@ -39,7 +69,7 @@
                         </group>
                         <group>
                             <group string="Identification">
-                                <field name="vin"/>
+                                <field name="vin" required="is_used"/>
                                 <field name="reference_number"/>
                                 <field name="country_of_origin_id"/>
                             </group>
@@ -69,7 +99,6 @@
                                 <field name="stock_time_days"/>
                                 <field name="supplier_id"/>
                             </group>
-
 
                         </group>
                         <group>

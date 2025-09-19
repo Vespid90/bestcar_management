@@ -16,6 +16,8 @@ class ProductTemplate(models.Model):
     sale_ok = fields.Boolean(default=True)
     purchase_ok = fields.Boolean(default=True)
 
+    is_storable = fields.Boolean(default=True)
+
     body_color = fields.Char(string="Color")
     emissions_standard = fields.Char(string="Emission Standard")
     class_of_emission = fields.Char(string="Class of emission")
@@ -25,7 +27,7 @@ class ProductTemplate(models.Model):
     reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
-    vin = fields.Char(string="VIN", required=True)
+    vin = fields.Char(string="VIN")
 
     date_arrival = fields.Date(string="Arrival Date")
     date_first_registration = fields.Date(string="First Registration Date")
@@ -77,20 +79,20 @@ class ProductTemplate(models.Model):
         string="Gearbox",
     )
 
-    # status = fields.Selection(
-    #     [
-    #         ("added", "File Added"),
-    #         ("waiting_arrival", "Waiting for Arrival"),
-    #         ("reconditioning", "In Reconditioning"),
-    #         ("for_sale", "For Sale"),
-    #         ("reserved", "Reserved"),
-    #         ("payment", "In Payment"),
-    #         ("waiting_delivery", "Waiting for Delivery"),
-    #         ("delivered", "Delivered"),
-    #     ],
-    #     string="Status",
-    #     default="added",
-    # )
+    status = fields.Selection(
+        [
+            ("added", "Vehicle Added"),
+            ("waiting_arrival", "Waiting for Arrival"),
+            ("reconditioning", "In Reconditioning"),
+            ("for_sale", "For Sale"),
+            ("reserved", "Reserved"),
+            ("payment", "In Payment"),
+            ("waiting_delivery", "Waiting for Delivery"),
+            ("delivered", "Delivered"),
+        ],
+        string="Status",
+        default="added",
+    )
 
     currency_id = fields.Many2one("res.currency",
                                   string="Currency",
@@ -132,20 +134,7 @@ class ProductTemplate(models.Model):
                                 default=_default_uom_id)
     categ_id = fields.Many2one("product.category", string="Category",
                                default=_default_categ_id)
-    # status = fields.Selection(
-    #     [
-    #         ("added", "File Added"),
-    #         ("waiting_arrival", "Waiting for Arrival"),
-    #         ("reconditioning", "In Reconditioning"),
-    #         ("for_sale", "For Sale"),
-    #         ("reserved", "Reserved"),
-    #         ("payment", "In Payment"),
-    #         ("waiting_delivery", "Waiting for Delivery"),
-    #         ("delivered", "Delivered"),
-    #     ],
-    #     string="Status",
-    #     default="added",
-    # )
+
     @api.depends('vehicle_brand_id','vehicle_model_id','vehicle_version','vin')
     def _compute_vehicle_name(self):
         for rec in self:
@@ -188,3 +177,45 @@ class ProductTemplate(models.Model):
                     {'name': f"{product.name} Cleaning",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] }
                 ])
         return result
+
+    def button_buy(self):
+        self.ensure_one()
+
+        product_variant = self.product_variant_id
+
+        return {
+            "name":"Buy a vehicle",
+            "type":"ir.actions.act_window",
+            "res_model":"purchase.order",
+            "view_mode":"form",
+            "target":"current",
+            "context":{
+                "default_order_line":[(0, 0, {
+                    "product_id":product_variant.id,
+                    "name":product_variant.display_name,
+                    "product_qty": 1.0,
+                    "product_uom": product_variant.uom_id.id,
+                })]
+            }
+        }
+
+    def button_sale(self):
+        self.ensure_one()
+
+        product_variant = self.product_variant_id
+
+        return {
+            "name":"Sell a vehicle",
+            "type":"ir.actions.act_window",
+            "res_model":"sale.order",
+            "view_mode":"form",
+            "target":"current",
+            "context":{
+                "default_order_line":[(0, 0, {
+                    "product_id":product_variant.id,
+                    "name":product_variant.display_name,
+                    "product_uom_qty": 1.0,
+                    "product_uom": product_variant.uom_id.id,
+                })]
+            }
+        }
