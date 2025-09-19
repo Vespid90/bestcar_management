@@ -9,4 +9,20 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_project_kanban_inherit" model="ir.ui.view">
+        <field name="name">project.kanban.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
+                <a class="o_project_kanban_box me-1"
+                   name="action_view_vehicle"
+                   type="object"
+                   invisible="not vehicle_id">
+                    <span class="fa fa-car me-1" title="View vehicle"/>
+                </a>
+            </xpath>
+        </field>
+    </record>
 </odoo>

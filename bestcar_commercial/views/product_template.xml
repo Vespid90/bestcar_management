@@ -35,6 +35,9 @@
                             invisible="not qty_available or not is_vehicle"/>
                 </xpath>
 
+                <xpath expr="//header" position="inside">
+                    <field name="status" widget="statusbar" invisible="not is_vehicle"/>
+                </xpath>
                 <xpath expr="//field[@name='image_1920']" position="attributes">
                     <attribute name="options">{'size': [400]}</attribute>
                 </xpath>
@@ -99,6 +102,7 @@
                                 <field name="stock_time_days"/>
                                 <field name="supplier_id"/>
                             </group>
+
 
                         </group>
                         <group>

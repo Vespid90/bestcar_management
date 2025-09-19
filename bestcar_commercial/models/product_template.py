@@ -141,7 +141,7 @@ class ProductTemplate(models.Model):
             if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
                 rec.name = "New Vehicle"
             else:
-                rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[:5]}"
+                rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
 
     @api.model_create_multi
     def create(self,vals_list):
@@ -165,11 +165,6 @@ class ProductTemplate(models.Model):
                         'project_ids': [(4, project.id)],
                     })
                 self.env['project.task.type'].create(stages_to_create)
-                # inspection_task = self.env['project.task'].create({
-                #     'name': f"{product.name} Inspection",
-                #     'project_id': project.id,
-                #     'priority': '1'
-                # })
                 self.env['project.task'].create([
                     {'name': f"{product.name} Inspection",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])],'priority': '1' },
                     {'name': f"{product.name} Repair",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
