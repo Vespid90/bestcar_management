@@ -23,7 +23,7 @@
                             string="Buy Car"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="not is_vehicle"/>
+                            invisible="not is_vehicle or status != 'added'"/>
                 </xpath>
 
                 <xpath expr="//form/header/button[@name='button_buy']" position="after">
@@ -32,7 +32,16 @@
                             string="Sell Car"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="not qty_available or not is_vehicle"/>
+                            invisible="status != 'for_sale'"/>
+                </xpath>
+
+                <xpath expr="//form/header/button[@name='button_sale']" position="after">
+                    <button name="button_ready"
+                            type="object"
+                            string="Ready to sell"
+                            class="oe_highlight"
+                            data-hotkey="z"
+                            invisible="status != 'reconditioning'"/>
                 </xpath>
 
                 <xpath expr="//header" position="inside">
