@@ -148,29 +148,6 @@ class ProductTemplate(models.Model):
         for vals in vals_list:
             vals["name"] = "New Vehicle"
         result = super(ProductTemplate, self).create(vals_list)
-        for product in result:
-            if product.is_vehicle:
-                department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')], limit=1)
-                project = self.env['project.project'].create({
-                            'active': True,
-                            'name': f"{product.name} Reconditioning",
-                            'user_id' : department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id,
-                            'vehicle_id' : product.id,
-                })
-                stages_to_create = []
-                for stage in PROJECT_STAGES:
-                    stages_to_create.append({
-                        'name': stage['name'],
-                        'sequence': stage['sequence'],
-                        'project_ids': [(4, project.id)],
-                    })
-                self.env['project.task.type'].create(stages_to_create)
-                self.env['project.task'].create([
-                    {'name': f"{product.name} Inspection",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])],'priority': '1' },
-                    {'name': f"{product.name} Repair",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
-                    {'name': f"{product.name} Maintenance",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] },
-                    {'name': f"{product.name} Cleaning",'project_id': project.id,'user_ids': [(6,0,[department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])] }
-                ])
         return result
 
     def button_buy(self):
@@ -214,3 +191,7 @@ class ProductTemplate(models.Model):
                 })]
             }
         }
+
+    def button_ready(self):
+        for rec in self:
+            rec.status = 'for_sale'
