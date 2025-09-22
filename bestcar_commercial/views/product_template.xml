@@ -178,7 +178,7 @@
                                     invisible="status != 'reserved'"/>
                             <widget name="web_ribbon" title="Arriving" bg_color="text-bg-warning"
                                     invisible="status != 'waiting_arrival'"/>
-                            <widget name="web_ribbon" title="In sale" bg_color="text-bg-success"
+                            <widget name="web_ribbon" title="for sale" bg_color="text-bg-success"
                                     invisible="status != 'for_sale'"/>
                             <div class="w-50">
                                 <aside class="o_kanban_image me-2 w-100">
