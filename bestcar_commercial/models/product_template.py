@@ -87,6 +87,7 @@ class ProductTemplate(models.Model):
             ("for_sale", "For Sale"),
             ("reserved", "Reserved"),
             ("payment", "In Payment"),
+            ("waiting_TI", "Waiting Technical Inspection"),
             ("waiting_delivery", "Waiting for Delivery"),
             ("delivered", "Delivered"),
         ],
@@ -121,7 +122,9 @@ class ProductTemplate(models.Model):
                                       string="Type",
                                       related="vehicle_model_id.type_id",
                                       readonly=True)
-
+    project_ids = fields.One2many(comodel_name="project.project",
+                                  inverse_name="vehicle_id",
+                                  string="Projects")
     def _default_uom_id(self):
         return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id
 
@@ -188,3 +191,7 @@ class ProductTemplate(models.Model):
     def button_ready(self):
         for rec in self:
             rec.status = 'for_sale'
+
+    def button_TI(self):
+        for rec in self:
+            rec.status = 'waiting_delivery'
