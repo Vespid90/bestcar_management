@@ -143,13 +143,6 @@ class ProductTemplate(models.Model):
             else:
                 rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
 
-    @api.model_create_multi
-    def create(self,vals_list):
-        for vals in vals_list:
-            vals["name"] = "New Vehicle"
-        result = super(ProductTemplate, self).create(vals_list)
-        return result
-
     def button_buy(self):
         self.ensure_one()
 
