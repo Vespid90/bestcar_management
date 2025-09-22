@@ -175,7 +175,7 @@
                     <templates>
                         <t t-name="card" class="d-flex flex-row justify-content-between gap-5 p-1">
                             <widget name="web_ribbon" title="Sold" bg_color="text-bg-danger"
-                                    invisible="status != 'reserved'"/>
+                                    invisible="status not in ['reserved','payment','waiting_delivery','delivered']"/>
                             <widget name="web_ribbon" title="Arriving" bg_color="text-bg-warning"
                                     invisible="status != 'waiting_arrival'"/>
                             <widget name="web_ribbon" title="for sale" bg_color="text-bg-success"
@@ -266,6 +266,5 @@
                   parent="bestcar_commercial_vehicle_menu"
                   action="action_used_vehicle"
                   sequence="1"/>
-
     </data>
 </odoo>

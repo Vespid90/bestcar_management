@@ -14,10 +14,14 @@
               name="Orders"
               parent="bestcar_commercial_root"
               sequence="2"/>
-    <!--menu item "configuration"-->
+    <!--    menu item "Project"-->
+    <menuitem id="bestcar_project_menu"
+              name="Project"
+              parent="bestcar_commercial_root"
+              sequence="3"/>
+    <!--    menu item "configuration"-->
     <menuitem id="menu_vehicle_configuration"
               name="Configuration"
               parent="bestcar_commercial_root"
               sequence="20"/>
-
 </odoo>

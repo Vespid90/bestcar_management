@@ -15,4 +15,28 @@
             </xpath>
         </field>
     </record>
+
+    <record id="action_open_my_tasks" model="ir.actions.act_window">
+        <field name="name">My Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="project.view_task_kanban_inherit_my_task"/>
+        <field name="domain">[('user_ids','in',[uid])]</field>
+    </record>
+    <record id="action_open_all_tasks" model="ir.actions.act_window">
+        <field name="name">All Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="view_id" ref="project.open_view_all_tasks_list_view"/>
+    </record>
+    <menuitem
+            id="menu_project_my_tasks"
+            name="My Tasks"
+            parent="menu_project_tasks"
+            action="action_open_my_tasks"/>
+        <menuitem
+            id="menu_project_all_tasks"
+            name="All Tasks"
+            parent="menu_project_tasks"
+            action="action_open_all_tasks"/>
 </odoo>
