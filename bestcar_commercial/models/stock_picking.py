@@ -21,5 +21,5 @@ class Project(models.Model):
                 if rec.product_id.product_tmpl_id.status == "waiting_arrival":
                     rec.product_id.product_tmpl_id.status = "added"
                 else:
-                    rec.product_id.product_tmpl_id.status = "added"
+                    rec.product_id.product_tmpl_id.status = "for_sale"
         return res
