@@ -18,7 +18,7 @@ Long description of module's purpose
     'category': 'Uncategorized',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base','product','sale','project','hr'],
+    'depends': ['base','product','sale','project','hr','purchase','stock'],
 
     # always loaded
     'data': [
@@ -27,9 +27,8 @@ Long description of module's purpose
         'data/brand_data.xml',
         'data/model_data.xml',
         'data/department_data.xml',
-        'views/product_template.xml',
-        'views/vehicle_views.xml',
         'views/vehicle_menu.xml',
+        'views/product_template.xml',
         'views/vehicle_brand_views.xml',
         'views/vehicle_model_views.xml',
         'views/vehicle_type_views.xml',

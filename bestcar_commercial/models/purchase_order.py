@@ -16,7 +16,6 @@ class Project(models.Model):
         for order in self:
             for order_line in order:
                 if order_line.product_id.is_vehicle:
-                    print(order_line.product_id.is_vehicle)
                     order_line.product_id.status = "waiting_arrival"
 
                     department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')],
@@ -25,7 +24,7 @@ class Project(models.Model):
                                 'active': True,
                                 'name': f"{order_line.product_id.name} Reconditioning",
                                 'user_id': department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id,
-                                'vehicle_id': order_line.product_id.id,
+                                'vehicle_id': order_line.product_id.product_tmpl_id.id,
                             })
                     stages_to_create = []
                     for stage in PROJECT_STAGES:
