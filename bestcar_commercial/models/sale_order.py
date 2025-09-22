@@ -16,5 +16,5 @@ class SaleOrder(models.Model):
         for order in self:
             for line in order.order_line:
                 if line.product_template_id.is_vehicle:
-                    line.product_template_id.status="added"
+                    line.product_template_id.status="for_sale"
         return res
