@@ -10,3 +10,11 @@ class SaleOrder(models.Model):
                 if line.product_template_id.is_vehicle:
                     line.product_template_id.status="reserved"
         return res
+
+    def action_cancel(self):
+        res = super().action_cancel()
+        for order in self:
+            for line in order.order_line:
+                if line.product_template_id.is_vehicle:
+                    line.product_template_id.status="added"
+        return res
