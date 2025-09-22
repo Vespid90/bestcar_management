@@ -23,7 +23,7 @@ class ProductTemplate(models.Model):
     class_of_emission = fields.Char(string="Class of emission")
     consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", compute='_compute_vehicle_name',store=True,readonly=True) #conca marque / model /  5 nb du vin(?)
+    name = fields.Char(string="Name", compute='_compute_vehicle_name',store=True,readonly=True, default='New Vehicle') #conca marque / model /  5 nb du vin(?)
     reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
@@ -142,13 +142,6 @@ class ProductTemplate(models.Model):
                 rec.name = "New Vehicle"
             else:
                 rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
-
-    @api.model_create_multi
-    def create(self,vals_list):
-        for vals in vals_list:
-            vals["name"] = "New Vehicle"
-        result = super(ProductTemplate, self).create(vals_list)
-        return result
 
     def button_buy(self):
         self.ensure_one()
