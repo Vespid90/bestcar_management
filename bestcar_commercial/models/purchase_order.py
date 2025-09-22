@@ -46,3 +46,13 @@ class Project(models.Model):
                                 department.manager_id.user_id.id if department.manager_id.user_id else self.env.user.id])]}
                             ])
         return res
+
+    def button_cancel(self):
+        res = super().button_cancel()
+        for order in self:
+            for order_line in order:
+                if order_line.product_id.is_vehicle:
+                    order_line.product_id.status = "added"
+
+        return res
+
