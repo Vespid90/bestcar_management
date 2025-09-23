@@ -25,4 +25,19 @@
             </xpath>
         </field>
     </record>
+        <record id="action_open_projects" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">kanban,list</field>
+        <field name="view_id" ref="project.view_project_kanban"/>
+    </record>
+    <menuitem
+            id="menu_project_projects"
+            name="Projects"
+            parent="bestcar_project_menu"
+            action="action_open_projects"/>
+    <menuitem
+            id="menu_project_tasks"
+            name="Tasks"
+            parent="bestcar_project_menu"/>
 </odoo>
