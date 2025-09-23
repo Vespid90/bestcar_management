@@ -12,6 +12,8 @@ class ProductTemplate(models.Model):
 
     active = fields.Boolean(default=True)
     is_used = fields.Boolean(string="Is used ?")
+    is_trade_in = fields.Boolean(string="Is trade-in?")
+    trade_in = fields.Boolean(string="Trade-in")
     is_vehicle = fields.Boolean(string="Is vehicle?")
     sale_ok = fields.Boolean(default=True)
     purchase_ok = fields.Boolean(default=True)
@@ -26,7 +28,7 @@ class ProductTemplate(models.Model):
     name = fields.Char(string="Name", compute='_compute_vehicle_name',store=True,readonly=True, default='New Vehicle') #conca marque / model /  5 nb du vin(?)
     reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
-    vehicle_version = fields.Char(string="Version")
+    vehicle_version = fields.Char(string="Version", required=True)
     vin = fields.Char(string="VIN")
 
     date_arrival = fields.Date(string="Arrival Date")
@@ -115,9 +117,9 @@ class ProductTemplate(models.Model):
         string="Supplier",
     )
 
-    vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Make")
+    vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Make", required=True)
     vehicle_model_id = fields.Many2one(comodel_name="vehicle.model",
-                                       domain="[('brand_id', '=', vehicle_brand_id)]")
+                                       domain="[('brand_id', '=', vehicle_brand_id)]", required=True)
     vehicle_type_id = fields.Many2one(comodel_name="vehicle.type",
                                       string="Type",
                                       related="vehicle_model_id.type_id",
@@ -142,9 +144,43 @@ class ProductTemplate(models.Model):
     def _compute_vehicle_name(self):
         for rec in self:
             if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
-                rec.name = "New Vehicle"
+                base_name = "New Vehicle"
             else:
-                rec.name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
+                base_name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
+
+            if rec.trade_in:
+                rec.name = f"TRD - {base_name}"
+            else:
+                rec.name = base_name
+
+
+    @api.model_create_multi
+    def create(self, vals_list):
+
+        records = super().create(vals_list)
+
+        for rec, vals in zip(records, vals_list):
+            if vals.get("is_trade_in"):
+
+                vin = rec.vin or ""
+                if not vin.endswith("-TRD"):
+                    vin = f"{vin}-TRD"
+
+                trade_in_vals={
+                    "trade_in": True,
+                    "name":rec.name,
+                    "purchase_price":rec.purchase_price,
+                    "vehicle_brand_id":rec.vehicle_brand_id.id,
+                    "vehicle_model_id":rec.vehicle_model_id.id,
+                    "vehicle_version":rec.vehicle_version,
+                    "vin":vin,
+                    "list_price":-abs(rec.purchase_price),
+                    "is_vehicle":rec.is_vehicle,
+                }
+
+                self.create(trade_in_vals)
+
+        return records
 
     def button_buy(self):
         self.ensure_one()

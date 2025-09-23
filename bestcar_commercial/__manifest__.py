@@ -18,7 +18,7 @@ Long description of module's purpose
     'category': 'Uncategorized',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base','product','sale','project','hr','purchase','stock'],
+    'depends': ['base','product','sale_management','project','hr','purchase','stock','account'],
 
     # always loaded
     'data': [
