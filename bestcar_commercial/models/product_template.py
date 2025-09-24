@@ -159,6 +159,12 @@ class ProductTemplate(models.Model):
 
         records = super().create(vals_list)
 
+        """
+
+        Sert à générer un product.template pour les reprises de véhicule(trade-in) + un VIN différent (car unique) qui se fini par '-TRD'
+
+        """
+
         for rec, vals in zip(records, vals_list):
             if vals.get("is_trade_in"):
 
