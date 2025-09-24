@@ -205,7 +205,7 @@ class ProductTemplate(models.Model):
                     "name":product_variant.display_name,
                     "product_qty": 1.0,
                     "product_uom": product_variant.uom_id.id,
-                })]
+                })],
             }
         }
 
@@ -226,7 +226,7 @@ class ProductTemplate(models.Model):
                     "name":product_variant.display_name,
                     "product_uom_qty": 1.0,
                     "product_uom": product_variant.uom_id.id,
-                })]
+                })],
             }
         }
 
