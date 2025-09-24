@@ -176,6 +176,7 @@ class ProductTemplate(models.Model):
                     "trade_in": True,
                     "name":rec.name,
                     "purchase_price":rec.purchase_price,
+                    "type":'service',
                     "vehicle_brand_id":rec.vehicle_brand_id.id,
                     "vehicle_model_id":rec.vehicle_model_id.id,
                     "vehicle_version":rec.vehicle_version,
