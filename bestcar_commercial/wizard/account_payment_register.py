@@ -11,7 +11,7 @@ class AccountPaymentRegister(models.TransientModel):
                 if move.move_type == "out_invoice":
                     for invoice_line in move.invoice_line_ids:
                         product = invoice_line.product_id
-                        if product.product_tmpl_id.is_vehicle:
+                        if product.product_tmpl_id.is_vehicle and not product.product_tmpl_id.trade_in:
                             product.product_tmpl_id.status = "waiting_TI"
                             last_project_id = product.product_tmpl_id.project_ids[-1]
                             self.env['project.task'].create([
