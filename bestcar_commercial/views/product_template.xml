@@ -15,7 +15,7 @@
                 </xpath>
 
                 <xpath expr="//header" position="inside">
-                    <field name="status" widget="statusbar" invisible="not is_vehicle"/>
+                    <field name="status" widget="statusbar" invisible="not is_vehicle or trade_in"/>
                 </xpath>
 
                 <xpath expr="//header/button" position="before">
@@ -24,7 +24,7 @@
                             string="Buy Car"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="not is_vehicle or status != 'added'"/>
+                            invisible="not is_vehicle or trade_in or status != 'added'"/>
                 </xpath>
 
                 <xpath expr="//form/header/button[@name='button_buy']" position="after">
@@ -33,7 +33,7 @@
                             string="Sell Car"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="status != 'for_sale'"/>
+                            invisible="is_trade_in or status != 'for_sale'"/>
                 </xpath>
 
                 <xpath expr="//form/header/button[@name='button_sale']" position="after">
@@ -42,7 +42,7 @@
                             string="Ready to sell"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="status != 'reconditioning'"/>
+                            invisible="is_trade_in or status != 'reconditioning'"/>
                 </xpath>
 
                 <xpath expr="//form/header/button[@name='button_ready']" position="after">
@@ -55,7 +55,7 @@
                 </xpath>
 
                 <xpath expr="//header" position="inside">
-                    <field name="status" widget="statusbar" invisible="not is_vehicle"/>
+                    <field name="status" widget="statusbar" invisible="not is_vehicle or trade_in"/>
                 </xpath>
                 <xpath expr="//field[@name='image_1920']" position="attributes">
                     <attribute name="options">{'size': [400]}</attribute>
@@ -67,6 +67,8 @@
                     <page name="car_information" string="Vehicle Information" invisible="is_vehicle == False">
                         <group>
                             <group string="Summary">
+                                <field name="is_trade_in" invisible="trade_in"/>
+                                <field name="trade_in" invisible="is_trade_in or not trade_in" readonly="1"/>
                                 <field name="is_used"/>
                                 <field name="is_vehicle" invisible="1"/>
                                 <field name="vehicle_brand_id"/>
@@ -86,6 +88,7 @@
                                 <field name="horsepower_hp"/>
                                 <field name="cylinders"/>
                                 <field class="fw-bold fs-6" name="mileage_km"/>
+                                <field name="purchase_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
                                 <field name="list_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
                             </group>
                         </group>
@@ -160,17 +163,18 @@
                     <filter string="Coming soon" name="filter_coming_soon"
                             domain="[('status', 'in',['waiting_arrival','reconditioning'])]"/>
                     <separator string="Energy Type"/>
-                        <filter string="Petrol" name="petrol" domain="[('energy_type','=','petrol')]"/>
-                        <filter string="Diesel" name="diesel" domain="[('energy_type','=','diesel')]"/>
-                        <filter string="Hybrid" name="hybrid" domain="[('energy_type','=','hybrid')]"/>
-                        <filter string="Electric" name="electric" domain="[('energy_type','=','electric')]"/>
+                    <filter string="Petrol" name="petrol" domain="[('energy_type','=','petrol')]"/>
+                    <filter string="Diesel" name="diesel" domain="[('energy_type','=','diesel')]"/>
+                    <filter string="Hybrid" name="hybrid" domain="[('energy_type','=','hybrid')]"/>
+                    <filter string="Electric" name="electric" domain="[('energy_type','=','electric')]"/>
                     <separator string="GearBox"/>
-                        <filter string="Automatic" name="automatic" domain="[('gearbox','=','auto')]"/>
-                        <filter string="Manual" name="manual" domain="[('gearbox','=','man')]"/>
+                    <filter string="Automatic" name="automatic" domain="[('gearbox','=','auto')]"/>
+                    <filter string="Manual" name="manual" domain="[('gearbox','=','man')]"/>
                     <separator string="Mileage"/>
-                        <filter string="Mileage &lt; 50.000km" name="50000" domain="[('mileage_km','&lt;=',50000)]"/>
-                        <filter string="50.000 &lt; Mileage &lt; 100.000km" name="100000" domain="[('mileage_km','&gt;',50000),('mileage_km','&lt;=',100000)]"/>
-                        <filter string="Mileage &gt; 100.000km" name="+100000" domain="[('mileage_km','&gt;',100000)]"/>
+                    <filter string="Mileage &lt; 50.000km" name="50000" domain="[('mileage_km','&lt;=',50000)]"/>
+                    <filter string="50.000 &lt; Mileage &lt; 100.000km" name="100000"
+                            domain="[('mileage_km','&gt;',50000),('mileage_km','&lt;=',100000)]"/>
+                    <filter string="Mileage &gt; 100.000km" name="+100000" domain="[('mileage_km','&gt;',100000)]"/>
                     <group expand="0" string="Group By">
                         <filter string="Make" name="make" context="{'group_by': 'vehicle_brand_id'}"/>
                     </group>
@@ -210,70 +214,35 @@
                                     invisible="status not in ['waiting_arrival','reconditioning']"/>
                             <widget name="web_ribbon" title="for sale" bg_color="text-bg-success"
                                     invisible="status != 'for_sale'"/>
+                            <widget name="web_ribbon" title="Trade-in" bg_color="bg-danger" text_color="text-white"
+                                    invisible="not trade_in"/>
                             <aside class="o_kanban_aside_full d-flex" style="flex: 0 0 45%; height: 100%;">
                                 <div class="o_kanban_image_fill position-relative w-100">
-                                        <field name="image_1920" alt="Car Image" class="h-100" widget="image"
-                                               options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
+                                    <field name="image_1920" alt="Car Image" class="h-100" widget="image"
+                                           options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
                                 </div>
                             </aside>
                             <main class="ps-2 ps-md-0">
-                                    <field class="fw-bold fs-5" name="vehicle_brand_id"/>
-                                    <field class="fw-bold fs-5" name="currency_id" invisible="1"/>
-                                    <field class="fw-bold fs-5" name="vehicle_model_id"/>
-                                    <field class="fw-bold fs-6" name="gearbox"/>
-                                    <field class="fw-bold fs-6" name="energy_type"/>
-                                    <field class="fw-bold fs-6" name="date_first_registration"/>
-                                    <span>
-                                        <field class="fw-bold fs-6" name="mileage_km"/>
-                                        km
-                                    </span>
-                                    <field class="text-success oe_inline oe_bold" name="list_price" widget="monetary"
+                                <field class="fw-bold fs-5" name="vehicle_brand_id"/>
+                                <field class="fw-bold fs-5" name="currency_id" invisible="1"/>
+                                <field class="fw-bold fs-5" name="vehicle_model_id"/>
+                                <field class="fw-bold fs-6" name="gearbox"/>
+                                <field class="fw-bold fs-6" name="energy_type"/>
+                                <field class="fw-bold fs-6" name="date_first_registration"/>
+                                <span>
+                                    <field class="fw-bold fs-6" name="mileage_km"/>
+                                    km
+                                </span>
+                                <field class="text-success oe_inline oe_bold" name="list_price" widget="monetary"
                                        options="{'currency_field':'currency_id'}"/>
+                                <field class="text-danger oe_inline oe_bold" name="purchase_price" widget="monetary"
+                                       options="{'currency_field':'currency_id'}" invisible="not trade_in"/>
                             </main>
                         </t>
                     </templates>
                 </kanban>
             </field>
         </record>
-<!--        <record id="view_vehicle_kanban" model="ir.ui.view">-->
-<!--            <field name="name">vehicle.kanban</field>-->
-<!--            <field name="model">product.template</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <kanban class="o_kanban_mobile">-->
-<!--                    <field name="name"/>-->
-<!--                    <field name="status"/>-->
-<!--                    <templates>-->
-<!--                        <t t-name="card" class="d-flex flex-row justify-content-between gap-5 p-1">-->
-<!--                            <widget name="web_ribbon" title="Sold" bg_color="text-bg-danger"-->
-<!--                                    invisible="status not in ['reserved','payment','waiting_delivery','delivered']"/>-->
-<!--                            <widget name="web_ribbon" title="Arriving" bg_color="text-bg-warning"-->
-<!--                                    invisible="status != 'waiting_arrival'"/>-->
-<!--                            <widget name="web_ribbon" title="for sale" bg_color="text-bg-success"-->
-<!--                                    invisible="status != 'for_sale'"/>-->
-<!--                            <div class="w-50">-->
-<!--                                <aside class="o_kanban_image me-2 w-100">-->
-<!--                                    <field name="image_1920" widget="image" options="{'size': [200]}"/>-->
-<!--                                </aside>-->
-<!--                            </div>-->
-<!--                            <main>-->
-<!--                                <field class="fw-bold fs-5" name="vehicle_brand_id"/>-->
-<!--                                <field class="fw-bold fs-5" name="currency_id" invisible="1"/>-->
-<!--                                <field class="fw-bold fs-5" name="vehicle_model_id"/>-->
-<!--                                <field class="fw-bold fs-6" name="gearbox"/>-->
-<!--                                <field class="fw-bold fs-6" name="energy_type"/>-->
-<!--                                <field class="fw-bold fs-6" name="date_first_registration"/>-->
-<!--                                <span>-->
-<!--                                    <field class="fw-bold fs-6" name="mileage_km"/>-->
-<!--                                    km-->
-<!--                                </span>-->
-<!--                                <field class="text-success oe_inline oe_bold" name="list_price" widget="monetary"-->
-<!--                                       options="{'currency_field':'currency_id'}"/>-->
-<!--                            </main>-->
-<!--                        </t>-->
-<!--                    </templates>-->
-<!--                </kanban>-->
-<!--            </field>-->
-<!--        </record>-->
 
         <record id="action_new_vehicle" model="ir.actions.act_window">
             <field name="name">New Vehicles</field>
