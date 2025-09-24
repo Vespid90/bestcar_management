@@ -307,7 +307,7 @@
             <field name="view_mode">kanban,list,form</field>
             <field name="search_view_id" ref="bestcar_commercial.view_vehicle_search"/>
             <field name="domain">[('is_used','=',True),('is_vehicle','=',True)]</field>
-            <field name="context">{'default_is_used':True,'default_is_vehicle':True}</field>
+            <field name="context">{'default_is_used':True,'default_is_vehicle':True,'search_default_filter_available': 1}</field>
         </record>
         <record id="action_used_vehicle_view_list" model="ir.actions.act_window.view">
             <field name="act_window_id" ref="action_used_vehicle"/>
@@ -330,11 +330,11 @@
                   name="New Vehicles"
                   parent="bestcar_commercial_vehicle_menu"
                   action="action_new_vehicle"
-                  sequence="0"/>
+                  sequence="1"/>
         <menuitem id="used_vehicle_menu"
                   name="Used Vehicles"
                   parent="bestcar_commercial_vehicle_menu"
                   action="action_used_vehicle"
-                  sequence="1"/>
+                  sequence="0"/>
     </data>
 </odoo>
