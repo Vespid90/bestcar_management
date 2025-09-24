@@ -18,8 +18,7 @@ class Project(models.Model):
                 if order_line.product_id.is_vehicle:
                     order_line.product_id.status = "waiting_arrival"
 
-                    department = self.env['hr.department'].search([('name', '=', 'Mechanical Workshop')],
-                                                                          limit=1)
+                    department = self.env['hr.department'].search([('id', '=',8)],limit=1)
                     project = self.env['project.project'].create({
                                 'active': True,
                                 'name': f"{order_line.product_id.name} Reconditioning",
