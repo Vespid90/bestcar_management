@@ -1,0 +1,58 @@
+<odoo>
+    <!-- Create Belgian Company -->
+    <record id="my_new_company" model="res.company">
+        <field name="name">BestCar</field>
+        <field name="street">123 Boulevard P'tite roue</field>
+        <field name="city">Charleroi</field>
+        <field name="zip">6000</field>
+        <field name="country_id" ref="base.be"/>
+        <field name="currency_id" ref="base.EUR"/>
+    </record>
+
+    <!-- Make Belgian company the default for new users -->
+    <!--    <record id="default_company_for_users" model="ir.default">-->
+    <!--        <field name="field_id" ref="base.field_res_users_company_id"/>-->
+    <!--        <field name="json_value" eval="ref('my_new_company')"/>-->
+    <!--    </record>-->
+
+    <!-- Assign Mitchell Admin to Belgian company -->
+    <record id="base.user_admin" model="res.users">
+        <field name="company_id" ref="my_new_company"/>
+        <field name="company_ids" eval="[(4, ref('base.main_company')), (4, ref('my_new_company'))]"/>
+    </record>
+
+    <record id="hr_department_mechanical_workshop" model="hr.department">
+        <field name="name">Mechanical Workshop</field>
+        <field name="company_id" ref="my_new_company"/>
+    </record>
+    <!-- Employee for Mitchell Admin -->
+    <record id="my_belgian_admin_employee" model="hr.employee">
+        <field name="name">Mitchell Admin</field>
+        <field name="company_id" ref="my_new_company"/>
+        <field name="job_title">Administrator</field>
+        <field name="work_email">admin@example.com</field>
+        <field name="user_id" ref="base.user_admin"/>
+    </record>
+    <record id="user_jean_marc" model="res.users">
+        <field name="name">Jean-Marc Broutin</field>
+        <field name="login">jean.marc@example.com</field>
+        <field name="company_id" ref="my_new_company"/>
+        <field name="company_ids" eval="[(6, 0, [ref('my_new_company')])]"/>
+        <!-- You can assign groups here if needed, e.g., sales or inventory -->
+        <!-- <field name="groups_id" eval="[(4, ref('base.group_user'))]"/> -->
+    </record>
+    <!-- Employee for Jean-Marc Broutin -->
+    <record id="my_belgian_employee_jmb" model="hr.employee">
+        <field name="name">Jean-Marc Broutin</field>
+        <field name="company_id" ref="my_new_company"/>
+        <field name="department_id" ref="hr_department_mechanical_workshop"/>
+        <field name="job_title">Mechanical Workshop Manager</field>
+        <field name="work_email">jean.marc@example.com</field>
+        <field name="user_id" ref="user_jean_marc"/>
+    </record>
+
+    <!-- Set Jean-Marc as Department Manager -->
+    <record id="hr_department_mechanical_workshop" model="hr.department">
+        <field name="manager_id" ref="my_belgian_employee_jmb"/>
+    </record>
+</odoo>
