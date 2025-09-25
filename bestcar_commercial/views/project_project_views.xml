@@ -25,7 +25,7 @@
             </xpath>
         </field>
     </record>
-        <record id="action_open_projects" model="ir.actions.act_window">
+    <record id="action_open_projects" model="ir.actions.act_window">
         <field name="name">Projects</field>
         <field name="res_model">project.project</field>
         <field name="view_mode">kanban,list</field>

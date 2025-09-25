@@ -1,25 +1,20 @@
 <odoo>
-    <!--    logo and back to dashborad-->
     <menuitem id="bestcar_commercial_root"
               name="Bestcar"
               web_icon="bestcar_commercial,static/description/icon.png"
               sequence="0"/>
-    <!--    menu item "vehicle"-->
     <menuitem id="bestcar_commercial_vehicle_menu"
               name="Vehicles"
               parent="bestcar_commercial_root"
               sequence="1"/>
-    <!--    menu item "Orders"-->
     <menuitem id="bestcar_purchase_menu"
               name="Orders"
               parent="bestcar_commercial_root"
               sequence="2"/>
-    <!--    menu item "Project"-->
     <menuitem id="bestcar_project_menu"
               name="Project"
               parent="bestcar_commercial_root"
               sequence="3"/>
-    <!--    menu item "configuration"-->
     <menuitem id="menu_vehicle_configuration"
               name="Configuration"
               parent="bestcar_commercial_root"

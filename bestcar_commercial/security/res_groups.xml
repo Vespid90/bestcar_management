@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
 
+<odoo>
     <record id="module_bestcar_security" model="ir.module.category">
         <field name="name">BestCar</field>
         <field name="description">Rights on Module BestCar</field>
@@ -30,5 +30,4 @@
         <field name="implied_ids" eval="[(4,ref('bestcar_group_sales'),4,ref('bestcar_group_workshop_manager'))]"/>
         <field name="users" eval="[(4,ref('base.user_root')),(4,ref('base.user_admin'))]"/>
     </record>
-
 </odoo>

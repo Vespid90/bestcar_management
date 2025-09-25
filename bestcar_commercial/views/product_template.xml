@@ -42,7 +42,7 @@
                             string="Ready to sell"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="is_trade_in or status != 'reconditioning'"/>
+                            invisible="trade_in or status != 'reconditioning'"/>
                 </xpath>
 
                 <xpath expr="//form/header/button[@name='button_ready']" position="after">
@@ -71,10 +71,10 @@
                                 <field name="trade_in" invisible="is_trade_in or not trade_in" readonly="1"/>
                                 <field name="is_used"/>
                                 <field name="is_vehicle" invisible="1"/>
-                                <field name="vehicle_brand_id"/>
-                                <field name="vehicle_model_id"/>
+                                <field name="vehicle_brand_id" required="1"/>
+                                <field name="vehicle_model_id" required="1"/>
                                 <field name="vehicle_type_id" readonly="1"/>
-                                <field name="vehicle_version"/>
+                                <field name="vehicle_version" required="1"/>
                                 <field name="uom_id" invisible="1"/>
                                 <field name="uom_po_id" invisible="1"/>
                                 <field name="categ_id" invisible="1"/>
@@ -88,14 +88,14 @@
                                 <field name="horsepower_hp"/>
                                 <field name="cylinders"/>
                                 <field class="fw-bold fs-6" name="mileage_km"/>
-                                <field name="purchase_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                                <field name="purchase_price" widget="monetary"
+                                       options="{'currency_field':'currency_id'}"/>
                                 <field name="list_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
                             </group>
                         </group>
                         <group>
                             <group string="Identification">
                                 <field name="vin" required="is_used"/>
-                                <field name="reference_number"/>
                                 <field name="country_of_origin_id"/>
                             </group>
 
@@ -187,7 +187,7 @@
             <field name="arch" type="xml">
                 <list string="Vehicles">
                     <field name="name" string="Vehicle reference"/>
-                    <field name="is_used"/>
+                    <field name="status"/>
                     <field name="is_vehicle" column_invisible="1"/>
                     <field name="vehicle_brand_id"/>
                     <field name="vehicle_model_id"/>
@@ -195,8 +195,8 @@
                     <field name="vehicle_version"/>
                     <field name="vin"/>
                     <field class="fw-bold fs-6" name="mileage_km"/>
-                    <field name="list_price"/>
                     <field name="purchase_price"/>
+                    <field name="list_price"/>
                 </list>
             </field>
         </record>
@@ -209,7 +209,7 @@
                     <templates>
                         <t t-name="card" class="d-flex flex-row">
                             <widget name="web_ribbon" title="Sold" bg_color="text-bg-danger"
-                                    invisible="status not in ['reserved','payment','waiting_delivery','delivered']"/>
+                                    invisible="status not in ['reserved','payment','waiting_delivery','waiting_TI','delivered']"/>
                             <widget name="web_ribbon" title="coming soon" bg_color="text-bg-warning"
                                     invisible="status not in ['waiting_arrival','reconditioning']"/>
                             <widget name="web_ribbon" title="for sale" bg_color="text-bg-success"
@@ -243,7 +243,6 @@
                 </kanban>
             </field>
         </record>
-
         <record id="action_new_vehicle" model="ir.actions.act_window">
             <field name="name">New Vehicles</field>
             <field name="res_model">product.template</field>
@@ -275,8 +274,10 @@
             <field name="res_model">product.template</field>
             <field name="view_mode">kanban,list,form</field>
             <field name="search_view_id" ref="bestcar_commercial.view_vehicle_search"/>
-            <field name="domain">[('is_used','=',True),('is_vehicle','=',True),('trade_in','=',False)]</field>
-            <field name="context">{'default_is_used':True,'default_is_vehicle':True,'search_default_filter_available': 1}</field>
+            <field name="domain">[('is_used','=',True),('is_vehicle','=',True)]</field>
+            <field name="context">{'default_is_used':True,'default_is_vehicle':True,'search_default_filter_available':
+                1}
+            </field>
         </record>
         <record id="action_used_vehicle_view_list" model="ir.actions.act_window.view">
             <field name="act_window_id" ref="action_used_vehicle"/>

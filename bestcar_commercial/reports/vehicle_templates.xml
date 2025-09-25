@@ -1,265 +1,321 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-  <template id="vehicle_report">
-
-    <t t-call="web.html_container">
-      <t t-foreach="docs" t-as="o">
-        <div class="page" style="font-family:'DejaVu Sans', Arial, sans-serif;">
-
-
-          <table style="width:100%; border-collapse:collapse; margin:0; padding:0;">
-            <tr>
-              <td style="width:260px; vertical-align:middle; padding:0 0 8px 0;">
-                <t t-if="o.company_id.logo">
-                  <img t-attf-src="data:image/png;base64,#{o.company_id.logo}"
-                       style="max-height:110px; max-width:240px;"/>
-                </t>
-              </td>
-
-              <td style="text-align:right; vertical-align:middle; padding:0 0 8px 0;">
-                <div style="display:inline-block; text-align:left;">
-                  <div style="font-size:20px; font-weight:700; margin-bottom:4px;">
-                    <t t-esc="o.company_id.name"/>
-                  </div>
-                  <div style="font-size:11px; line-height:1.5;">
-                    <t t-if="o.company_id.street"><t t-esc="o.company_id.street"/></t>
-                    <t t-if="o.company_id.street2"> <t t-esc="o.company_id.street2"/></t>
-                  </div>
-                  <div style="font-size:11px; line-height:1.5;">
-                    <t t-if="o.company_id.zip or o.company_id.city">
-                      <t t-esc="o.company_id.zip"/> <t t-esc="o.company_id.city"/>
-                    </t>
-                    <t t-if="(o.company_id.zip or o.company_id.city) and o.company_id.country_id"> - </t>
-                    <t t-if="o.company_id.country_id"><t t-esc="o.company_id.country_id.name"/></t>
-                  </div>
-                  <div style="font-size:11px; line-height:1.5;">
-                    <t t-if="o.company_id.phone"><t t-esc="o.company_id.phone"/></t>
-                    <t t-if="o.company_id.phone and o.company_id.email"> | </t>
-                    <t t-if="o.company_id.email"><t t-esc="o.company_id.email"/></t>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" style="padding-top:10px;">
-                <div style="border-bottom:2px solid #222; width:100%;"></div>
-              </td>
-            </tr>
-          </table>
+    <template id="vehicle_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="font-family:'DejaVu Sans', Arial, sans-serif;">
 
 
-          <t t-set="vin_clean" t-value="(o.vin or '').strip().upper()"/>
-          <div style="margin-top:2cm; font-size:16px; font-weight:700;">
-            <t t-esc="(o.vehicle_brand_id and o.vehicle_brand_id.name) or ''"/>
-            <t t-if="o.vehicle_model_id"> - <t t-esc="o.vehicle_model_id.name"/></t>
-            <t t-if="o.vehicle_version"> - <t t-esc="o.vehicle_version"/></t>
-            <t t-if="vin_clean"> (<t t-esc="vin_clean[:5]"/>...)</t>
-          </div>
+                    <table style="width:100%; border-collapse:collapse; margin:0; padding:0;">
+                        <tr>
+                            <td style="width:260px; vertical-align:middle; padding:0 0 8px 0;">
+                                <t t-if="o.company_id.logo">
+                                    <img t-attf-src="data:image/png;base64,#{o.company_id.logo}"
+                                         style="max-height:110px; max-width:240px;"/>
+                                </t>
+                            </td>
 
+                            <td style="text-align:right; vertical-align:middle; padding:0 0 8px 0;">
+                                <div style="display:inline-block; text-align:left;">
+                                    <div style="font-size:20px; font-weight:700; margin-bottom:4px;">
+                                        <t t-esc="o.company_id.name"/>
+                                    </div>
+                                    <div style="font-size:11px; line-height:1.5;">
+                                        <t t-if="o.company_id.street">
+                                            <t t-esc="o.company_id.street"/>
+                                        </t>
+                                        <t t-if="o.company_id.street2">
+                                            <t t-esc="o.company_id.street2"/>
+                                        </t>
+                                    </div>
+                                    <div style="font-size:11px; line-height:1.5;">
+                                        <t t-if="o.company_id.zip or o.company_id.city">
+                                            <t t-esc="o.company_id.zip"/>
+                                            <t t-esc="o.company_id.city"/>
+                                        </t>
+                                        <t t-if="(o.company_id.zip or o.company_id.city) and o.company_id.country_id">
+                                            -
+                                        </t>
+                                        <t t-if="o.company_id.country_id">
+                                            <t t-esc="o.company_id.country_id.name"/>
+                                        </t>
+                                    </div>
+                                    <div style="font-size:11px; line-height:1.5;">
+                                        <t t-if="o.company_id.phone">
+                                            <t t-esc="o.company_id.phone"/>
+                                        </t>
+                                        <t t-if="o.company_id.phone and o.company_id.email">|</t>
+                                        <t t-if="o.company_id.email">
+                                            <t t-esc="o.company_id.email"/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding-top:10px;">
+                                <div style="border-bottom:2px solid #222; width:100%;"></div>
+                            </td>
+                        </tr>
+                    </table>
 
-          <table style="width:100%; border-collapse:collapse; margin-top:8px;">
-            <tr>
-
-              <td style="width:60%; vertical-align:top; padding-right:10px;">
-                <t t-set="variant" t-value="o.product_variant_id"/>
-                <t t-set="img_b64"
-                   t-value="o.image or o.image_1920 or (variant and (variant.image or variant.image_1920)) or False"/>
-                <t t-if="img_b64">
-                  <div style="border:1px solid #ccc; padding:6px; display:inline-block;">
-                    <img t-attf-src="data:image/png;base64,#{img_b64}" style="max-width:100%; height:auto;"/>
-                  </div>
-                </t>
-                <t t-if="not img_b64">
-                  <div style="height:220px; border:1px solid #bbb; background:#eee; text-align:center; line-height:220px; font-weight:600; color:#666;">
-                    PHOTO
-                  </div>
-                </t>
-              </td>
-
-
-              <td style="width:40%; vertical-align:top; padding-left:10px;">
-                <div style="border:1px solid #c33; border-radius:3px; overflow:hidden;">
-                  <div style="background:#c33; color:#fff; font-weight:700; text-align:center; padding:6px 8px; font-size:13px;">
-                    Price
-                  </div>
-                  <div style="padding:12px; text-align:center;">
-                    <t t-set="curr" t-value="o.currency_id or o.company_id.currency_id"/>
-                    <t t-set="amt" t-value="o.list_price or 0.0"/>
-                    <t t-set="us" t-value="'{:,.2f}'.format(amt)"/>
-                    <t t-set="eu" t-value="us.replace(',', 'X').replace('.', ',').replace('X', '.')"/>
-                    <div style="font-size:28px; font-weight:800; margin-bottom:4px;">
-                      <t t-if="curr.position == 'after'">
-                        <t t-esc="eu"/> <t t-esc="curr.symbol"/>
-                      </t>
-                      <t t-else="">
-                        <t t-esc="curr.symbol"/> <t t-esc="eu"/>
-                      </t>
+                    <t t-set="vin_clean" t-value="(o.vin or '').strip().upper()"/>
+                    <div style="margin-top:2cm; font-size:16px; font-weight:700;">
+                        <t t-esc="(o.vehicle_brand_id and o.vehicle_brand_id.name) or ''"/>
+                        <t t-if="o.vehicle_model_id">-
+                            <t t-esc="o.vehicle_model_id.name"/>
+                        </t>
+                        <t t-if="o.vehicle_version">-
+                            <t t-esc="o.vehicle_version"/>
+                        </t>
+                        <t t-if="vin_clean">(<t t-esc="vin_clean[:5]"/>...)
+                        </t>
                     </div>
-                    <div style="font-size:11px; color:#333; margin-bottom:6px;">
-                      VAT included
+
+                    <table style="width:100%; border-collapse:collapse; margin-top:8px;">
+                        <tr>
+
+                            <td style="width:60%; vertical-align:top; padding-right:10px;">
+                                <t t-set="variant" t-value="o.product_variant_id"/>
+                                <t t-set="img_b64"
+                                   t-value="o.image or o.image_1920 or (variant and (variant.image or variant.image_1920)) or False"/>
+                                <t t-if="img_b64">
+                                    <div style="border:1px solid #ccc; padding:6px; display:inline-block;">
+                                        <img t-attf-src="data:image/png;base64,#{img_b64}"
+                                             style="max-width:100%; height:auto;"/>
+                                    </div>
+                                </t>
+                                <t t-if="not img_b64">
+                                    <div style="height:220px; border:1px solid #bbb; background:#eee; text-align:center; line-height:220px; font-weight:600; color:#666;">
+                                        PHOTO
+                                    </div>
+                                </t>
+                            </td>
+
+                            <td style="width:40%; vertical-align:top; padding-left:10px;">
+                                <div style="border:1px solid #c33; border-radius:3px; overflow:hidden;">
+                                    <div style="background:#c33; color:#fff; font-weight:700; text-align:center; padding:6px 8px; font-size:13px;">
+                                        Price
+                                    </div>
+                                    <div style="padding:12px; text-align:center;">
+                                        <t t-set="curr" t-value="o.currency_id or o.company_id.currency_id"/>
+                                        <t t-set="amt" t-value="o.list_price or 0.0"/>
+                                        <t t-set="us" t-value="'{:,.2f}'.format(amt)"/>
+                                        <t t-set="eu"
+                                           t-value="us.replace(',', 'X').replace('.', ',').replace('X', '.')"/>
+                                        <div style="font-size:28px; font-weight:800; margin-bottom:4px;">
+                                            <t t-if="curr.position == 'after'">
+                                                <t t-esc="eu"/>
+                                                <t t-esc="curr.symbol"/>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-esc="curr.symbol"/>
+                                                <t t-esc="eu"/>
+                                            </t>
+                                        </div>
+                                        <div style="font-size:11px; color:#333; margin-bottom:6px;">
+                                            VAT included
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="background:#c33; color:#fff; text-transform:uppercase; font-weight:700; text-align:center; padding:6px 8px; margin-top:12px; border-radius:3px 3px 0 0;">
+                        Specifications
                     </div>
-                  </div>
+                    <table style="width:100%; border-collapse:collapse; font-size:11px; border:1px solid #ddd; border-top:none; margin-bottom:6px;">
+                        <t t-set="dash">-</t>
+
+                        <tr>
+                            <td style="width:25%; background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">
+                                First Registration Date
+                            </td>
+                            <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;">
+
+                                <t t-if="o.date_first_registration">
+                                    <span t-field="o.date_first_registration" t-options="{'widget': 'date'}"/>
+                                </t>
+                                <t t-if="not o.date_first_registration">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                            <td style="width:25%; background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">
+                                Emission Standard
+                            </td>
+                            <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;"
+                                t-esc="o.emissions_standard or o.class_of_emission or dash"/>
+                        </tr>
+
+                        <tr>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Mileage</td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
+                                <t t-if="o.mileage_km not in (False, None, 0)">
+                                    <t t-esc="'{:,.0f}'.format(o.mileage_km)"/>
+                                    km
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Color</td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;" t-esc="o.body_color or dash"/>
+                        </tr>
+
+                        <tr>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Fuel Type</td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;"
+                                t-esc="{'petrol':'Petrol','diesel':'Diesel','hybrid':'Hybrid','electric':'Electric'}.get(o.energy_type, dash)"/>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Transmission
+                            </td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;"
+                                t-esc="{'auto':'Automatic','man':'Manual'}.get(o.gearbox, dash)"/>
+                        </tr>
+
+                        <tr>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Power</td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
+                                <t t-if="o.horsepower_hp not in (False, None, 0)">
+                                    <t t-esc="'{:,.0f}'.format(o.horsepower_hp)"/>
+                                    hp
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Engine
+                                Capacity
+                            </td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
+
+                                <t t-if="o.engine_capacity_cc not in (False, None, 0)">
+                                    <t t-esc="'{:,.0f}'.format(o.engine_capacity_cc)"/>
+                                    cm
+                                    <sup>3</sup>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Fiscal Power
+                            </td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
+                                <t t-if="o.fiscal_power_cv not in (False, None, 0)">
+                                    <t t-esc="'{:,.0f}'.format(o.fiscal_power_cv)"/>
+                                    CV
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+
+
+                            <td style="width:25%; background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">CO
+                                <sub>2</sub>
+                            </td>
+                            <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;">
+
+                                <t t-set="co2val" t-value="o.co2_g_km"/>
+                                <t t-set="has_co2" t-value="co2val not in (False, None, 0)"/>
+                                <t t-set="co2" t-value="has_co2 and co2val or 0.0"/>
+                                <t t-set="cls"
+                                   t-value="co2 and ('A' if co2 &lt;= 95 else ('B' if co2 &lt;= 120 else ('C' if co2 &lt;= 150 else ('D' if co2 &lt;= 210 else ('E' if co2 &lt;= 275 else ('F' if co2 &lt;= 345 else 'G')))))) or ''"/>
+                                <t t-set="col"
+                                   t-value="co2 and ('#2e7d32' if co2 &lt;= 95 else ('#558b2f' if co2 &lt;= 120 else ('#8bc34a' if co2 &lt;= 150 else ('#f9a825' if co2 &lt;= 210 else ('#f57c00' if co2 &lt;= 275 else ('#e64a19' if co2 &lt;= 345 else '#c62828')))))) or '#bbb'"/>
+
+                                <t t-if="has_co2">
+                                    <t t-esc="'{:,.0f}'.format(co2)"/>
+                                    g/km
+                                    <span t-att-style="'display:inline-block; min-width:22px; text-align:center; font-weight:700; color:#fff; background:'+col+'; border-radius:10px; padding:2px 8px; margin-left:6px;'">
+                                        <t t-esc="cls"/>
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Length</td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
+                                <t t-if="o.length_mm not in (False, None, 0)">
+                                    <t t-esc="'{:,.1f}'.format((o.length_mm or 0)/10.0)"/>
+                                    cm
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                            <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Width</td>
+                            <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
+                                <t t-if="o.width_mm not in (False, None, 0)">
+                                    <t t-esc="'{:,.1f}'.format((o.width_mm or 0)/10.0)"/>
+                                    cm
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="background:#f6f6f6; padding:6px;">Height</td>
+                            <td style="padding:6px;">
+                                <t t-if="o.height_mm not in (False, None, 0)">
+                                    <t t-esc="'{:,.1f}'.format((o.height_mm or 0)/10.0)"/>
+                                    cm
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                            <td style="background:#f6f6f6; padding:6px;">Doors</td>
+                            <td style="padding:6px;">
+                                <t t-if="o.doors not in (False, None, 0)">
+                                    <t t-esc="'{:,.0f}'.format(o.doors)"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dash"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
-              </td>
-            </tr>
-          </table>
+            </t>
 
-
-          <div style="background:#c33; color:#fff; text-transform:uppercase; font-weight:700; text-align:center; padding:6px 8px; margin-top:12px; border-radius:3px 3px 0 0;">
-            Specifications
-          </div>
-          <table style="width:100%; border-collapse:collapse; font-size:11px; border:1px solid #ddd; border-top:none; margin-bottom:6px;">
-            <t t-set="dash">-</t>
-
-            <tr>
-              <td style="width:25%; background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">First Registration Date</td>
-              <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;">
-
-                <t t-if="o.date_first_registration">
-                  <span t-field="o.date_first_registration" t-options="{'widget': 'date'}"/>
-                </t>
-                <t t-if="not o.date_first_registration"><t t-esc="dash"/></t>
-              </td>
-              <td style="width:25%; background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Emission Standard</td>
-              <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;"
-                  t-esc="o.emissions_standard or o.class_of_emission or dash"/>
-            </tr>
-
-            <tr>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Mileage</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-                <t t-if="o.mileage_km not in (False, None, 0)">
-                  <t t-esc="'{:,.0f}'.format(o.mileage_km)"/> km
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Color</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;" t-esc="o.body_color or dash"/>
-            </tr>
-
-            <tr>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Fuel Type</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;"
-                  t-esc="{'petrol':'Petrol','diesel':'Diesel','hybrid':'Hybrid','electric':'Electric'}.get(o.energy_type, dash)"/>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Transmission</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;"
-                  t-esc="{'auto':'Automatic','man':'Manual'}.get(o.gearbox, dash)"/>
-            </tr>
-
-            <tr>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Power</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-                <t t-if="o.horsepower_hp not in (False, None, 0)">
-                  <t t-esc="'{:,.0f}'.format(o.horsepower_hp)"/> hp
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Engine Capacity</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-
-                <t t-if="o.engine_capacity_cc not in (False, None, 0)">
-                  <t t-esc="'{:,.0f}'.format(o.engine_capacity_cc)"/> cm<sup>3</sup>
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-            </tr>
-
-            <tr>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Fiscal Power</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-                <t t-if="o.fiscal_power_cv not in (False, None, 0)">
-                  <t t-esc="'{:,.0f}'.format(o.fiscal_power_cv)"/> CV
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-
-
-              <td style="width:25%; background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">CO<sub>2</sub></td>
-              <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;">
-
-                <t t-set="co2val" t-value="o.co2_g_km"/>
-                <t t-set="has_co2" t-value="co2val not in (False, None, 0)"/>
-                <t t-set="co2" t-value="has_co2 and co2val or 0.0"/>
-                <t t-set="cls" t-value="co2 and ('A' if co2 &lt;= 95 else ('B' if co2 &lt;= 120 else ('C' if co2 &lt;= 150 else ('D' if co2 &lt;= 210 else ('E' if co2 &lt;= 275 else ('F' if co2 &lt;= 345 else 'G')))))) or ''"/>
-                <t t-set="col" t-value="co2 and ('#2e7d32' if co2 &lt;= 95 else ('#558b2f' if co2 &lt;= 120 else ('#8bc34a' if co2 &lt;= 150 else ('#f9a825' if co2 &lt;= 210 else ('#f57c00' if co2 &lt;= 275 else ('#e64a19' if co2 &lt;= 345 else '#c62828')))))) or '#bbb'"/>
-
-                <t t-if="has_co2">
-                  <t t-esc="'{:,.0f}'.format(co2)"/> g/km
-                  <span t-att-style="'display:inline-block; min-width:22px; text-align:center; font-weight:700; color:#fff; background:'+col+'; border-radius:10px; padding:2px 8px; margin-left:6px;'">
-                    <t t-esc="cls"/>
-                  </span>
-                </t>
-                <t t-else="">
-                  <t t-esc="dash"/>
-                </t>
-              </td>
-            </tr>
-
-            <tr>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Length</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-                <t t-if="o.length_mm not in (False, None, 0)">
-                  <t t-esc="'{:,.1f}'.format((o.length_mm or 0)/10.0)"/> cm
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-              <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Width</td>
-              <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-                <t t-if="o.width_mm not in (False, None, 0)">
-                  <t t-esc="'{:,.1f}'.format((o.width_mm or 0)/10.0)"/> cm
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-            </tr>
-
-            <tr>
-              <td style="background:#f6f6f6; padding:6px;">Height</td>
-              <td style="padding:6px;">
-                <t t-if="o.height_mm not in (False, None, 0)">
-                  <t t-esc="'{:,.1f}'.format((o.height_mm or 0)/10.0)"/> cm
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-              <td style="background:#f6f6f6; padding:6px;">Doors</td>
-              <td style="padding:6px;">
-                <t t-if="o.doors not in (False, None, 0)">
-                  <t t-esc="'{:,.0f}'.format(o.doors)"/>
-                </t>
-                <t t-else=""><t t-esc="dash"/></t>
-              </td>
-            </tr>
-          </table>
-
-        </div>
-      </t>
-
-
-      <div class="footer">
-        <table style="width:100%;
+            <div class="footer">
+                <table style="width:100%;
                       border-collapse:separate; border-spacing:0;
                       font-size:9px; color:#666;
                       border:0 !important; border-top:1px solid #bbb;
                       padding-top:4px;">
-          <tr style="border:0 !important;">
-            <td style="width:68%; vertical-align:top; padding-top:3px; border:0 !important; line-height:1.35;">
-              Information provided in good faith and for guidance only. This document does not constitute a contractual offer.
-              Specifications, equipment and prices may change without notice and may contain errors or omissions.
-              Vehicle availability and price subject to prior sale. Images for illustration purposes only.
-            </td>
-            <td style="width:32%; vertical-align:top; text-align:right; padding-top:3px; border:0 !important; line-height:1.35;">
-              Financing available subject to approval and conditions. Example rates and terms are indicative only.
-              Contact us for a personalized financing proposal.
-            </td>
-          </tr>
+                    <tr style="border:0 !important;">
+                        <td style="width:68%; vertical-align:top; padding-top:3px; border:0 !important; line-height:1.35;">
+                            Information provided in good faith and for guidance only. This document does not constitute
+                            a contractual offer.
+                            Specifications, equipment and prices may change without notice and may contain errors or
+                            omissions.
+                            Vehicle availability and price subject to prior sale. Images for illustration purposes only.
+                        </td>
+                        <td style="width:32%; vertical-align:top; text-align:right; padding-top:3px; border:0 !important; line-height:1.35;">
+                            Financing available subject to approval and conditions. Example rates and terms are
+                            indicative only.
+                            Contact us for a personalized financing proposal.
+                        </td>
+                    </tr>
 
-          <tr style="border:0 !important;">
-            <td colspan="2" style="height:10mm; border:0 !important; padding:0; margin:0;"></td>
-          </tr>
-        </table>
-      </div>
-    </t>
-  </template>
+                    <tr style="border:0 !important;">
+                        <td colspan="2" style="height:10mm; border:0 !important; padding:0; margin:0;"></td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
 </odoo>
-
-

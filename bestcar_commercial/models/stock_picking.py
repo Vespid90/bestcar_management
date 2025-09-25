@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models
+
 
 class Project(models.Model):
     _inherit = "stock.picking"
@@ -12,7 +13,6 @@ class Project(models.Model):
                 else:
                     rec.product_id.product_tmpl_id.status = "delivered"
         return res
-
 
     def action_cancel(self):
         res = super().action_cancel()

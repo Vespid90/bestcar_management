@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields
+
 
 class VehicleType(models.Model):
     _name = "vehicle.type"

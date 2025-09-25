@@ -11,4 +11,3 @@ from . import vehicle_model
 from . import vehicle_type
 from . import purchase_order
 from . import stock_picking
-
