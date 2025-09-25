@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models, fields
 
 
 class SaleOrder(models.Model):
@@ -10,6 +10,7 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 if line.product_template_id.is_vehicle:
                     line.product_template_id.status = "reserved"
+                    line.product_template_id.date_sale = fields.Date.today()
         return res
 
     def action_cancel(self):

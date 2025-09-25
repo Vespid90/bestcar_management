@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models, fields
 
 
 class Project(models.Model):
@@ -9,6 +9,7 @@ class Project(models.Model):
         for rec in self:
             if rec.product_id.product_tmpl_id.is_vehicle:
                 if rec.product_id.product_tmpl_id.status == "waiting_arrival":
+                    rec.product_id.product_tmpl_id.date_arrival = fields.Date.today()
                     rec.product_id.product_tmpl_id.status = "reconditioning"
                 else:
                     rec.product_id.product_tmpl_id.status = "delivered"

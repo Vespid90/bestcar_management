@@ -33,10 +33,10 @@ class ProductTemplate(models.Model):
     vehicle_version = fields.Char(string="Version")
     vin = fields.Char(string="VIN")
 
-    date_arrival = fields.Date(string="Arrival Date")
+    date_arrival = fields.Date(string="Arrival Date", readonly=True)
     date_first_registration = fields.Date(string="First Registration Date")
-    date_purchase = fields.Date(string="Purchase Date")
-    date_sale = fields.Date(string="Sale Date")
+    date_purchase = fields.Date(string="Purchase Date", readonly=True)
+    date_sale = fields.Date(string="Sale Date", readonly=True)
 
     co2_g_km = fields.Float(string="CO₂ Emission (g/km)")
     fuel_tank_volume_l = fields.Float(string="Fuel Tank Volume (L)")
@@ -44,7 +44,7 @@ class ProductTemplate(models.Model):
     height_mm = fields.Float(string="Height (mm)")
     kerb_weight_kg = fields.Float(string="Kerb Weight (kg)")
     length_mm = fields.Float(string="Length (mm)")
-    stock_time_days = fields.Float(string="Stock Time (days)")
+    stock_time_days = fields.Float(string="Stock Time (days)", compute="_compute_stock_time", store=True)
     width_mm = fields.Float(string="Width (mm)")
 
     cylinders = fields.Integer(string="Number of Cylinders")
@@ -152,6 +152,16 @@ class ProductTemplate(models.Model):
                 rec.name = f"TRD - {base_name}"
             else:
                 rec.name = base_name
+
+    @api.depends('date_arrival', 'date_sale')
+    def _compute_stock_time(self):
+        for rec in self:
+            if rec.date_arrival:
+                if not rec.date_sale:
+                    rec.stock_time_days = (fields.Date.today() - rec.date_arrival).days
+                else:
+                    rec.stock_time_days = (rec.date_sale - rec.date_arrival).days
+
 
     @api.model_create_multi
     def create(self, vals_list):

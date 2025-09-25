@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models, fields
 
 PROJECT_STAGES = [
     {'name': 'New', 'sequence': 1},
@@ -12,7 +12,6 @@ class Project(models.Model):
     _inherit = "purchase.order"
 
     def button_confirm(self):
-        # department = self.env['hr.department'].browse([8])
         department = self.env.ref('bestcar_commercial.hr_department_mechanical_workshop')
         manager_user = department.manager_id.user_id
         default_user_id = manager_user.id if manager_user else self.env.uid
@@ -20,6 +19,7 @@ class Project(models.Model):
         for order in self:
             for order_line in order.order_line:
                 if order_line.product_id.is_vehicle:
+                    order_line.product_id.date_purchase = fields.Date.today()
                     order_line.product_id.purchase_price = order_line.price_unit
                     order_line.product_id.status = "waiting_arrival"
                     project = self.env['project.project'].create({
