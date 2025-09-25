@@ -33,7 +33,7 @@
                             string="Sell Car"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="is_trade_in or status != 'for_sale'"/>
+                            invisible="not is_vehicle or trade_in or status != 'for_sale'"/>
                 </xpath>
 
                 <xpath expr="//form/header/button[@name='button_sale']" position="after">
@@ -42,7 +42,7 @@
                             string="Ready to sell"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="trade_in or status != 'reconditioning'"/>
+                            invisible="not is_vehicle or trade_in or status != 'reconditioning'"/>
                 </xpath>
 
                 <xpath expr="//form/header/button[@name='button_ready']" position="after">
@@ -51,18 +51,21 @@
                             string="Technical Inspection OK"
                             class="oe_highlight"
                             data-hotkey="z"
-                            invisible="status != 'waiting_TI'"/>
+                            invisible="not is_vehicle or trade_in or status != 'waiting_TI'"/>
                 </xpath>
 
                 <xpath expr="//header" position="inside">
                     <field name="status" widget="statusbar" invisible="not is_vehicle or trade_in"/>
                 </xpath>
+
                 <xpath expr="//field[@name='image_1920']" position="attributes">
                     <attribute name="options">{'size': [400]}</attribute>
                 </xpath>
+
                 <xpath expr="//page[@name='variants']" position="attributes">
                     <attribute name="invisible">is_used</attribute>
                 </xpath>
+
                 <xpath expr="//page[@name='general_information']" position="before">
                     <page name="car_information" string="Vehicle Information" invisible="is_vehicle == False">
                         <group>
@@ -81,6 +84,7 @@
                                 <field name="type" invisible="1"/>
                                 <field name="energy_type"/>
                             </group>
+
                             <group string="Summary">
                                 <field name="class_of_emission"/>
                                 <field name="gearbox"/>
@@ -93,6 +97,7 @@
                                 <field name="list_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
                             </group>
                         </group>
+
                         <group>
                             <group string="Identification">
                                 <field name="vin" required="is_used"/>
@@ -108,9 +113,8 @@
                                 <field name="fuel_tank_volume_l"/>
                             </group>
                         </group>
+
                         <group>
-
-
                             <group string="Others">
                                 <field name="co2_g_km"/>
                                 <field name="class_of_emission"/>
@@ -118,17 +122,16 @@
                                 <field name="mileage_km"/>
                                 <field name="warranty_km"/>
                             </group>
+
                             <group string="Commercial Info">
                                 <field name="purchase_price"/>
                                 <field name="list_price"/>
                                 <field name="stock_time_days"/>
                                 <field name="supplier_id"/>
                             </group>
-
-
                         </group>
-                        <group>
 
+                        <group>
                             <group string="Dimensions">
                                 <field name="length_mm"/>
                                 <field name="width_mm"/>
@@ -214,7 +217,7 @@
                                     invisible="status not in ['waiting_arrival','reconditioning']"/>
                             <widget name="web_ribbon" title="for sale" bg_color="text-bg-success"
                                     invisible="status != 'for_sale'"/>
-                            <widget name="web_ribbon" title="Trade-in" bg_color="bg-danger" text_color="text-white"
+                            <widget name="web_ribbon" title="Trade-in" bg_color="text-bg-danger"
                                     invisible="not trade_in"/>
                             <aside class="o_kanban_aside_full d-flex" style="flex: 0 0 45%; height: 100%;">
                                 <div class="o_kanban_image_fill position-relative w-100">
