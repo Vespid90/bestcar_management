@@ -21,6 +21,7 @@ class Project(models.Model):
                 if order_line.product_id.is_vehicle:
                     order_line.product_id.date_purchase = fields.Date.today()
                     order_line.product_id.purchase_price = order_line.price_unit
+                    order_line.product_id.supplier_id = order_line.partner_id
                     order_line.product_id.status = "waiting_arrival"
                     project = self.env['project.project'].create({
                         'active': True,
