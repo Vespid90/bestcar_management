@@ -55,4 +55,16 @@
     <record id="hr_department_mechanical_workshop" model="hr.department">
         <field name="manager_id" ref="my_belgian_employee_jmb"/>
     </record>
+
+<!--    <function model="account.chart.template" name="try_loading">-->
+<!--        <value eval="[]"/>-->
+<!--        <value name="template_code" eval="'be_comp'"/>-->
+<!--        -->
+<!--        <value name="install_demo" eval="True"/>-->
+<!--    </function>-->
+    <function model="account.chart.template" name="try_loading">
+        <value name="template_code" eval="'be_comp'"/>
+        <value model="res.company" eval="obj().env.ref('bestcar_commercial.my_new_company')"/>
+        <value name="install_demo" eval="True"/>
+    </function>
 </odoo>

@@ -1,12 +1,5 @@
 from odoo import models, fields, api
 
-PROJECT_STAGES = [
-    {'name': 'New', 'sequence': 1},
-    {'name': 'In Progress', 'sequence': 2},
-    {'name': 'Done', 'sequence': 3},
-    {'name': 'Cancelled', 'sequence': 4}
-]
-
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -146,7 +139,8 @@ class ProductTemplate(models.Model):
             if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
                 base_name = "New Vehicle"
             else:
-                base_name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
+                base_name = (f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-"
+                             f"{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}")
 
             if rec.trade_in:
                 rec.name = f"TRD - {base_name}"
@@ -157,7 +151,8 @@ class ProductTemplate(models.Model):
     def create(self, vals_list):
         """
 
-        Used to generate a product.template for vehicle trade-ins (trade-in) + a different VIN (unique car) which ends with '-TRD'
+        Used to generate a product.template for vehicle trade-ins (trade-in) + a different VIN (unique car) which
+        ends with '-TRD'
 
         """
         records = super().create(vals_list)

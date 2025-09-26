@@ -1,0 +1,52 @@
+<odoo>
+    <!-- Belgian VAT Tax Group -->
+    <record id="tax_group_vat_be" model="account.tax.group">
+        <field name="name">VAT</field>
+        <field name="sequence">10</field>
+        <field name="company_id" ref="my_new_company"/>  <!-- Belgian company -->
+        <field name="country_id" ref="base.be"/>        <!-- Belgium -->
+    </record>
+
+    <!-- Belgium Sale Tax 21% -->
+    <record id="tax_belgium_sale_21" model="account.tax">
+        <field name="name">Belgium Sale VAT 21%</field>
+        <field name="amount">21</field>
+        <field name="amount_type">percent</field>
+        <field name="type_tax_use">sale</field>
+        <field name="company_id" ref="my_new_company"/>
+        <field name="price_include">False</field>
+        <field name="tax_group_id" ref="bestcar_commercial.tax_group_vat_be"/>
+    </record>
+
+    <!-- Belgium Purchase Tax 21% -->
+    <record id="tax_belgium_purchase_21" model="account.tax">
+        <field name="name">Belgium Purchase VAT 21%</field>
+        <field name="amount">21</field>
+        <field name="amount_type">percent</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="company_id" ref="my_new_company"/>
+        <field name="price_include">False</field>
+        <field name="tax_group_id" ref="bestcar_commercial.tax_group_vat_be"/>
+    </record>
+
+    <!-- Belgian Fiscal Position -->
+    <record id="fiscal_position_belgium" model="account.fiscal.position">
+        <field name="name">Belgian Fiscal Position</field>
+        <field name="company_id" ref="my_new_company"/>
+        <field name="auto_apply">True</field>
+        <field name="country_id" ref="base.be"/>
+    </record>
+
+    <!-- Tax Mappings for Fiscal Position -->
+    <record id="fp_tax_map_purchase_21" model="account.fiscal.position.tax">
+        <field name="position_id" ref="fiscal_position_belgium"/>
+        <field name="tax_src_id" ref="bestcar_commercial.tax_belgium_purchase_21"/>
+        <field name="tax_dest_id" ref="bestcar_commercial.tax_belgium_purchase_21"/>
+    </record>
+
+    <record id="fp_tax_map_sale_21" model="account.fiscal.position.tax">
+        <field name="position_id" ref="fiscal_position_belgium"/>
+        <field name="tax_src_id" ref="bestcar_commercial.tax_belgium_sale_21"/>
+        <field name="tax_dest_id" ref="bestcar_commercial.tax_belgium_sale_21"/>
+    </record>
+</odoo>

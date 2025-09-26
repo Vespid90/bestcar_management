@@ -1,0 +1,144 @@
+<odoo>
+    <data noupdate="0">
+        <record id="vehicle_audi_a1" model="product.template">
+            <field name="name">Audi-A1-TDI-1ZV69797</field>
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_audi"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_audi_a1"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_citadine"/>
+            <field name="vehicle_version">TDI</field>
+            <field name="vin">1ZVFT80N855169797</field>
+            <field name="energy_type">diesel</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">115000</field>
+            <field name="body_color">Electric Blue</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="base.company_2"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_a1.jpg"/>
+        </record>
+        <record id="vehicle_audi_a3" model="product.template">
+            <field name="name">Audi-A3-Sportback-3D754778</field>
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_audi"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_audi_a3"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_hatchback"/>
+            <field name="vehicle_version">Sportback</field>
+            <field name="vin">3D7JV1ET1BG554778</field>
+            <field name="energy_type">petrol</field>
+            <field name="gearbox">auto</field>
+            <field name="mileage_km">45000</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="base.company_2"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_a3.jpg"/>
+        </record>
+        <record id="vehicle_audi_q4" model="product.template">
+            <field name="name">Audi-Q4-ETron-4T106995</field>
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_audi"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_audi_q4"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_suv"/>
+            <field name="vehicle_version">ETron</field>
+            <field name="vin">4T1BK36B47U106995</field>
+            <field name="energy_type">electric</field>
+            <field name="gearbox">auto</field>
+            <field name="mileage_km">85000</field>
+            <field name="body_color">White</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="base.company_2"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_q4.jpg"/>
+        </record>
+        <record id="vehicle_vw_polo" model="product.template">
+            <field name="name">Volkswagen-Polo-Style-WBA46595</field>
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_volkswagen"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_volkswagen_polo"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_citadine"/>
+            <field name="vehicle_version">Style</field>
+            <field name="vin">WBAWC73549E246595</field>
+            <field name="energy_type">diesel</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">93000</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="base.company_2"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_vw_polo.jpg"/>
+        </record>
+        <record id="vehicle_vw_golf" model="product.template">
+            <field name="name">Volkswagen-Golf-GTI-1YV10138</field>
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_volkswagen"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_volkswagen_golf"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_hatchback"/>
+            <field name="vehicle_version">GTI</field>
+            <field name="vin">1YVHP80C685M10138</field>
+            <field name="energy_type">petrol</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">78900</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="base.company_2"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_vw_golf.jpg"/>
+        </record>
+        <record id="vehicle_skoda_fabia" model="product.template">
+            <field name="name">Skoda-Fabia-TSI-JS219741</field>
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_skoda"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_skoda_fabia"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_citadine"/>
+            <field name="vehicle_version">TSI</field>
+            <field name="vin">JS2RC41H735219741</field>
+            <field name="energy_type">petrol</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">35400</field>
+            <field name="body_color">Grey</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="base.company_2"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_skoda_fabia.jpg"/>
+        </record>
+        <record id="vehicle_porsche_taycan" model="product.template">
+            <field name="name">Porsche-Taycan-4S-2B376929</field>
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_porsche"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_porsche_taycan"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_coupe_sport"/>
+            <field name="vehicle_version">4S</field>
+            <field name="vin">2B3CL3CG2BH576929</field>
+            <field name="energy_type">electric</field>
+            <field name="gearbox">auto</field>
+            <field name="mileage_km">72000</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="base.company_2"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_porsche_taycan.jpg"/>
+        </record>
+    </data>
+</odoo>
