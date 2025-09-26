@@ -36,6 +36,7 @@ Long description of module's purpose
         'views/project_task_views.xml',
         'views/purchase_order_views.xml',
         'views/sale_order_views.xml',
+        'views/res_partner_views.xml',
         'reports/vehicle_report.xml',
         'reports/vehicle_templates.xml',
     ],
