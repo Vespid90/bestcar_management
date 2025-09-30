@@ -2,9 +2,9 @@ from odoo import models
 
 
 class AccountPaymentRegister(models.TransientModel):
-    _inherit = "account.payment.register"
+     _inherit = "account.payment.register"
 
-    def action_create_payments(self):
+     def action_create_payments(self):
         res = super().action_create_payments()
         for wizard in self:
             for line in wizard.line_ids:

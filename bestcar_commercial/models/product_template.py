@@ -26,9 +26,10 @@ class ProductTemplate(models.Model):
     class_of_emission = fields.Char(string="Class of emission")
     consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", compute='_compute_vehicle_name', store=True, readonly=True,
-                       default='New Vehicle')  # conca marque / model /  5 nb du vin(?)
-    reference_number = fields.Char(string="Reference Number")  # unique VN = 1 / VO = 2 / année / number incrémenté
+    name = fields.Char(string="Name", compute='_compute_vehicle_name',
+                       store=True, readonly=True,
+                       default='New Vehicle')
+    reference_number = fields.Char(string="Reference Number")
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
     vin = fields.Char(string="VIN")
@@ -44,7 +45,9 @@ class ProductTemplate(models.Model):
     height_mm = fields.Float(string="Height (mm)")
     kerb_weight_kg = fields.Float(string="Kerb Weight (kg)")
     length_mm = fields.Float(string="Length (mm)")
-    stock_time_days = fields.Float(string="Stock Time (days)", compute="_compute_stock_time", store=True)
+    stock_time_days = fields.Float(string="Stock Time (days)",
+                                   compute="_compute_stock_time",
+                                   store=True)
     width_mm = fields.Float(string="Width (mm)")
 
     cylinders = fields.Integer(string="Number of Cylinders")
@@ -57,7 +60,8 @@ class ProductTemplate(models.Model):
 
     image = fields.Image(string=" ", max_width=200, max_height=200)
 
-    purchase_price = fields.Monetary(string="Purchase Price", currency_field="currency_id")
+    purchase_price = fields.Monetary(string="Purchase Price",
+                                     currency_field="currency_id")
 
     _sql_constraints = [
         (
@@ -104,7 +108,8 @@ class ProductTemplate(models.Model):
                                   default=lambda self: self.env.company.currency_id.id,
                                   )
 
-    country_of_origin_id = fields.Many2one("res.country", string="Country of Origin")
+    country_of_origin_id = fields.Many2one("res.country",
+                                           string="Country of Origin")
     company_id = fields.Many2one(
         "res.company",
         string="Company",
@@ -116,7 +121,8 @@ class ProductTemplate(models.Model):
         string="Supplier",
     )
 
-    vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Make")
+    vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand",
+                                       string="Make")
     vehicle_model_id = fields.Many2one(comodel_name="vehicle.model",
                                        domain="[('brand_id', '=', vehicle_brand_id)]")
     vehicle_type_id = fields.Many2one(comodel_name="vehicle.type",
@@ -162,12 +168,11 @@ class ProductTemplate(models.Model):
                 else:
                     rec.stock_time_days = (rec.date_sale - rec.date_arrival).days
 
-
     @api.model_create_multi
     def create(self, vals_list):
         """
 
-        Used to generate a product.template for vehicle trade-ins (trade-in) + a different VIN (unique car) which ends with '-TRD'
+        Used to generate a product.template for vehicle trade-in + a different VIN (unique car) which ends with '-TRD'
 
         """
         records = super().create(vals_list)
