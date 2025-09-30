@@ -1,7 +1,7 @@
 <odoo>
     <record id="my_belgian_warehouse" model="stock.warehouse">
         <field name="name">BestCar Warehouse</field>
-        <field name="code">BEW</field> <!-- short code, required -->
-        <field name="company_id" ref="my_new_company"/>
+        <field name="code">BCW</field> <!-- short code, required -->
+        <field name="company_id" ref="company_bestcar"/>
     </record>
 </odoo>
