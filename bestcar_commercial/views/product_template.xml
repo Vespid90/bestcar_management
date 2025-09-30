@@ -8,7 +8,7 @@
 
                 <xpath expr="//div[@name='button_box']" position="inside">
                     <button name="action_view_projects" type="object" icon="fa-check"
-                            class="oe_stat_button" widget="statinfo" invisible="not is_vehicle or status == 'added'">
+                            class="oe_stat_button" widget="statinfo" invisible="not is_vehicle or status == 'added' or status =='waiting_arrival'">
                         <div class="o_stat_info" position="attribute">
                             <field name="project_count" class="o_stat_value"/>
                             <span class="o_stat_text">Project</span>

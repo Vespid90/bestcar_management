@@ -10,6 +10,8 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 if line.product_template_id.is_vehicle:
                     line.product_template_id.status = "reserved"
+                if line.product_template_id.trade_in:
+                    line.product_template_id.active = False
         return res
 
     def action_cancel(self):
@@ -18,4 +20,6 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 if line.product_template_id.is_vehicle:
                     line.product_template_id.status = "for_sale"
+                if line.product_template_id.trade_in:
+                    line.product_template_id.active = True
         return res
