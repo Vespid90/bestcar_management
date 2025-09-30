@@ -47,7 +47,7 @@ class ProductTemplate(models.Model):
     mileage_km = fields.Integer(string="Mileage (km)")
     warranty_km = fields.Integer(string="Warranty (km)")
     fiscal_power_cv = fields.Integer(string="Fiscal Power (CV)")
-
+    project_count = fields.Integer(string="Projects",compute='_compute_project_count')
     image = fields.Image(string=" ", max_width=200, max_height=200)
 
     purchase_price = fields.Monetary(string="Purchase Price", currency_field="currency_id")
@@ -147,6 +147,11 @@ class ProductTemplate(models.Model):
             else:
                 rec.name = base_name
 
+    @api.depends('project_ids')
+    def _compute_project_count(self):
+        for rec in self:
+            rec.project_count = len(rec.project_ids)
+
     @api.model_create_multi
     def create(self, vals_list):
         """
@@ -230,3 +235,19 @@ class ProductTemplate(models.Model):
     def button_TI(self):
         for rec in self:
             rec.status = 'waiting_delivery'
+
+    def action_view_projects(self):
+        self.ensure_one()
+        return {
+            'name': 'Tasks',
+            'type': 'ir.actions.act_window',
+            'res_model': 'project.task',
+            'view_mode': 'kanban,list,form',
+            'views': [(self.env.ref('project.view_task_kanban').id, 'kanban'),
+                      (False, 'list'),
+                      (False, 'form')],
+            'domain': [('project_id', 'in', self.project_ids.ids)],
+            'context': {
+                'default_project_id': self.project_ids[:1].id
+            }
+        }
