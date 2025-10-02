@@ -1,6 +1,6 @@
 <odoo>
     <record id="vehicle_type_citadine" model="vehicle.type">
-        <field name="name">Citadine</field>
+        <field name="name">City car</field>
     </record>
     <record id="vehicle_type_hatchback" model="vehicle.type">
         <field name="name">Hatchback</field>
@@ -9,7 +9,7 @@
         <field name="name">Break</field>
     </record>
     <record id="vehicle_type_berline" model="vehicle.type">
-        <field name="name">Berline</field>
+        <field name="name">Sedan</field>
     </record>
     <record id="vehicle_type_suv" model="vehicle.type">
         <field name="name">SUV</field>
@@ -18,10 +18,7 @@
         <field name="name">Coupé</field>
     </record>
     <record id="vehicle_type_coupe_sport" model="vehicle.type">
-        <field name="name">Coupé Sport</field>
-    </record>
-    <record id="vehicle_type_hatchback" model="vehicle.type">
-        <field name="name">Hatchback</field>
+        <field name="name">Sport Coupé</field>
     </record>
 
     <record id="vehicle_model_audi_a1" model="vehicle.model">
