@@ -1,12 +1,5 @@
 from odoo import models, fields, api
 
-PROJECT_STAGES = [
-    {'name': 'New', 'sequence': 1},
-    {'name': 'In Progress', 'sequence': 2},
-    {'name': 'Done', 'sequence': 3},
-    {'name': 'Cancelled', 'sequence': 4}
-]
-
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -57,7 +50,7 @@ class ProductTemplate(models.Model):
     mileage_km = fields.Integer(string="Mileage (km)")
     warranty_km = fields.Integer(string="Warranty (km)")
     fiscal_power_cv = fields.Integer(string="Fiscal Power (CV)")
-
+    project_count = fields.Integer(string="Projects",compute='_compute_project_count')
     image = fields.Image(string=" ", max_width=200, max_height=200)
 
     purchase_price = fields.Monetary(string="Purchase Price",
@@ -152,7 +145,8 @@ class ProductTemplate(models.Model):
             if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
                 base_name = "New Vehicle"
             else:
-                base_name = f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}"
+                base_name = (f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-"
+                             f"{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}")
 
             if rec.trade_in:
                 rec.name = f"TRD - {base_name}"
@@ -167,6 +161,11 @@ class ProductTemplate(models.Model):
                     rec.stock_time_days = (fields.Date.today() - rec.date_arrival).days
                 else:
                     rec.stock_time_days = (rec.date_sale - rec.date_arrival).days
+
+    @api.depends('project_ids')
+    def _compute_project_count(self):
+        for rec in self:
+            rec.project_count = len(rec.project_ids)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -250,3 +249,19 @@ class ProductTemplate(models.Model):
     def button_TI(self):
         for rec in self:
             rec.status = 'waiting_delivery'
+
+    def action_view_projects(self):
+        self.ensure_one()
+        return {
+            'name': 'Tasks',
+            'type': 'ir.actions.act_window',
+            'res_model': 'project.task',
+            'view_mode': 'kanban,list,form',
+            'views': [(self.env.ref('project.view_task_kanban').id, 'kanban'),
+                      (False, 'list'),
+                      (False, 'form')],
+            'domain': [('project_id', 'in', self.project_ids.ids)],
+            'context': {
+                'default_project_id': self.project_ids[:1].id
+            }
+        }

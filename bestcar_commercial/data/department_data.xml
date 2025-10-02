@@ -1,8 +1,0 @@
-<odoo>
-    <data noupdate="0">
-        <record id="hr_department_mechanical_workshop" model="hr.department">
-            <field name="name">Mechanical Workshop</field>
-            <field name="company_id" eval="False"/>
-        </record>
-    </data>
-</odoo>
