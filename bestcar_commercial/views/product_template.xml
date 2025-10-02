@@ -167,6 +167,7 @@
                     <field name="name"/>
                     <field name="vehicle_brand_id"/>
                     <field name="vehicle_model_id"/>
+                    <field name="vin"/>
                     <separator string="Availability"/>
                     <filter string="Available" name="filter_available"
                             domain="[('status', '=','for_sale')]"/>
