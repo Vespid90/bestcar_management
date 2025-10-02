@@ -6,7 +6,6 @@
             <list string="Vehicle Options">
                 <field name="name"/>
                 <field name="description"/>
-                <field name="active"/>
             </list>
         </field>
     </record>
@@ -15,12 +14,11 @@
         <field name="name">vehicle.option.form</field>
         <field name="model">vehicle.option</field>
         <field name="arch" type="xml">
-            <form string="Vehicle Option">
+            <form string="Vehicle Options">
                 <sheet>
                     <group>
                         <field name="name" required="1"/>
                         <field name="description"/>
-                        <field name="active"/>
                     </group>
                 </sheet>
             </form>
@@ -40,30 +38,4 @@
               parent="bestcar_commercial.menu_vehicle_configuration"
               action="action_vehicle_option"
               sequence="40"/>
-
-
-<!--    <record id="view_product_template_form_options_inherit" model="ir.ui.view">-->
-<!--        <field name="name">product.template.form.options.inherit</field>-->
-<!--        <field name="model">product.template</field>-->
-<!--        <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
-<!--        <field name="arch" type="xml">-->
-
-<!--            <xpath expr="//sheet/notebook/page[@name='general_information']" position="before">-->
-<!--                <page string="Vehicle Options" name="page_vehicle_options" invisible="not is_vehicle">-->
-<!--                    <group>-->
-<!--                        &lt;!&ndash; LISTA invece dei badge &ndash;&gt;-->
-<!--                        <field name="vehicle_option_ids"-->
-<!--                               widget="many2many"-->
-<!--                               domain="[('active','=', True)]"-->
-<!--                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}">-->
-<!--                            <list string="Options">-->
-<!--                                <field name="name"/>-->
-<!--                                <field name="description"/>-->
-<!--                            </list>-->
-<!--                        </field>-->
-<!--                    </group>-->
-<!--                </page>-->
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
 </odoo>

@@ -16,7 +16,7 @@
               parent="bestcar_commercial_root"
               sequence="3"/>
     <menuitem id="bestcar_project_menu"
-              name="Project"
+              name="Projects"
               parent="bestcar_commercial_root"
               sequence="4"/>
     <menuitem id="bestcar_commercial_contact_menu"
