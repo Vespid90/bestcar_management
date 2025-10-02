@@ -74,7 +74,7 @@
                 </xpath>
 
                 <xpath expr="//page[@name='general_information']" position="before">
-                    <page name="car_information" string="Vehicle Information" invisible="is_vehicle == False">
+                    <page name="car_information" string="Vehicle Information" invisible="not is_vehicle">
                         <group>
                             <group string="Summary">
                                 <field name="is_trade_in" invisible="trade_in"/>
@@ -156,6 +156,22 @@
                         </group>
                     </page>
                 </xpath>
+
+                <xpath expr="//sheet/notebook/page[@name='general_information']" position="before">
+                <page string="Vehicle Options" name="page_vehicle_options" invisible="not is_vehicle">
+                    <group>
+                        <field name="vehicle_option_ids"
+                               widget="many2many"
+                               domain="[('active','=', True)]"
+                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}">
+                            <list string="Options">
+                                <field name="name"/>
+                                <field name="description"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
             </field>
         </record>
 

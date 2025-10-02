@@ -7,7 +7,6 @@
                 <t t-call="web.external_layout">
                     <div class="page" style="font-family:'DejaVu Sans', Arial, sans-serif;">
 
-
                         <t t-set="vin_clean" t-value="(o.vin or '').strip().upper()"/>
                         <div style="margin-top:2cm; font-size:16px; font-weight:700;">
                             <t t-esc="(o.vehicle_brand_id and o.vehicle_brand_id.name) or ''"/>
@@ -17,10 +16,9 @@
                             <t t-if="o.vehicle_version">-
                                 <t t-esc="o.vehicle_version"/>
                             </t>
-                            <t t-if="vin_clean">(<t t-esc="vin_clean[:5]"/>...)
+                            <t t-if="vin_clean">(<t t-esc="vin_clean[0:3] + vin_clean[12:17]"/>)
                             </t>
                         </div>
-
 
                         <table style="width:100%; border:0; border-collapse:separate; border-spacing:0; margin-top:8px;">
                             <tr>
@@ -42,25 +40,56 @@
                                     </t>
                                 </td>
 
-
                                 <td style="width:40%; vertical-align:middle; padding-left:10px; border:0;">
-                                    <div style="border:0 !important; border-radius:3px; overflow:hidden; text-align:center;">
+                                    <div style="border:0 !important; border-radius:3px; overflow:hidden; text-align:right; padding-right:4px;">
                                         <t t-set="curr" t-value="o.currency_id or o.company_id.currency_id"/>
                                         <t t-set="amt" t-value="o.list_price or 0.0"/>
-                                        <t t-set="us" t-value="'{:,.2f}'.format(amt)"/>
-                                        <t t-set="eu"
-                                           t-value="us.replace(',', 'X').replace('.', ',').replace('X', '.')"/>
-                                        <div style="font-size:28px; font-weight:800; margin-bottom:4px;">
+
+                                        <t t-set="vat_rate" t-value="0.21"/>
+                                        <t t-set="vat_amt" t-value="amt * vat_rate"/>
+                                        <t t-set="total_amt" t-value="amt + vat_amt"/>
+
+                                        <t t-set="fmt"
+                                           t-value="lambda x: ('{:,.2f}'.format(x)).replace(',', 'X').replace('.', ',').replace('X', '.')"/>
+
+                                        <div style="font-size:22px; font-weight:800; margin-bottom:6px;">
                                             <t t-if="curr.position == 'after'">
-                                                <t t-esc="eu"/>
+                                                <t t-esc="fmt(amt)"/>
                                                 <t t-esc="curr.symbol"/>
+                                                (excl. VAT)
                                             </t>
                                             <t t-else="">
                                                 <t t-esc="curr.symbol"/>
-                                                <t t-esc="eu"/>
+                                                <t t-esc="fmt(amt)"/>
+                                                (excl. VAT)
                                             </t>
                                         </div>
-                                        <div style="font-size:11px; color:#333; margin-bottom:6px;">VAT excluded</div>
+
+                                        <div style="font-size:18px; font-weight:600; margin-bottom:6px; color:#555;">
+                                            <t t-if="curr.position == 'after'">
+                                                <t t-esc="fmt(vat_amt)"/>
+                                                <t t-esc="curr.symbol"/>
+                                                (21% VAT)
+                                            </t>
+                                            <t t-else="">
+                                                <t t-esc="curr.symbol"/>
+                                                <t t-esc="fmt(vat_amt)"/>
+                                                (21% VAT)
+                                            </t>
+                                        </div>
+
+                                        <div style="font-size:24px; font-weight:800; margin-top:8px; color:#000;">
+                                            <t t-if="curr.position == 'after'">
+                                                <t t-esc="fmt(total_amt)"/>
+                                                <t t-esc="curr.symbol"/>
+                                                (incl. VAT)
+                                            </t>
+                                            <t t-else="">
+                                                <t t-esc="curr.symbol"/>
+                                                <t t-esc="fmt(total_amt)"/>
+                                                (incl. VAT)
+                                            </t>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -71,7 +100,6 @@
                             Specifications
                         </div>
                         <table style="width:100%; border-collapse:collapse; font-size:11px; border:1px solid #ddd; border-top:none; margin-bottom:6px;">
-
                             <tr>
                                 <td style="width:25%; background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">
                                     First Registration Date
@@ -87,7 +115,6 @@
                                 <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;"
                                     t-esc="o.emissions_standard or o.class_of_emission or ''"/>
                             </tr>
-
                             <tr>
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Mileage
                                 </td>
@@ -100,7 +127,6 @@
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Color</td>
                                 <td style="padding:6px; border-bottom:1px solid #e1e1e1;" t-esc="o.body_color or ''"/>
                             </tr>
-
                             <tr>
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Fuel
                                     Type
@@ -113,7 +139,6 @@
                                 <td style="padding:6px; border-bottom:1px solid #e1e1e1;"
                                     t-esc="{'auto':'Automatic','man':'Manual'}.get(o.gearbox, '')"/>
                             </tr>
-
                             <tr>
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Power</td>
                                 <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
@@ -133,7 +158,6 @@
                                     </t>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Fiscal
                                     Power
@@ -150,12 +174,15 @@
                                 </td>
                                 <td style="width:25%; padding:6px; border-bottom:1px solid #e1e1e1;">
                                     <t t-set="co2val" t-value="o.co2_g_km"/>
-                                    <t t-set="has_co2" t-value="co2val not in (False, None, 0)"/>
-                                    <t t-set="co2" t-value="has_co2 and co2val or 0.0"/>
+                                    <t t-set="has_co2" t-value="co2val is not None"/>
+                                    <t t-set="co2" t-value="co2val or 0.0"/>
+
                                     <t t-set="cls"
-                                       t-value="co2 and ('A' if co2 &lt;= 95 else ('B' if co2 &lt;= 120 else ('C' if co2 &lt;= 150 else ('D' if co2 &lt;= 210 else ('E' if co2 &lt;= 275 else ('F' if co2 &lt;= 345 else 'G')))))) or ''"/>
+                                       t-value="('A' if co2 &lt;= 95 else ('B' if co2 &lt;= 120 else ('C' if co2 &lt;= 150 else ('D' if co2 &lt;= 210 else ('E' if co2 &lt;= 275 else ('F' if co2 &lt;= 345 else 'G')))))) if has_co2 else ''"/>
+
                                     <t t-set="col"
-                                       t-value="co2 and ('#2e7d32' if co2 &lt;= 95 else ('#558b2f' if co2 &lt;= 120 else ('#8bc34a' if co2 &lt;= 150 else ('#f9a825' if co2 &lt;= 210 else ('#f57c00' if co2 &lt;= 275 else ('#e64a19' if co2 &lt;= 345 else '#c62828')))))) or '#bbb'"/>
+                                       t-value="('#2e7d32' if co2 &lt;= 95 else ('#558b2f' if co2 &lt;= 120 else ('#8bc34a' if co2 &lt;= 150 else ('#f9a825' if co2 &lt;= 210 else ('#f57c00' if co2 &lt;= 275 else ('#e64a19' if co2 &lt;= 345 else '#c62828')))))) if has_co2 else '#bbb'"/>
+
                                     <t t-if="has_co2">
                                         <t t-esc="'{:,.0f}'.format(co2)"/>
                                         g/km
@@ -165,7 +192,6 @@
                                     </t>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Length
                                 </td>
@@ -183,7 +209,6 @@
                                     </t>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td style="background:#f6f6f6; padding:6px;">Height</td>
                                 <td style="padding:6px;">
@@ -200,7 +225,6 @@
                                 </td>
                             </tr>
                         </table>
-
 
                         <div style="background:#c33; color:#fff; text-transform:uppercase; font-weight:700; text-align:center; padding:6px 8px; margin-top:12px; border-radius:3px 3px 0 0;">
                             Options
@@ -242,7 +266,6 @@
                                 </tr>
                             </t>
                         </table>
-
                     </div>
 
                     <div class="footer">
@@ -272,7 +295,4 @@
             </t>
         </t>
     </template>
-
 </odoo>
-
-
