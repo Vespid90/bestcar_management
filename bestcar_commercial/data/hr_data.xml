@@ -1,5 +1,4 @@
 <odoo>
-    <!-- Create partner for the company -->
     <record id="partner_bestcar" model="res.partner" forcecreate="1">
         <field name="name">BestCar</field>
         <field name="street">123 Boulevard P'tite roue</field>
@@ -9,7 +8,6 @@
         <field name="is_company" eval="True"/>
     </record>
 
-    <!-- Create the company and link the partner -->
     <record id="company_bestcar" model="res.company" forcecreate="1">
         <field name="name">BestCar</field>
         <field name="partner_id" ref="partner_bestcar"/>
@@ -18,19 +16,16 @@
         <field name="logo" type="base64" file="bestcar_commercial/static/img/bestcar_logo.png"/>
     </record>
 
-    <!-- Assign Mitchell Admin to the company -->
     <record id="base.user_admin" model="res.users">
         <field name="company_id" ref="company_bestcar"/>
         <field name="company_ids" eval="[(4, ref('base.main_company')), (4, ref('company_bestcar'))]"/>
     </record>
 
-    <!-- Create HR department -->
     <record id="hr_department_mechanical_workshop" model="hr.department">
         <field name="name">Mechanical Workshop</field>
         <field name="company_id" ref="company_bestcar"/>
     </record>
 
-    <!-- Employee for Mitchell Admin -->
     <record id="employee_mitchell_admin" model="hr.employee">
         <field name="name">Mitchell Admin</field>
         <field name="company_id" ref="company_bestcar"/>
@@ -39,7 +34,6 @@
         <field name="user_id" ref="base.user_admin"/>
     </record>
 
-    <!-- User Jean-Marc Broutin -->
     <record id="user_jean_marc" model="res.users">
         <field name="name">Jean-Marc Broutin</field>
         <field name="login">jean.marc@example.com</field>
@@ -47,7 +41,6 @@
         <field name="company_ids" eval="[(6, 0, [ref('company_bestcar')])]"/>
     </record>
 
-    <!-- Employee Jean-Marc -->
     <record id="employee_jean_marc" model="hr.employee">
         <field name="name">Jean-Marc Broutin</field>
         <field name="company_id" ref="company_bestcar"/>
@@ -57,12 +50,10 @@
         <field name="user_id" ref="user_jean_marc"/>
     </record>
 
-    <!-- Set Jean-Marc as Department Manager -->
     <record id="hr_department_mechanical_workshop" model="hr.department">
         <field name="manager_id" ref="employee_jean_marc"/>
     </record>
 
-    <!-- Load Belgian Chart of Accounts including all taxes -->
     <function model="account.chart.template" name="try_loading">
         <value eval="[]"/>
         <value>be_comp</value>

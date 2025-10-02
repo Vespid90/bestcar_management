@@ -4,6 +4,12 @@ from odoo import models, fields, api
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    def _default_uom_id(self):
+        return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id
+
+    def _default_categ_id(self):
+        return self.env.ref("product.product_category_all", raise_if_not_found=False).id
+
     active = fields.Boolean(default=True)
     is_used = fields.Boolean(string="Is used ?")
     is_trade_in = fields.Boolean(string="Is trade-in?")
@@ -20,7 +26,7 @@ class ProductTemplate(models.Model):
     consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
     name = fields.Char(string="Name", compute='_compute_vehicle_name',
-                       store=True, readonly=True,
+                       store=True,
                        default='New Vehicle')
     reference_number = fields.Char(string="Reference Number")
     vehicle_model = fields.Char(string="Model")
@@ -50,7 +56,7 @@ class ProductTemplate(models.Model):
     mileage_km = fields.Integer(string="Mileage (km)")
     warranty_km = fields.Integer(string="Warranty (km)")
     fiscal_power_cv = fields.Integer(string="Fiscal Power (CV)")
-    project_count = fields.Integer(string="Projects",compute='_compute_project_count')
+    project_count = fields.Integer(string="Projects", compute='_compute_project_count')
     image = fields.Image(string=" ", max_width=200, max_height=200)
 
     purchase_price = fields.Monetary(string="Purchase Price",
@@ -126,12 +132,6 @@ class ProductTemplate(models.Model):
                                   inverse_name="vehicle_id",
                                   string="Projects")
 
-    def _default_uom_id(self):
-        return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id
-
-    def _default_categ_id(self):
-        return self.env.ref("product.product_category_all", raise_if_not_found=False).id
-
     uom_id = fields.Many2one("uom.uom", string="Unit of measure",
                              default=_default_uom_id)
     uom_po_id = fields.Many2one("uom.uom", string="Purchase Unit of Measure",
@@ -142,7 +142,10 @@ class ProductTemplate(models.Model):
     @api.depends('vehicle_brand_id', 'vehicle_model_id', 'vehicle_version', 'vin')
     def _compute_vehicle_name(self):
         for rec in self:
-            if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
+            if (not rec.vehicle_brand_id.name
+                    or not rec.vehicle_model_id.name
+                    or not rec.vehicle_version
+                    or not rec.vin):
                 base_name = "New Vehicle"
             else:
                 base_name = (f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-"
