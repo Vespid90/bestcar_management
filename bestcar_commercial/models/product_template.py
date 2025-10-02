@@ -5,7 +5,8 @@ PROJECT_STAGES = [
     {'name': 'In Progress', 'sequence': 2},
     {'name': 'Done', 'sequence': 3},
     {'name': 'Cancelled', 'sequence': 4}
-    ]
+]
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -25,8 +26,9 @@ class ProductTemplate(models.Model):
     class_of_emission = fields.Char(string="Class of emission")
     consumption = fields.Char(string="consumption")
     license_plate = fields.Char(string="License Plate")
-    name = fields.Char(string="Name", compute='_compute_vehicle_name',store=True,readonly=True, default='New Vehicle') #conca marque / model /  5 nb du vin(?)
-    reference_number = fields.Char(string="Reference Number") #unique VN = 1 / VO = 2 / année / number incrémenté
+    name = fields.Char(string="Name", compute='_compute_vehicle_name', store=True, readonly=True,
+                       default='New Vehicle')  # conca marque / model /  5 nb du vin(?)
+    reference_number = fields.Char(string="Reference Number")  # unique VN = 1 / VO = 2 / année / number incrémenté
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version", required=True)
     vin = fields.Char(string="VIN")
@@ -53,7 +55,7 @@ class ProductTemplate(models.Model):
     warranty_km = fields.Integer(string="Warranty (km)")
     fiscal_power_cv = fields.Integer(string="Fiscal Power (CV)")
 
-    image = fields.Image(string=" ",max_width=200, max_height=200)
+    image = fields.Image(string=" ", max_width=200, max_height=200)
 
     purchase_price = fields.Monetary(string="Purchase Price", currency_field="currency_id")
 
@@ -117,6 +119,13 @@ class ProductTemplate(models.Model):
         string="Supplier",
     )
 
+    vehicle_option_ids = fields.Many2many(
+        'vehicle.option',
+        'product_template_vehicle_option_rel',
+        'product_tmpl_id', 'option_id',
+        string='Options'
+    )
+
     vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand", string="Make", required=True)
     vehicle_model_id = fields.Many2one(comodel_name="vehicle.model",
                                        domain="[('brand_id', '=', vehicle_brand_id)]", required=True)
@@ -127,6 +136,7 @@ class ProductTemplate(models.Model):
     project_ids = fields.One2many(comodel_name="project.project",
                                   inverse_name="vehicle_id",
                                   string="Projects")
+
     def _default_uom_id(self):
         return self.env.ref("uom.product_uom_unit", raise_if_not_found=False).id
 
@@ -140,7 +150,7 @@ class ProductTemplate(models.Model):
     categ_id = fields.Many2one("product.category", string="Category",
                                default=_default_categ_id)
 
-    @api.depends('vehicle_brand_id','vehicle_model_id','vehicle_version','vin')
+    @api.depends('vehicle_brand_id', 'vehicle_model_id', 'vehicle_version', 'vin')
     def _compute_vehicle_name(self):
         for rec in self:
             if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
@@ -152,7 +162,6 @@ class ProductTemplate(models.Model):
                 rec.name = f"TRD - {base_name}"
             else:
                 rec.name = base_name
-
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -172,16 +181,16 @@ class ProductTemplate(models.Model):
                 if not vin.endswith("-TRD"):
                     vin = f"{vin}-TRD"
 
-                trade_in_vals={
+                trade_in_vals = {
                     "trade_in": True,
-                    "name":rec.name,
-                    "purchase_price":rec.purchase_price,
-                    "vehicle_brand_id":rec.vehicle_brand_id.id,
-                    "vehicle_model_id":rec.vehicle_model_id.id,
-                    "vehicle_version":rec.vehicle_version,
-                    "vin":vin,
-                    "list_price":-abs(rec.purchase_price),
-                    "is_vehicle":rec.is_vehicle,
+                    "name": rec.name,
+                    "purchase_price": rec.purchase_price,
+                    "vehicle_brand_id": rec.vehicle_brand_id.id,
+                    "vehicle_model_id": rec.vehicle_model_id.id,
+                    "vehicle_version": rec.vehicle_version,
+                    "vin": vin,
+                    "list_price": -abs(rec.purchase_price),
+                    "is_vehicle": rec.is_vehicle,
                 }
 
                 self.create(trade_in_vals)
@@ -194,15 +203,15 @@ class ProductTemplate(models.Model):
         product_variant = self.product_variant_id
 
         return {
-            "name":"Buy a vehicle",
-            "type":"ir.actions.act_window",
-            "res_model":"purchase.order",
-            "view_mode":"form",
-            "target":"current",
-            "context":{
-                "default_order_line":[(0, 0, {
-                    "product_id":product_variant.id,
-                    "name":product_variant.display_name,
+            "name": "Buy a vehicle",
+            "type": "ir.actions.act_window",
+            "res_model": "purchase.order",
+            "view_mode": "form",
+            "target": "current",
+            "context": {
+                "default_order_line": [(0, 0, {
+                    "product_id": product_variant.id,
+                    "name": product_variant.display_name,
                     "product_qty": 1.0,
                     "product_uom": product_variant.uom_id.id,
                 })]
@@ -215,15 +224,15 @@ class ProductTemplate(models.Model):
         product_variant = self.product_variant_id
 
         return {
-            "name":"Sell a vehicle",
-            "type":"ir.actions.act_window",
-            "res_model":"sale.order",
-            "view_mode":"form",
-            "target":"current",
-            "context":{
-                "default_order_line":[(0, 0, {
-                    "product_id":product_variant.id,
-                    "name":product_variant.display_name,
+            "name": "Sell a vehicle",
+            "type": "ir.actions.act_window",
+            "res_model": "sale.order",
+            "view_mode": "form",
+            "target": "current",
+            "context": {
+                "default_order_line": [(0, 0, {
+                    "product_id": product_variant.id,
+                    "name": product_variant.display_name,
                     "product_uom_qty": 1.0,
                     "product_uom": product_variant.uom_id.id,
                 })]
