@@ -13,3 +13,5 @@ access_vehicle_type_group_system,vehicle_type group_system,model_vehicle_type,ba
 
 access_hr_group_user,hr group_user,hr.model_hr_department,base.group_user,1,0,0,0
 access_hr_group_system,hr group_system,hr.model_hr_department,base.group_system,1,1,1,1
+access_vehicle_option_user,vehicle.option user,model_vehicle_option,base.group_user,1,1,1,1
+

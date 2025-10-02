@@ -1,28 +1,16 @@
-<odoo>
-    <data>
-        <record id="paperformat_vehicle_a4_tighttop" model="report.paperformat">
-            <field name="name">Vehicle A4 – Tight Top</field>
-            <field name="format">A4</field>
-            <field name="orientation">Portrait</field>
-            <field name="margin_top">5</field>
-            <field name="margin_bottom">25</field>
-            <field name="margin_left">10</field>
-            <field name="margin_right">10</field>
-            <field name="header_line" eval="False"/>
-            <field name="header_spacing">0</field>
-            <field name="dpi">96</field>
-        </record>
+<?xml version="1.0" encoding="UTF-8"?>
 
-        <record id="action_report_vehicle" model="ir.actions.report">
-            <field name="name">Vehicle Sheet</field>
-            <field name="model">product.template</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">bestcar_commercial.vehicle_report</field>
-            <field name="report_file">bestcar_commercial.vehicle_report</field>
-            <field name="binding_model_id" ref="product.model_product_template"/>
-            <field name="binding_type">report</field>
-            <field name="print_report_name">'Sheet_%s' % (object.display_name)</field>
-            <field name="paperformat_id" ref="bestcar_commercial.paperformat_vehicle_a4_tighttop"/>
+<odoo>
+  <data>
+        <record id="action_report_vehicle_sheet" model="ir.actions.report">
+          <field name="name">Vehicle Sheet</field>
+          <field name="model">product.template</field>
+          <field name="report_type">qweb-pdf</field>
+          <field name="report_name">bestcar_commercial.vehicle_report</field>
+          <field name="report_file">bestcar_commercial.vehicle_report</field>
+          <field name="binding_model_id" ref="product.model_product_template"/>
+          <field name="binding_type">report</field>
+          <field name="print_report_name">'Sheet_%s' % (object.display_name)</field>
         </record>
-    </data>
+  </data>
 </odoo>

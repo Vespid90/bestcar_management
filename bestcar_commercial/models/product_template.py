@@ -122,6 +122,12 @@ class ProductTemplate(models.Model):
 
     vehicle_brand_id = fields.Many2one(comodel_name="vehicle.brand",
                                        string="Make")
+    vehicle_option_ids = fields.Many2many(
+        'vehicle.option',
+        'product_template_vehicle_option_rel',
+        'product_tmpl_id', 'option_id',
+        string='Options'
+    )
     vehicle_model_id = fields.Many2one(comodel_name="vehicle.model",
                                        domain="[('brand_id', '=', vehicle_brand_id)]")
     vehicle_type_id = fields.Many2one(comodel_name="vehicle.type",
