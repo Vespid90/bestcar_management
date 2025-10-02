@@ -30,6 +30,7 @@
         <field name="res_model">project.project</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="view_id" ref="project.view_project_kanban"/>
+        <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
     </record>
     <menuitem
             id="menu_project_projects"

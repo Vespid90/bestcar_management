@@ -15,6 +15,7 @@ class Project(models.Model):
         department = self.env.ref('bestcar_commercial.hr_department_mechanical_workshop')
         manager_user = department.manager_id.user_id
         default_user_id = manager_user.id if manager_user else self.env.uid
+        company = self.env.ref('bestcar_commercial.company_bestcar')
 
         for order in self:
             for order_line in order.order_line:
@@ -28,6 +29,7 @@ class Project(models.Model):
                         'name': f"{order_line.product_id.name} Reconditioning",
                         'user_id': default_user_id,
                         'vehicle_id': order_line.product_id.product_tmpl_id.id,
+                        'company_id':company.id,
                     })
                     stages_to_create = []
                     for stage in PROJECT_STAGES:
