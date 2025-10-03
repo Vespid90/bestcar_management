@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-02 12:20+0000\n"
-"PO-Revision-Date: 2025-10-02 12:20+0000\n"
+"POT-Creation-Date: 2025-10-03 07:59+0000\n"
+"PO-Revision-Date: 2025-10-03 07:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: bestcar_commercial
 #: model:ir.actions.report,print_report_name:bestcar_commercial.action_report_vehicle_sheet
 msgid "'Sheet_%s' % (object.display_name)"
-msgstr "'Sheet_%s' % (object.display_name)"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.vehicle_report
@@ -39,6 +39,16 @@ msgstr "(TVA incl.)"
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_vehicle_search
 msgid "50.000 < Mileage < 100.000km"
 msgstr "50.000km < km < 100.000km"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_porsche_718
+msgid "718"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_porsche_911
+msgid "911"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_project_kanban_inherit
@@ -62,9 +72,44 @@ msgid "A storable product is a product for which you manage stock."
 msgstr "Un produit stockable est un produit pour lequel vous gérez le stock."
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_a1
+msgid "A1"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_a3
+msgid "A3"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_a4
+msgid "A4"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_a5
+msgid "A5"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_a6
+msgid "A6"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_a7
+msgid "A7"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_a8
+msgid "A8"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_abs
 msgid "ABS"
-msgstr "ABS"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__active
@@ -96,7 +141,7 @@ msgstr "Jantes en alliage"
 #. module: bestcar_commercial
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_android_auto
 msgid "Android Auto"
-msgstr "Android Auto"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:vehicle.option,description:bestcar_commercial.vehicle_option_android_auto
@@ -111,13 +156,28 @@ msgstr "Système anti-blocage de roues lors du freinage"
 #. module: bestcar_commercial
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_carplay
 msgid "Apple CarPlay"
-msgstr "Apple CarPlay"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_seat_arona
+msgid "Arona"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__date_arrival
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__date_arrival
 msgid "Arrival Date"
 msgstr "Date d'arrivée"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_volkswagen_arteon
+msgid "Arteon"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_seat_ateca
+msgid "Ateca"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:product.template,name:bestcar_commercial.vehicle_audi_a1
@@ -127,12 +187,12 @@ msgstr "Audi-A1-TDI-1ZV6979"
 #. module: bestcar_commercial
 #: model:product.template,name:bestcar_commercial.vehicle_audi_a3
 msgid "Audi-A3-Sportback-3D754778"
-msgstr "Audi-A3-Sportback-3D754778"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:product.template,name:bestcar_commercial.vehicle_audi_q4
 msgid "Audi-Q4-ETron-4T106995"
-msgstr "Audi-Q4-ETron-4T106995"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:vehicle.option,description:bestcar_commercial.vehicle_option_parking_sensors_rear
@@ -166,9 +226,14 @@ msgid "Available"
 msgstr "Disponible"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_bentley_bentayga
+msgid "Bentayga"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.module.category,name:bestcar_commercial.module_bestcar_security
 msgid "BestCar"
-msgstr "BestCar"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.ui.menu,name:bestcar_commercial.bestcar_commercial_root
@@ -179,6 +244,11 @@ msgstr "BestCar"
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_bluetooth
 msgid "Bluetooth Hands-Free"
 msgstr "Bluetooh main-libre"
+
+#. module: bestcar_commercial
+#: model:vehicle.type,name:bestcar_commercial.vehicle_type_break
+msgid "Break"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_navigation
@@ -195,9 +265,7 @@ msgstr "Achat véhicule"
 msgid ""
 "CO\n"
 "                                    <sub>2</sub>"
-msgstr  ""
-"CO\n"
-"                                    <sub>2</sub>"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__co2_g_km
@@ -208,7 +276,7 @@ msgstr "Emission CO₂ (g/km)"
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.vehicle_report
 msgid "CV"
-msgstr "CV"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:vehicle.option,description:bestcar_commercial.vehicle_option_camera_rear
@@ -236,6 +304,16 @@ msgstr "Catégories"
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__categ_id
 msgid "Category"
 msgstr "Catégorie de produits"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_porsche_cayenne
+msgid "Cayenne"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.type,name:bestcar_commercial.vehicle_type_citadine
+msgid "City car"
+msgstr "Citadine"
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__class_of_emission
@@ -269,19 +347,29 @@ msgstr "Société"
 #. module: bestcar_commercial
 #: model:ir.ui.menu,name:bestcar_commercial.menu_vehicle_configuration
 msgid "Configuration"
-msgstr "Configuration"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.actions.act_window,name:bestcar_commercial.action_open_bestcar_customer
 #: model:ir.ui.menu,name:bestcar_commercial.bestcar_commercial_contact_menu
 msgid "Contacts"
-msgstr "Contacts"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_bentley_continental
+msgid "Continental"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__country_of_origin_id
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__country_of_origin_id
 msgid "Country of Origin"
 msgstr "Pays d'origine"
+
+#. module: bestcar_commercial
+#: model:vehicle.type,name:bestcar_commercial.vehicle_type_coupe
+msgid "Coupé"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_bestcar_commercial__create_uid
@@ -320,7 +408,7 @@ msgstr "Airbags latéraux"
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_product_template_form_inherit_car
 msgid "Dates"
-msgstr "Dates"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,help:bestcar_commercial.field_product_product__uom_id
@@ -342,23 +430,23 @@ msgstr ""
 #. module: bestcar_commercial
 #: model:ir.model.fields.selection,name:bestcar_commercial.selection__product_template__status__delivered
 msgid "Delivered"
-msgstr "Délivrée"
+msgstr "Livré"
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_vehicle_option__description
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields.selection,name:bestcar_commercial.selection__product_template__energy_type__diesel
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_vehicle_search
 msgid "Diesel"
-msgstr "Diesel"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_product_template_form_inherit_car
 msgid "Dimensions"
-msgstr "Dimensions"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_bestcar_commercial__display_name
@@ -389,6 +477,11 @@ msgstr "Electrique"
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_esc
 msgid "Electronic Stability Control (ESC)"
 msgstr "Contrôle électronique de stabilité (ESC)"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_skoda_elroq
+msgid "Elroq"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__emissions_standard
@@ -423,14 +516,24 @@ msgid "Engine Capacity (cc)"
 msgstr "Cylindrée (cc)"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_skoda_enyaq
+msgid "Enyaq"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_skoda_fabia
+msgid "Fabia"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.vehicle_report
 msgid ""
 "Financing available subject to approval and conditions. Example rates and terms are\n"
 "                                    indicative only. Contact us for a personalized financing proposal."
 msgstr ""
 "Financement disponible sous réserve d’acceptation et de conditions.\n"
- "Les taux et conditions indiqués ne sont qu’à titre indicatif. \n"
- "Contactez-nous pour une proposition de financement personnalisée."
+"Les taux et conditions indiqués ne sont qu’à titre indicatif. \n"
+"Contactez-nous pour une proposition de financement personnalisée."
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__date_first_registration
@@ -455,6 +558,11 @@ msgid "Fiscal Power (CV)"
 msgstr "Puissance fiscale (CV)"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_bentley_flying_spur
+msgid "Flying Spur"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.model.fields.selection,name:bestcar_commercial.selection__product_template__status__for_sale
 msgid "For Sale"
 msgstr "A vendre"
@@ -470,7 +578,6 @@ msgid ""
 "Fuel\n"
 "                                    Type"
 msgstr "Carburant"
-
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__fuel_tank_volume_l
@@ -490,6 +597,11 @@ msgid "Gearbox"
 msgstr "Boîte de vitesses"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_volkswagen_golf
+msgid "Golf"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__gross_weight_kg
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__gross_weight_kg
 msgid "Gross Weight (kg)"
@@ -500,6 +612,11 @@ msgstr "Poids total (kg)"
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_vehicle_search
 msgid "Group By"
 msgstr "Groupé par"
+
+#. module: bestcar_commercial
+#: model:vehicle.type,name:bestcar_commercial.vehicle_type_hatchback
+msgid "Hatchback"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:vehicle.option,description:bestcar_commercial.vehicle_option_airbags_curtain
@@ -551,12 +668,22 @@ msgstr "Hybride"
 #: model:ir.model.fields,field_description:bestcar_commercial.field_vehicle_option__id
 #: model:ir.model.fields,field_description:bestcar_commercial.field_vehicle_type__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_volkswagen_id_polo
+msgid "ID.Polo"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_seat_ibiza
+msgid "Ibiza"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_product_template_form_inherit_car
 msgid "Identification"
-msgstr "Identification"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,help:bestcar_commercial.field_product_template__active
@@ -631,6 +758,11 @@ msgid "Keyless Entry & Start"
 msgstr "Démarrage sans clé"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_skoda_kodiaq
+msgid "Kodiaq"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_led_headlights
 msgid "LED Headlights"
 msgstr "Phares LED"
@@ -665,6 +797,11 @@ msgid "Length (mm)"
 msgstr "Longueur (mm)"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_seat_leon
+msgid "Leon"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__license_plate
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__license_plate
 msgid "License Plate"
@@ -678,7 +815,12 @@ msgstr "Jantes en alliage léger alliant performance et esthétisme"
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_vehicle_brand__logo
 msgid "Logo"
-msgstr "Logo"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_porsche_macan
+msgid "Macan"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:vehicle.option,description:bestcar_commercial.vehicle_option_cruise
@@ -791,12 +933,17 @@ msgid "Number of Doors"
 msgstr "Nombre de portes"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_skoda_octavia
+msgid "Octavia"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__vehicle_option_ids
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__vehicle_option_ids
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.vehicle_report
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_product_template_form_inherit_car
 msgid "Options"
-msgstr "Options"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.ui.menu,name:bestcar_commercial.menu_sale_orders
@@ -814,6 +961,11 @@ msgid "PHOTO"
 msgstr "Photo"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_volkswagen_passat
+msgid "Passat"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.model,name:bestcar_commercial.model_account_payment_register
 msgid "Pay"
 msgstr "Payer"
@@ -823,6 +975,11 @@ msgstr "Payer"
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_vehicle_search
 msgid "Petrol"
 msgstr "Essence"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_volkswagen_polo
+msgid "Polo"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:product.template,name:bestcar_commercial.vehicle_porsche_taycan
@@ -876,7 +1033,7 @@ msgstr "Date d'achat"
 #. module: bestcar_commercial
 #: model:ir.model,name:bestcar_commercial.model_purchase_order
 msgid "Purchase Order"
-msgstr "Bon de commande"
+msgstr "Bon de commande fournisseur"
 
 #. module: bestcar_commercial
 #: model:ir.actions.act_window,name:bestcar_commercial.action_open_orders
@@ -897,6 +1054,36 @@ msgid "Purchase Unit of Measure"
 msgstr "Unité d'achat"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_q2
+msgid "Q2"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_q3
+msgid "Q3"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_q4
+msgid "Q4"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_q5
+msgid "Q5"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_q7
+msgid "Q7"
+msgstr ""
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_q8
+msgid "Q8"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:vehicle.option,description:bestcar_commercial.vehicle_option_wireless_phone_charging
 msgid "Qi-compatible wireless charging pad in the center console"
 msgstr "Recharge sans fil Qi intégrée à la console central"
@@ -906,6 +1093,11 @@ msgstr "Recharge sans fil Qi intégrée à la console central"
 #: model:ir.ui.menu,name:bestcar_commercial.menu_sale_rfq
 msgid "Quotations"
 msgstr "Devis"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_r8
+msgid "R8"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_product_template_form_inherit_car
@@ -950,6 +1142,11 @@ msgid "Rights on Module BestCar"
 msgstr "Droits du module BestCar"
 
 #. module: bestcar_commercial
+#: model:vehicle.type,name:bestcar_commercial.vehicle_type_suv
+msgid "SUV"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__date_sale
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__date_sale
 msgid "Sale Date"
@@ -978,6 +1175,11 @@ msgid "Salesman"
 msgstr "Commercial"
 
 #. module: bestcar_commercial
+#: model:vehicle.type,name:bestcar_commercial.vehicle_type_berline
+msgid "Sedan"
+msgstr "Berline"
+
+#. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_product_template_form_inherit_car
 msgid "Sell Car"
 msgstr "Vente voiture"
@@ -1003,6 +1205,11 @@ msgid "Specifications"
 msgstr "Spécifications"
 
 #. module: bestcar_commercial
+#: model:vehicle.type,name:bestcar_commercial.vehicle_type_coupe_sport
+msgid "Sport Coupé"
+msgstr "Coupé Sport"
+
+#. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__status
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__status
 msgid "Status"
@@ -1020,10 +1227,20 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_skoda_superb
+msgid "Superb"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__supplier_id
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_template__supplier_id
 msgid "Supplier"
 msgstr "Vendeur"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_audi_tt
+msgid "TT"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model,name:bestcar_commercial.model_project_task
@@ -1034,6 +1251,11 @@ msgstr "Tâche"
 #: model:ir.ui.menu,name:bestcar_commercial.menu_project_tasks
 msgid "Tasks"
 msgstr "Tâches"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_porsche_taycan
+msgid "Taycan"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_product_template_form_inherit_car
@@ -1066,9 +1288,19 @@ msgid "Thorax side airbags for front seats."
 msgstr "Airbags thorax intégrés aux sièges avant"
 
 #. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_volkswagen_tiguan
+msgid "Tiguan"
+msgstr ""
+
+#. module: bestcar_commercial
 #: model:vehicle.option,name:bestcar_commercial.vehicle_option_tpms
 msgid "Tire Pressure Monitoring System (TPMS)"
 msgstr "Système de contrôle de la pression des pneus"
+
+#. module: bestcar_commercial
+#: model:vehicle.model,name:bestcar_commercial.vehicle_model_volkswagen_touareg
+msgid "Touareg"
+msgstr ""
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__is_storable
@@ -1116,7 +1348,8 @@ msgstr "Unité de mesure"
 #. module: bestcar_commercial
 #: model:vehicle.option,description:bestcar_commercial.vehicle_option_keyless
 msgid "Unlock and start the car while the key stays in your pocket."
-msgstr "Déverouillage et démarrage de la voiture en ayant vos clés dans votre poche"
+msgstr ""
+"Déverouillage et démarrage de la voiture en ayant vos clés dans votre poche"
 
 #. module: bestcar_commercial
 #: model:ir.actions.act_window,name:bestcar_commercial.action_used_vehicle
