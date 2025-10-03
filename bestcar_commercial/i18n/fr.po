@@ -1337,7 +1337,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:bestcar_commercial.field_vehicle_type__name
 #: model_terms:ir.ui.view,arch_db:bestcar_commercial.view_vehicle_model_search
 msgid "Type"
-msgstr ""
+msgstr "Catégorie"
 
 #. module: bestcar_commercial
 #: model:ir.model.fields,field_description:bestcar_commercial.field_product_product__uom_id
