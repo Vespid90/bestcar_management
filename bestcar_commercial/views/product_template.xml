@@ -163,7 +163,8 @@
                         <field name="vehicle_option_ids"
                                widget="many2many"
                                domain="[('active','=', True)]"
-                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}">
+                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                               nolabel="1">
                             <list string="Options">
                                 <field name="name"/>
                                 <field name="description"/>

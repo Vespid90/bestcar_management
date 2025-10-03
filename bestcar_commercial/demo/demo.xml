@@ -19,6 +19,11 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_a1.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_parking_sensors_rear')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')])]"/>
         </record>
         <record id="vehicle_audi_a3" model="product.template">
             <field name="name">Audi-A3-Sportback-3D754778</field>
@@ -39,6 +44,13 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_a3.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')])]"/>
         </record>
         <record id="vehicle_audi_q4" model="product.template">
             <field name="name">Audi-Q4-ETron-4T106995</field>
@@ -59,6 +71,21 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_q4.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_awd')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_side')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_climate_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_navigation')
+                                                    ,ref('bestcar_commercial.vehicle_option_cruise')
+                                                    ,ref('bestcar_commercial.vehicle_option_led_headlights')
+                                                    ,ref('bestcar_commercial.vehicle_option_heated_seats_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_keyless')
+                                                    ,ref('bestcar_commercial.vehicle_option_wireless_phone_charging')])]"/>
         </record>
         <record id="vehicle_vw_polo" model="product.template">
             <field name="name">Volkswagen-Polo-Style-WBA46595</field>
@@ -79,6 +106,10 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_vw_polo.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')])]"/>
         </record>
         <record id="vehicle_vw_golf" model="product.template">
             <field name="name">Volkswagen-Golf-GTI-1YV10138</field>
@@ -99,6 +130,16 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_vw_golf.jpg"/>
+                        <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_side')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_climate_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_navigation')
+                                                    ,ref('bestcar_commercial.vehicle_option_led_headlights')])]"/>
         </record>
         <record id="vehicle_skoda_fabia" model="product.template">
             <field name="name">Skoda-Fabia-TSI-JS219741</field>
@@ -119,6 +160,10 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_skoda_fabia.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')])]"/>
         </record>
         <record id="vehicle_porsche_taycan" model="product.template">
             <field name="name">Porsche-Taycan-4S-2B376929</field>
@@ -139,6 +184,25 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_porsche_taycan.jpg"/>
+                        <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_awd')
+                                                    ,ref('bestcar_commercial.vehicle_option_traction_control')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_side')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_curtain')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_parking_sensors_rear')
+                                                    ,ref('bestcar_commercial.vehicle_option_camera_rear')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_climate_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_navigation')
+                                                    ,ref('bestcar_commercial.vehicle_option_led_headlights')
+                                                    ,ref('bestcar_commercial.vehicle_option_cruise')
+                                                    ,ref('bestcar_commercial.vehicle_option_heated_seats_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_keyless')
+                                                    ,ref('bestcar_commercial.vehicle_option_wireless_phone_charging')])]"/>
         </record>
     </data>
 </odoo>
