@@ -4,7 +4,7 @@
     <template id="vehicle_report">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
+                <t t-call="web.external_layout" t-lang="o.env.lang">
                     <div class="page" style="font-family:'DejaVu Sans', Arial, sans-serif;">
 
                         <t t-set="vin_clean" t-value="(o.vin or '').strip().upper()"/>
@@ -132,12 +132,12 @@
                                     Type
                                 </td>
                                 <td style="padding:6px; border-bottom:1px solid #e1e1e1;"
-                                    t-esc="{'petrol':'Petrol','diesel':'Diesel','hybrid':'Hybrid','electric':'Electric'}.get(o.energy_type, '')"/>
+                                    t-esc="o._fields['energy_type'].convert_to_export(o.energy_type, o) or ''"/>
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">
                                     Transmission
                                 </td>
                                 <td style="padding:6px; border-bottom:1px solid #e1e1e1;"
-                                    t-esc="{'auto':'Automatic','man':'Manual'}.get(o.gearbox, '')"/>
+                                    t-esc="o._fields['gearbox'].convert_to_export(o.gearbox, o) or ''"/>
                             </tr>
                             <tr>
                                 <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Power</td>

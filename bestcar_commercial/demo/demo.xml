@@ -130,7 +130,7 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_vw_golf.jpg"/>
-                        <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
                                                     ,ref('bestcar_commercial.vehicle_option_airbags_front')
                                                     ,ref('bestcar_commercial.vehicle_option_airbags_side')
                                                     ,ref('bestcar_commercial.vehicle_option_android_auto')
@@ -184,7 +184,7 @@
             <field name="company_id" ref="company_bestcar"/>
             <field name="status">added</field>
             <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_porsche_taycan.jpg"/>
-                        <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
                                                     ,ref('bestcar_commercial.vehicle_option_awd')
                                                     ,ref('bestcar_commercial.vehicle_option_traction_control')
                                                     ,ref('bestcar_commercial.vehicle_option_airbags_front')
