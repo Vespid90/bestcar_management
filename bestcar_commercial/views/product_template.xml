@@ -8,7 +8,8 @@
 
                 <xpath expr="//div[@name='button_box']" position="inside">
                     <button name="action_view_projects" type="object" icon="fa-check"
-                            class="oe_stat_button" widget="statinfo" invisible="not is_vehicle or status == 'added' or status =='waiting_arrival'">
+                            class="oe_stat_button" widget="statinfo"
+                            invisible="not is_vehicle or status == 'added' or status =='waiting_arrival'">
                         <div class="o_stat_info" position="attribute">
                             <field name="project_count" class="o_stat_value"/>
                             <span class="o_stat_text">Project</span>
@@ -20,7 +21,12 @@
                     <attribute name="invisible">is_vehicle</attribute>
                 </xpath>
 
-                <xpath expr="//form/header/button[@type='action'][@groups='stock.group_stock_user']"
+                <button name="%(stock.action_product_replenish)d"
+                        position="attributes">
+                    <attribute name="invisible">is_vehicle</attribute>
+                </button>
+
+                <xpath expr="//form/header/button[@name='action_open_label_layout']"
                        position="attributes">
                     <attribute name="invisible">is_vehicle</attribute>
                 </xpath>
@@ -158,20 +164,20 @@
                 </xpath>
 
                 <xpath expr="//sheet/notebook/page[@name='general_information']" position="before">
-                <page string="Vehicle Options" name="page_vehicle_options" invisible="not is_vehicle">
-                    <group>
-                        <field name="vehicle_option_ids"
-                               widget="many2many"
-                               domain="[('active','=', True)]"
-                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}">
-                            <list string="Options">
-                                <field name="name"/>
-                                <field name="description"/>
-                            </list>
-                        </field>
-                    </group>
-                </page>
-            </xpath>
+                    <page string="Vehicle Options" name="page_vehicle_options" invisible="not is_vehicle">
+                        <group>
+                            <field name="vehicle_option_ids"
+                                   widget="many2many"
+                                   domain="[('active','=', True)]"
+                                   options="{'no_create': True, 'no_create_edit': True, 'no_open': True}">
+                                <list string="Options">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
             </field>
         </record>
 
