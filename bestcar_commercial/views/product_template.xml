@@ -54,7 +54,12 @@
                     <attribute name="invisible">is_vehicle</attribute>
                 </xpath>
 
-                <xpath expr="//form/header/button[@type='action'][@groups='stock.group_stock_user']"
+                <button name="%(stock.action_product_replenish)d"
+                        position="attributes">
+                    <attribute name="invisible">is_vehicle</attribute>
+                </button>
+
+                <xpath expr="//form/header/button[@name='action_open_label_layout']"
                        position="attributes">
                     <attribute name="invisible">is_vehicle</attribute>
                 </xpath>
@@ -85,30 +90,6 @@
                             class="oe_highlight"
                             invisible="not is_vehicle or trade_in or status != 'waiting_TI'"/>
                 </xpath>
-
-<!--                <xpath expr="//form/header/button[@name='button_buy']" position="after">-->
-<!--                    <button name="button_sale"-->
-<!--                            type="object"-->
-<!--                            string="Sell Car"-->
-<!--                            class="oe_highlight"-->
-<!--                            invisible="not is_vehicle or trade_in or status != 'for_sale'"/>-->
-<!--                </xpath>-->
-
-<!--                <xpath expr="//form/header/button[@name='button_sale']" position="after">-->
-<!--                    <button name="button_ready"-->
-<!--                            type="object"-->
-<!--                            string="Ready to sell"-->
-<!--                            class="oe_highlight"-->
-<!--                            invisible="not is_vehicle or trade_in or status != 'reconditioning'"/>-->
-<!--                </xpath>-->
-
-<!--                <xpath expr="//form/header/button[@name='button_ready']" position="after">-->
-<!--                    <button name="button_TI"-->
-<!--                            type="object"-->
-<!--                            string="Technical Inspection OK"-->
-<!--                            class="oe_highlight"-->
-<!--                            invisible="not is_vehicle or trade_in or status != 'waiting_TI'"/>-->
-<!--                </xpath>-->
 
                 <xpath expr="//field[@name='image_1920']" position="attributes">
                     <attribute name="options">{'size': [400]}</attribute>

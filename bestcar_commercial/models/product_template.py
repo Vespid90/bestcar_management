@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, Command
 
 
 class ProductTemplate(models.Model):
@@ -31,7 +31,7 @@ class ProductTemplate(models.Model):
     reference_number = fields.Char(string="Reference Number")
     vehicle_model = fields.Char(string="Model")
     vehicle_version = fields.Char(string="Version")
-    vin = fields.Char(string="VIN")
+    vin = fields.Char(string="VIN", copy=False)
 
     date_arrival = fields.Date(string="Arrival Date", readonly=True)
     date_first_registration = fields.Date(string="First Registration Date")
@@ -176,6 +176,39 @@ class ProductTemplate(models.Model):
         for rec in self:
             rec.project_count = len(rec.project_ids)
 
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     """
+    #
+    #     Used to generate a product.template for vehicle trade-in + a different VIN (unique car) which ends with '-TRD'
+    #
+    #     """
+    #     records = super().create(vals_list)
+    #
+    #     for rec, vals in zip(records, vals_list):
+    #         if vals.get("is_trade_in"):
+    #
+    #             vin = rec.vin or ""
+    #             if not vin.endswith("-TRD"):
+    #                 vin = f"{vin}-TRD"
+    #
+    #             trade_in_vals = {
+    #                 "trade_in": True,
+    #                 "name": rec.name,
+    #                 "purchase_price": rec.purchase_price,
+    #                 "type": 'service',
+    #                 "vehicle_brand_id": rec.vehicle_brand_id.id,
+    #                 "vehicle_model_id": rec.vehicle_model_id.id,
+    #                 "vehicle_version": rec.vehicle_version,
+    #                 "vin": vin,
+    #                 "list_price": -abs(rec.purchase_price),
+    #                 "is_vehicle": rec.is_vehicle,
+    #             }
+    #
+    #             self.create(trade_in_vals)
+    #
+    #     return records
+
     @api.model_create_multi
     def create(self, vals_list):
         """
@@ -185,27 +218,20 @@ class ProductTemplate(models.Model):
         """
         records = super().create(vals_list)
 
-        for rec, vals in zip(records, vals_list):
-            if vals.get("is_trade_in"):
-
+        for rec in records:
+            if rec.is_trade_in:
                 vin = rec.vin or ""
                 if not vin.endswith("-TRD"):
                     vin = f"{vin}-TRD"
 
-                trade_in_vals = {
+                new_product = rec.copy({
                     "trade_in": True,
-                    "name": rec.name,
-                    "purchase_price": rec.purchase_price,
-                    "type": 'service',
-                    "vehicle_brand_id": rec.vehicle_brand_id.id,
-                    "vehicle_model_id": rec.vehicle_model_id.id,
-                    "vehicle_version": rec.vehicle_version,
-                    "vin": vin,
+                    "is_trade_in": False,
+                    'type': 'service',
                     "list_price": -abs(rec.purchase_price),
-                    "is_vehicle": rec.is_vehicle,
-                }
-
-                self.create(trade_in_vals)
+                })
+                # The new VIN is assigned after copying to ensure it is unique
+                new_product.vin = vin
 
         return records
 
@@ -221,7 +247,7 @@ class ProductTemplate(models.Model):
             "view_mode": "form",
             "target": "current",
             "context": {
-                "default_order_line": [(0, 0, {
+                "default_order_line": [Command.create({
                     "product_id": product_variant.id,
                     "name": product_variant.display_name,
                     "product_qty": 1.0,
@@ -242,7 +268,7 @@ class ProductTemplate(models.Model):
             "view_mode": "form",
             "target": "current",
             "context": {
-                "default_order_line": [(0, 0, {
+                "default_order_line": [Command.create({
                     "product_id": product_variant.id,
                     "name": product_variant.display_name,
                     "product_uom_qty": 1.0,
