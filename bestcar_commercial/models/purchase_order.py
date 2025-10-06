@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, Command
 
 PROJECT_STAGES = [
     {'name': 'New', 'sequence': 1},
@@ -36,21 +36,21 @@ class Project(models.Model):
                         stages_to_create.append({
                             'name': stage['name'],
                             'sequence': stage['sequence'],
-                            'project_ids': [(4, project.id)],
+                            'project_ids': [Command.link(project.id)],
                         })
                     self.env['project.task.type'].create(stages_to_create)
                     self.env['project.task'].create([
                         {'name': f"{order_line.product_id.name} Inspection", 'project_id': project.id,
-                         'user_ids': [(6, 0, [
+                         'user_ids': [Command.set([
                              default_user_id])],
                          'priority': '1'},
-                        {'name': f"{order_line.product_id.name} Repair", 'project_id': project.id, 'user_ids': [(6, 0, [
+                        {'name': f"{order_line.product_id.name} Repair", 'project_id': project.id, 'user_ids': [Command.set([
                             default_user_id])]},
                         {'name': f"{order_line.product_id.name} Maintenance", 'project_id': project.id,
-                         'user_ids': [(6, 0, [
+                         'user_ids': [Command.set([
                              default_user_id])]},
                         {'name': f"{order_line.product_id.name} Cleaning", 'project_id': project.id,
-                         'user_ids': [(6, 0, [
+                         'user_ids': [Command.set([
                              default_user_id])]}
                     ])
         return super().button_confirm()

@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models, Command
 
 
 class AccountPaymentRegister(models.TransientModel):
@@ -17,7 +17,7 @@ class AccountPaymentRegister(models.TransientModel):
                             last_project_id = product.product_tmpl_id.project_ids[-1]
                             self.env['project.task'].create([
                                 {'name': f"{product.product_tmpl_id.name} CT", 'project_id': last_project_id.id,
-                                 'user_ids': [(6, 0, [
+                                 'user_ids': [Command.set([
                                      last_project_id.user_id.id])],
                                  'priority': '1'}])
         return res
