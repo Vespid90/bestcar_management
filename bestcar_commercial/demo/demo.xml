@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record id="vehicle_audi_a1" model="product.template">
-            <field name="name">Audi-A1-TDI-1ZV69797</field>
+<!--            <field name="name">Audi-A1-TDI-1ZV69797</field>-->
             <field name="is_vehicle">True</field>
             <field name="is_used">True</field>
             <field name="sale_ok">True</field>
@@ -31,7 +31,7 @@
             <field name="date_first_registration">2018-05-12</field>
         </record>
         <record id="vehicle_audi_a3" model="product.template">
-            <field name="name">Audi-A3-Sportback-3D754778</field>
+<!--            <field name="name">Audi-A3-Sportback-3D754778</field>-->
             <field name="is_vehicle">True</field>
             <field name="is_used">True</field>
             <field name="sale_ok">True</field>
@@ -63,7 +63,7 @@
             <field name="date_first_registration">2020-07-24</field>
         </record>
         <record id="vehicle_audi_q4" model="product.template">
-            <field name="name">Audi-Q4-45ETron-4T106995</field>
+<!--            <field name="name">Audi-Q4-45ETron-4T106995</field>-->
             <field name="is_vehicle">True</field>
             <field name="is_used">True</field>
             <field name="sale_ok">True</field>
@@ -101,7 +101,7 @@
             <field name="date_first_registration">2022-12-01</field>
         </record>
         <record id="vehicle_vw_polo" model="product.template">
-            <field name="name">Volkswagen-Polo-Style-WBA46595</field>
+<!--            <field name="name">Volkswagen-Polo-Style-WBA46595</field>-->
             <field name="is_vehicle">True</field>
             <field name="is_used">True</field>
             <field name="sale_ok">True</field>
@@ -130,7 +130,7 @@
             <field name="date_first_registration">2020-07-24</field>
         </record>
         <record id="vehicle_vw_golf" model="product.template">
-            <field name="name">Volkswagen-Golf-GTI-1YV10138</field>
+<!--            <field name="name">Volkswagen-Golf-GTI-1YV10138</field>-->
             <field name="is_vehicle">True</field>
             <field name="is_used">True</field>
             <field name="sale_ok">True</field>
@@ -165,7 +165,7 @@
             <field name="date_first_registration">2020-02-17</field>
         </record>
         <record id="vehicle_skoda_fabia" model="product.template">
-            <field name="name">Skoda-Fabia-TSI-JS219741</field>
+<!--            <field name="name">Skoda-Fabia-TSI-JS219741</field>-->
             <field name="is_vehicle">True</field>
             <field name="is_used">True</field>
             <field name="sale_ok">True</field>
@@ -194,7 +194,7 @@
             <field name="date_first_registration">2022-09-14</field>
         </record>
         <record id="vehicle_porsche_taycan" model="product.template">
-            <field name="name">Porsche-Taycan-4S-2B376929</field>
+<!--            <field name="name">Porsche-Taycan-4S-2B376929</field>-->
             <field name="is_vehicle">True</field>
             <field name="is_used">True</field>
             <field name="sale_ok">True</field>
