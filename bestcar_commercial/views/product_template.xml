@@ -249,7 +249,6 @@
                                 <field class="fw-bold fs-5" name="vehicle_model_id"/>
                                 <field class="fw-bold fs-6" name="gearbox"/>
                                 <field class="fw-bold fs-6" name="energy_type"/>
-                                <field class="fw-bold fs-6" name="date_first_registration"/>
                                 <span>
                                     <field class="fw-bold fs-6" name="mileage_km"/>
                                     km
