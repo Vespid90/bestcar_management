@@ -152,9 +152,8 @@
                                 </td>
                                 <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
                                     <t t-if="o.engine_capacity_cc not in (False, None, 0)">
-                                        <t t-esc="'{:,.0f}'.format(o.engine_capacity_cc)"/>
-                                        cm
-                                        <sup>3</sup>
+                                        <t t-esc="'{:,.1f}'.format(o.engine_capacity_cc)"/>
+                                        l
                                     </t>
                                 </td>
                             </tr>
@@ -192,38 +191,38 @@
                                     </t>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Length
-                                </td>
-                                <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-                                    <t t-if="o.length_mm not in (False, None, 0)">
-                                        <t t-esc="'{:,.1f}'.format((o.length_mm or 0)/10.0)"/>
-                                        cm
-                                    </t>
-                                </td>
-                                <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Width</td>
-                                <td style="padding:6px; border-bottom:1px solid #e1e1e1;">
-                                    <t t-if="o.width_mm not in (False, None, 0)">
-                                        <t t-esc="'{:,.1f}'.format((o.width_mm or 0)/10.0)"/>
-                                        cm
-                                    </t>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="background:#f6f6f6; padding:6px;">Height</td>
-                                <td style="padding:6px;">
-                                    <t t-if="o.height_mm not in (False, None, 0)">
-                                        <t t-esc="'{:,.1f}'.format((o.height_mm or 0)/10.0)"/>
-                                        cm
-                                    </t>
-                                </td>
-                                <td style="background:#f6f6f6; padding:6px;">Doors</td>
-                                <td style="padding:6px;">
-                                    <t t-if="o.doors not in (False, None, 0)">
-                                        <t t-esc="'{:,.0f}'.format(o.doors)"/>
-                                    </t>
-                                </td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Length-->
+<!--                                </td>-->
+<!--                                <td style="padding:6px; border-bottom:1px solid #e1e1e1;">-->
+<!--                                    <t t-if="o.length_mm not in (False, None, 0)">-->
+<!--                                        <t t-esc="'{:,.1f}'.format((o.length_mm or 0)/10.0)"/>-->
+<!--                                        cm-->
+<!--                                    </t>-->
+<!--                                </td>-->
+<!--                                <td style="background:#f6f6f6; padding:6px; border-bottom:1px solid #e1e1e1;">Width</td>-->
+<!--                                <td style="padding:6px; border-bottom:1px solid #e1e1e1;">-->
+<!--                                    <t t-if="o.width_mm not in (False, None, 0)">-->
+<!--                                        <t t-esc="'{:,.1f}'.format((o.width_mm or 0)/10.0)"/>-->
+<!--                                        cm-->
+<!--                                    </t>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td style="background:#f6f6f6; padding:6px;">Height</td>-->
+<!--                                <td style="padding:6px;">-->
+<!--                                    <t t-if="o.height_mm not in (False, None, 0)">-->
+<!--                                        <t t-esc="'{:,.1f}'.format((o.height_mm or 0)/10.0)"/>-->
+<!--                                        cm-->
+<!--                                    </t>-->
+<!--                                </td>-->
+<!--                                <td style="background:#f6f6f6; padding:6px;">Doors</td>-->
+<!--                                <td style="padding:6px;">-->
+<!--                                    <t t-if="o.doors not in (False, None, 0)">-->
+<!--                                        <t t-esc="'{:,.0f}'.format(o.doors)"/>-->
+<!--                                    </t>-->
+<!--                                </td>-->
+<!--                            </tr>-->
                         </table>
 
                         <div style="background:#c33; color:#fff; text-transform:uppercase; font-weight:700; text-align:center; padding:6px 8px; margin-top:12px; border-radius:3px 3px 0 0;">

@@ -51,7 +51,7 @@ class ProductTemplate(models.Model):
 
     cylinders = fields.Integer(string="Number of Cylinders")
     doors = fields.Integer(string="Number of Doors")
-    engine_capacity_cc = fields.Integer(string="Engine Capacity (cc)")
+    engine_capacity_cc = fields.Float(string="Engine Capacity (l)")
     horsepower_hp = fields.Integer(string="Horsepower (HP)")
     mileage_km = fields.Integer(string="Mileage (km)")
     warranty_km = fields.Integer(string="Warranty (km)")
@@ -252,11 +252,11 @@ class ProductTemplate(models.Model):
         }
 
     def button_ready(self):
-        for rec in self:
+        for rec in self.filtered(lambda p:p.status == "reconditioning"):
             rec.status = 'for_sale'
 
     def button_TI(self):
-        for rec in self:
+        for rec in self.filtered(lambda p:p.status == "waiting_TI"):
             rec.status = 'waiting_delivery'
 
     def action_view_projects(self):

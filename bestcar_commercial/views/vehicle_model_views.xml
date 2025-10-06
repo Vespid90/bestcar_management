@@ -15,6 +15,16 @@
                 </search>
             </field>
         </record>
+        <record id="view_vehicle_model_list" model="ir.ui.view">
+            <field name="name">vehicle.model.list</field>
+            <field name="model">vehicle.model</field>
+            <field name="arch" type="xml">
+                <list string="Vehicles">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
         <record id="view_model_brand_form" model="ir.ui.view">
             <field name="name">vehicle.model.form</field>
             <field name="model">vehicle.model</field>
@@ -30,15 +40,7 @@
                 </form>
             </field>
         </record>
-        <record id="view_vehicle_model_list" model="ir.ui.view">
-            <field name="name">vehicle.model.list</field>
-            <field name="model">vehicle.model</field>
-            <field name="arch" type="xml">
-                <list string="Vehicles">
-                    <field name="name"/>
-                </list>
-            </field>
-        </record>
+
         <record id="action_vehicle_model" model="ir.actions.act_window">
             <field name="name">Models</field>
             <field name="res_model">vehicle.model</field>

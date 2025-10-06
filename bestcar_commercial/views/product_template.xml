@@ -1,5 +1,39 @@
 <odoo>
     <data>
+        <record id="view_vehicle_search" model="ir.ui.view">
+            <field name="name">vehicle.search</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="vehicle_brand_id"/>
+                    <field name="vehicle_model_id"/>
+                    <field name="vin"/>
+                    <separator string="Availability"/>
+                    <filter string="Available" name="filter_available"
+                            domain="[('status', '=','for_sale')]"/>
+                    <filter string="Coming soon" name="filter_coming_soon"
+                            domain="[('status', 'in',['waiting_arrival','reconditioning'])]"/>
+                    <separator string="Energy Type"/>
+                    <filter string="Petrol" name="petrol" domain="[('energy_type','=','petrol')]"/>
+                    <filter string="Diesel" name="diesel" domain="[('energy_type','=','diesel')]"/>
+                    <filter string="Hybrid" name="hybrid" domain="[('energy_type','=','hybrid')]"/>
+                    <filter string="Electric" name="electric" domain="[('energy_type','=','electric')]"/>
+                    <separator string="GearBox"/>
+                    <filter string="Automatic" name="automatic" domain="[('gearbox','=','auto')]"/>
+                    <filter string="Manual" name="manual" domain="[('gearbox','=','man')]"/>
+                    <separator string="Mileage"/>
+                    <filter string="Mileage &lt; 50.000km" name="50000" domain="[('mileage_km','&lt;=',50000)]"/>
+                    <filter string="50.000 &lt; Mileage &lt; 100.000km" name="100000"
+                            domain="[('mileage_km','&gt;',50000),('mileage_km','&lt;=',100000)]"/>
+                    <filter string="Mileage &gt; 100.000km" name="+100000" domain="[('mileage_km','&gt;',100000)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Make" name="make" context="{'group_by': 'vehicle_brand_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="view_product_template_form_inherit_car" model="ir.ui.view">
             <field name="name">product.template.form.inherit.car</field>
             <field name="model">product.template</field>
@@ -34,36 +68,47 @@
                             type="object"
                             string="Buy Car"
                             class="oe_highlight"
-                            data-hotkey="z"
                             invisible="not is_vehicle or trade_in or status != 'added'"/>
-                </xpath>
-
-                <xpath expr="//form/header/button[@name='button_buy']" position="after">
                     <button name="button_sale"
                             type="object"
                             string="Sell Car"
                             class="oe_highlight"
-                            data-hotkey="z"
                             invisible="not is_vehicle or trade_in or status != 'for_sale'"/>
-                </xpath>
-
-                <xpath expr="//form/header/button[@name='button_sale']" position="after">
                     <button name="button_ready"
                             type="object"
                             string="Ready to sell"
                             class="oe_highlight"
-                            data-hotkey="z"
                             invisible="not is_vehicle or trade_in or status != 'reconditioning'"/>
-                </xpath>
-
-                <xpath expr="//form/header/button[@name='button_ready']" position="after">
                     <button name="button_TI"
                             type="object"
                             string="Technical Inspection OK"
                             class="oe_highlight"
-                            data-hotkey="z"
                             invisible="not is_vehicle or trade_in or status != 'waiting_TI'"/>
                 </xpath>
+
+<!--                <xpath expr="//form/header/button[@name='button_buy']" position="after">-->
+<!--                    <button name="button_sale"-->
+<!--                            type="object"-->
+<!--                            string="Sell Car"-->
+<!--                            class="oe_highlight"-->
+<!--                            invisible="not is_vehicle or trade_in or status != 'for_sale'"/>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//form/header/button[@name='button_sale']" position="after">-->
+<!--                    <button name="button_ready"-->
+<!--                            type="object"-->
+<!--                            string="Ready to sell"-->
+<!--                            class="oe_highlight"-->
+<!--                            invisible="not is_vehicle or trade_in or status != 'reconditioning'"/>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//form/header/button[@name='button_ready']" position="after">-->
+<!--                    <button name="button_TI"-->
+<!--                            type="object"-->
+<!--                            string="Technical Inspection OK"-->
+<!--                            class="oe_highlight"-->
+<!--                            invisible="not is_vehicle or trade_in or status != 'waiting_TI'"/>-->
+<!--                </xpath>-->
 
                 <xpath expr="//field[@name='image_1920']" position="attributes">
                     <attribute name="options">{'size': [400]}</attribute>
@@ -176,39 +221,6 @@
             </field>
         </record>
 
-        <record id="view_vehicle_search" model="ir.ui.view">
-            <field name="name">vehicle.search</field>
-            <field name="model">product.template</field>
-            <field name="arch" type="xml">
-                <search>
-                    <field name="name"/>
-                    <field name="vehicle_brand_id"/>
-                    <field name="vehicle_model_id"/>
-                    <field name="vin"/>
-                    <separator string="Availability"/>
-                    <filter string="Available" name="filter_available"
-                            domain="[('status', '=','for_sale')]"/>
-                    <filter string="Coming soon" name="filter_coming_soon"
-                            domain="[('status', 'in',['waiting_arrival','reconditioning'])]"/>
-                    <separator string="Energy Type"/>
-                    <filter string="Petrol" name="petrol" domain="[('energy_type','=','petrol')]"/>
-                    <filter string="Diesel" name="diesel" domain="[('energy_type','=','diesel')]"/>
-                    <filter string="Hybrid" name="hybrid" domain="[('energy_type','=','hybrid')]"/>
-                    <filter string="Electric" name="electric" domain="[('energy_type','=','electric')]"/>
-                    <separator string="GearBox"/>
-                    <filter string="Automatic" name="automatic" domain="[('gearbox','=','auto')]"/>
-                    <filter string="Manual" name="manual" domain="[('gearbox','=','man')]"/>
-                    <separator string="Mileage"/>
-                    <filter string="Mileage &lt; 50.000km" name="50000" domain="[('mileage_km','&lt;=',50000)]"/>
-                    <filter string="50.000 &lt; Mileage &lt; 100.000km" name="100000"
-                            domain="[('mileage_km','&gt;',50000),('mileage_km','&lt;=',100000)]"/>
-                    <filter string="Mileage &gt; 100.000km" name="+100000" domain="[('mileage_km','&gt;',100000)]"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Make" name="make" context="{'group_by': 'vehicle_brand_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
         <record id="view_vehicle_list" model="ir.ui.view">
             <field name="name">vehicle.list</field>
             <field name="model">product.template</field>
@@ -326,12 +338,12 @@
         </record>
         <menuitem id="new_vehicle_menu"
                   name="New Vehicles"
-                  parent="bestcar_commercial_vehicle_menu"
+                  parent="bestcar_commercial.bestcar_commercial_vehicle_menu"
                   action="action_new_vehicle"
                   sequence="1"/>
         <menuitem id="used_vehicle_menu"
                   name="Used Vehicles"
-                  parent="bestcar_commercial_vehicle_menu"
+                  parent="bestcar_commercial.bestcar_commercial_vehicle_menu"
                   action="action_used_vehicle"
                   sequence="0"/>
     </data>
