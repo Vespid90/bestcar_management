@@ -1,4 +1,5 @@
 from odoo import models, fields, api, Command
+from odoo.exceptions import ValidationError
 
 
 class ProductTemplate(models.Model):
@@ -144,6 +145,12 @@ class ProductTemplate(models.Model):
                                 default=_default_uom_id)
     categ_id = fields.Many2one("product.category", string="Category",
                                default=_default_categ_id)
+
+    @api.constrains('vin')
+    def _check_vin_length(self):
+        for record in self.filtered(lambda p: not p.trade_in):
+            if record.vin and len(record.vin) != 17:
+                raise ValidationError("The VIN must be exactly 17 characters long.")
 
     @api.depends('vehicle_brand_id', 'vehicle_model_id', 'vehicle_version', 'vin')
     def _compute_vehicle_name(self):
