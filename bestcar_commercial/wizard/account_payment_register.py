@@ -7,9 +7,8 @@ class AccountPaymentRegister(models.TransientModel):
      def action_create_payments(self):
         res = super().action_create_payments()
         for wizard in self:
-            for line in wizard.line_ids.filtered(lambda l:l.move_id.move_type == "out_invoice"):
-                    for invoice_line in line.move_id.invoice_line_ids:
-                        product = invoice_line.product_id
+            for line in wizard.line_ids.filtered(lambda l:l.move_id.move_type == "out_invoice").move_id.invoice_line_ids:
+                        product = line.product_id
                         if product.is_vehicle and not product.trade_in:
                             product.status = "waiting_TI"
                             if product.project_ids:

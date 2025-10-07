@@ -18,39 +18,42 @@ class Project(models.Model):
         company = self.env.ref('bestcar_commercial.company_bestcar')
 
         for order in self:
-            for order_line in order.order_line.filtered(lambda l:l.product_id.is_vehicle):
-                    order_line.product_id.date_purchase = fields.Date.today()
-                    order_line.product_id.purchase_price = order_line.price_unit
-                    order_line.product_id.supplier_id = order_line.partner_id
-                    order_line.product_id.status = "waiting_arrival"
-                    project = self.env['project.project'].create({
-                        'name': f"{order_line.product_id.name} Reconditioning",
-                        'user_id': default_user_id,
-                        'vehicle_id': order_line.product_id.product_tmpl_id.id,
-                        'company_id':company.id,
+            for order_line in order.order_line.filtered(lambda l: l.product_id.is_vehicle):
+                order_line.product_id.update({
+                    'date_purchase': fields.Date.today(),
+                    'purchase_price': order_line.price_unit,
+                    'supplier_id': order_line.partner_id,
+                    'status': "waiting_arrival",
+                })
+                project = self.env['project.project'].create({
+                    'name': f"{order_line.product_id.name} Reconditioning",
+                    'user_id': default_user_id,
+                    'vehicle_id': order_line.product_id.product_tmpl_id.id,
+                    'company_id': company.id,
+                })
+                stages_to_create = []
+                for stage in PROJECT_STAGES:
+                    stages_to_create.append({
+                        'name': stage['name'],
+                        'sequence': stage['sequence'],
+                        'project_ids': [Command.link(project.id)],
                     })
-                    stages_to_create = []
-                    for stage in PROJECT_STAGES:
-                        stages_to_create.append({
-                            'name': stage['name'],
-                            'sequence': stage['sequence'],
-                            'project_ids': [Command.link(project.id)],
-                        })
-                    self.env['project.task.type'].create(stages_to_create)
-                    self.env['project.task'].create([
-                        {'name': f"{order_line.product_id.name} Inspection", 'project_id': project.id,
-                         'user_ids': [Command.set([
-                             default_user_id])],
-                         'priority': '1'},
-                        {'name': f"{order_line.product_id.name} Repair", 'project_id': project.id, 'user_ids': [Command.set([
-                            default_user_id])]},
-                        {'name': f"{order_line.product_id.name} Maintenance", 'project_id': project.id,
-                         'user_ids': [Command.set([
-                             default_user_id])]},
-                        {'name': f"{order_line.product_id.name} Cleaning", 'project_id': project.id,
-                         'user_ids': [Command.set([
-                             default_user_id])]}
-                    ])
+                self.env['project.task.type'].create(stages_to_create)
+                self.env['project.task'].create([
+                    {'name': f"{order_line.product_id.name} Inspection", 'project_id': project.id,
+                     'user_ids': [Command.set([
+                         default_user_id])],
+                     'priority': '1'},
+                    {'name': f"{order_line.product_id.name} Repair", 'project_id': project.id,
+                     'user_ids': [Command.set([
+                         default_user_id])]},
+                    {'name': f"{order_line.product_id.name} Maintenance", 'project_id': project.id,
+                     'user_ids': [Command.set([
+                         default_user_id])]},
+                    {'name': f"{order_line.product_id.name} Cleaning", 'project_id': project.id,
+                     'user_ids': [Command.set([
+                         default_user_id])]}
+                ])
         return super().button_confirm()
 
     def button_cancel(self):
