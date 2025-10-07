@@ -214,7 +214,7 @@
                     <field name="vehicle_model_id"/>
                     <field name="vehicle_type_id" readonly="1"/>
                     <field name="vehicle_version"/>
-                    <field name="vin"/>
+                    <field name="stock_time_days"/>
                     <field class="fw-bold fs-6" name="mileage_km"/>
                     <field name="purchase_price"/>
                     <field name="list_price"/>
