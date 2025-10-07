@@ -33,10 +33,10 @@ class ProductTemplate(models.Model):
     vehicle_version = fields.Char(string="Version")
     vin = fields.Char(string="VIN", copy=False)
 
-    date_arrival = fields.Date(string="Arrival Date", readonly=True)
+    date_arrival = fields.Date(string="Arrival Date")
     date_first_registration = fields.Date(string="First Registration Date")
-    date_purchase = fields.Date(string="Purchase Date", readonly=True)
-    date_sale = fields.Date(string="Sale Date", readonly=True)
+    date_purchase = fields.Date(string="Purchase Date")
+    date_sale = fields.Date(string="Sale Date")
 
     co2_g_km = fields.Float(string="CO₂ Emission (g/km)")
     fuel_tank_volume_l = fields.Float(string="Fuel Tank Volume (L)")
@@ -61,16 +61,6 @@ class ProductTemplate(models.Model):
 
     purchase_price = fields.Monetary(string="Purchase Price",
                                      currency_field="currency_id")
-
-    _sql_constraints = [
-        (
-            "unique_license_plate",
-            "unique(license_plate)",
-            "The license plate must be unique for each vehicle.",
-        ),
-        ('vin_number_unique', 'unique(vin)', "The VIN must be unique!")
-
-    ]
 
     energy_type = fields.Selection(
         [
@@ -132,8 +122,7 @@ class ProductTemplate(models.Model):
                                        domain="[('brand_id', '=', vehicle_brand_id)]")
     vehicle_type_id = fields.Many2one(comodel_name="vehicle.type",
                                       string="Type",
-                                      related="vehicle_model_id.type_id",
-                                      readonly=True)
+                                      related="vehicle_model_id.type_id")
     project_ids = fields.One2many(comodel_name="project.project",
                                   inverse_name="vehicle_id",
                                   string="Projects")
@@ -145,17 +134,24 @@ class ProductTemplate(models.Model):
     categ_id = fields.Many2one("product.category", string="Category",
                                default=_default_categ_id)
 
+    _sql_constraints = [
+        (
+            "unique_license_plate",
+            "unique(license_plate)",
+            "The license plate must be unique for each vehicle.",
+        ),
+        ('vin_number_unique', 'unique(vin)', "The VIN must be unique!")
+
+    ]
+
     @api.depends('vehicle_brand_id', 'vehicle_model_id', 'vehicle_version', 'vin')
     def _compute_vehicle_name(self):
         for rec in self:
-            if (not rec.vehicle_brand_id.name
-                    or not rec.vehicle_model_id.name
-                    or not rec.vehicle_version
-                    or not rec.vin):
+            if not rec.vehicle_brand_id.name or not rec.vehicle_model_id.name or not rec.vehicle_version or not rec.vin:
                 base_name = "New Vehicle"
             else:
                 base_name = (f"{rec.vehicle_brand_id.name}-{rec.vehicle_model_id.name}-{rec.vehicle_version}-"
-                             f"{(rec.vin or '')[0:3]}{(rec.vin or '')[12:17]}")
+                             f"{rec.vin[0:3]}{rec.vin[12:17]}")
 
             if rec.trade_in:
                 rec.name = f"TRD - {base_name}"
@@ -176,45 +172,10 @@ class ProductTemplate(models.Model):
         for rec in self:
             rec.project_count = len(rec.project_ids)
 
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     """
-    #
-    #     Used to generate a product.template for vehicle trade-in + a different VIN (unique car) which ends with '-TRD'
-    #
-    #     """
-    #     records = super().create(vals_list)
-    #
-    #     for rec, vals in zip(records, vals_list):
-    #         if vals.get("is_trade_in"):
-    #
-    #             vin = rec.vin or ""
-    #             if not vin.endswith("-TRD"):
-    #                 vin = f"{vin}-TRD"
-    #
-    #             trade_in_vals = {
-    #                 "trade_in": True,
-    #                 "name": rec.name,
-    #                 "purchase_price": rec.purchase_price,
-    #                 "type": 'service',
-    #                 "vehicle_brand_id": rec.vehicle_brand_id.id,
-    #                 "vehicle_model_id": rec.vehicle_model_id.id,
-    #                 "vehicle_version": rec.vehicle_version,
-    #                 "vin": vin,
-    #                 "list_price": -abs(rec.purchase_price),
-    #                 "is_vehicle": rec.is_vehicle,
-    #             }
-    #
-    #             self.create(trade_in_vals)
-    #
-    #     return records
-
     @api.model_create_multi
     def create(self, vals_list):
         """
-
         Used to generate a product.template for vehicle trade-in + a different VIN (unique car) which ends with '-TRD'
-
         """
         records = super().create(vals_list)
 
@@ -237,9 +198,7 @@ class ProductTemplate(models.Model):
 
     def button_buy(self):
         self.ensure_one()
-
         product_variant = self.product_variant_id
-
         return {
             "name": "Buy a vehicle",
             "type": "ir.actions.act_window",
@@ -258,9 +217,7 @@ class ProductTemplate(models.Model):
 
     def button_sale(self):
         self.ensure_one()
-
         product_variant = self.product_variant_id
-
         return {
             "name": "Sell a vehicle",
             "type": "ir.actions.act_window",
@@ -297,6 +254,6 @@ class ProductTemplate(models.Model):
                       (False, 'form')],
             'domain': [('project_id', 'in', self.project_ids.ids)],
             'context': {
-                'default_project_id': self.project_ids[:1].id
+                'default_project_id': self.project_ids[0].id
             }
         }

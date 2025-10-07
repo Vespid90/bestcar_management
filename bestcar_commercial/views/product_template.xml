@@ -174,10 +174,10 @@
                             </group>
 
                             <group string="Dates">
-                                <field name="date_arrival"/>
+                                <field name="date_arrival" readonly="1"/>
                                 <field name="date_first_registration"/>
-                                <field name="date_purchase"/>
-                                <field name="date_sale"/>
+                                <field name="date_purchase" readonly="1"/>
+                                <field name="date_sale" readonly="1"/>
                             </group>
                         </group>
                     </page>
