@@ -9,7 +9,7 @@ class AccountPaymentRegister(models.TransientModel):
         for wizard in self:
             for line in wizard.line_ids.filtered(lambda l:l.move_id.move_type == "out_invoice").move_id.invoice_line_ids:
                         product = line.product_id
-                        if product.is_vehicle and not product.trade_in:
+                        if product.is_vehicle and not product.trade_in and product.status == 'payment':
                             product.status = "waiting_TI"
                             if product.project_ids:
                                 last_project_id = product.product_tmpl_id.project_ids[-1]

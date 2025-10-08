@@ -8,7 +8,7 @@ class AccountMove(models.Model):
         res = super().action_post()
         for move in self:
             for line in move.invoice_line_ids:
-                if line.product_id.product_tmpl_id.is_vehicle:
+                if line.product_id.product_tmpl_id.is_vehicle and line.product_id.product_tmpl_id.status == 'reserved':
                     line.product_id.product_tmpl_id.status = "payment"
         return res
 
