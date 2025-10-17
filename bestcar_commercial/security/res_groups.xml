@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="module_bestcar_security" model="ir.module.category">
+        <field name="name">BestCar</field>
+        <field name="description">Rights on Module BestCar</field>
+    </record>
+
+    <record id="bestcar_group_user" model="res.groups">
+        <field name="name">Technician</field>
+        <field name="category_id" ref="module_bestcar_security"/>
+        <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
+    </record>
+
+    <record id="bestcar_group_workshop_manager" model="res.groups">
+        <field name="name">Workshop Manager</field>
+        <field name="category_id" ref="module_bestcar_security"/>
+        <field name="implied_ids" eval="[(4,ref('bestcar_group_user'))]"/>
+    </record>
+
+    <record id="bestcar_group_sales" model="res.groups">
+        <field name="name">Salesman</field>
+        <field name="category_id" ref="module_bestcar_security"/>
+        <field name="implied_ids" eval="[(4,ref('bestcar_group_user'))]"/>
+    </record>
+
+    <record id="bestcar_group_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_bestcar_security"/>
+        <field name="implied_ids" eval="[(4,ref('bestcar_group_sales'),4,ref('bestcar_group_workshop_manager'))]"/>
+        <field name="users" eval="[(4,ref('base.user_root')),(4,ref('base.user_admin'))]"/>
+    </record>
+</odoo>

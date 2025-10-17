@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <record id="view_vehicle_brand_search" model="ir.ui.view">
+            <field name="name">vehicle.brand.search</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="view_vehicle_brand_list" model="ir.ui.view">
+            <field name="name">vehicle.brand.list</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <list string="Vehicles">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_vehicle_brand_form" model="ir.ui.view">
+            <field name="name">vehicle.brand.form</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <form string="Model make">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="logo" widget="image" class="oe_avatar"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_vehicle_brand_kanban" model="ir.ui.view">
+            <field name="name">vehicle.brand.kanban</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="logo"/>
+                    <templates>
+                        <t t-name="card" class="flex-row p-1">
+                            <aside>
+                                <field name="logo" widget="image" options="{'img_class': 'object-fit-contain'}"/>
+                            </aside>
+                            <main class="ms-2 mt-1">
+                                <field class="fw-bold fs-5" name="name"/>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_vehicle_brand" model="ir.actions.act_window">
+            <field name="name">Manufacturers</field>
+            <field name="res_model">vehicle.brand</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="view_vehicle_brand_search"/>
+        </record>
+        <menuitem id="menu_vehicle_brand"
+                  name="Manufacturer"
+                  parent="menu_vehicle_configuration"
+                  action="action_vehicle_brand"
+                  sequence="1"/>
+    </data>
+</odoo>

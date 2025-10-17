@@ -1,0 +1,332 @@
+<odoo>
+    <data>
+        <record id="view_vehicle_search" model="ir.ui.view">
+            <field name="name">vehicle.search</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <field name="name"/>
+                    <field name="vehicle_brand_id"/>
+                    <field name="vehicle_model_id"/>
+                    <field name="vin"/>
+                    <separator string="Availability"/>
+                    <filter string="Available" name="filter_available"
+                            domain="[('status', '=','for_sale')]"/>
+                    <filter string="Coming soon" name="filter_coming_soon"
+                            domain="[('status', 'in',['waiting_arrival','reconditioning'])]"/>
+                    <separator string="Energy Type"/>
+                    <filter string="Petrol" name="petrol" domain="[('energy_type','=','petrol')]"/>
+                    <filter string="Diesel" name="diesel" domain="[('energy_type','=','diesel')]"/>
+                    <filter string="Hybrid" name="hybrid" domain="[('energy_type','=','hybrid')]"/>
+                    <filter string="Electric" name="electric" domain="[('energy_type','=','electric')]"/>
+                    <separator string="GearBox"/>
+                    <filter string="Automatic" name="automatic" domain="[('gearbox','=','auto')]"/>
+                    <filter string="Manual" name="manual" domain="[('gearbox','=','man')]"/>
+                    <separator string="Mileage"/>
+                    <filter string="Mileage &lt; 50.000km" name="50000" domain="[('mileage_km','&lt;=',50000)]"/>
+                    <filter string="50.000 &lt; Mileage &lt; 100.000km" name="100000"
+                            domain="[('mileage_km','&gt;',50000),('mileage_km','&lt;=',100000)]"/>
+                    <filter string="Mileage &gt; 100.000km" name="+100000" domain="[('mileage_km','&gt;',100000)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Make" name="make" context="{'group_by': 'vehicle_brand_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_product_template_form_inherit_car" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.car</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_projects" type="object" icon="fa-check"
+                            class="oe_stat_button" widget="statinfo"
+                            invisible="not is_vehicle or status == 'added' or status =='waiting_arrival'">
+                        <div class="o_stat_info" position="attribute">
+                            <field name="project_count" class="o_stat_value"/>
+                            <span class="o_stat_text">Project</span>
+                        </div>
+                    </button>
+                </xpath>
+
+                <xpath expr="//button[@name='action_update_quantity_on_hand']" position="attributes">
+                    <attribute name="invisible">is_vehicle</attribute>
+                </xpath>
+
+                <button name="%(stock.action_product_replenish)d"
+                        position="attributes">
+                    <attribute name="invisible">is_vehicle</attribute>
+                </button>
+
+                <xpath expr="//form/header/button[@name='action_open_label_layout']"
+                       position="attributes">
+                    <attribute name="invisible">is_vehicle</attribute>
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <field name="status" widget="statusbar" invisible="not is_vehicle or trade_in"/>
+                </xpath>
+
+                <xpath expr="//header/button" position="before">
+                    <button name="button_buy"
+                            type="object"
+                            string="Buy Car"
+                            class="oe_highlight"
+                            invisible="not is_vehicle or trade_in or status != 'added'"/>
+                    <button name="button_sale"
+                            type="object"
+                            string="Sell Car"
+                            class="oe_highlight"
+                            invisible="not is_vehicle or trade_in or status != 'for_sale'"/>
+                    <button name="button_ready"
+                            type="object"
+                            string="Ready to sell"
+                            class="oe_highlight"
+                            invisible="not is_vehicle or trade_in or status != 'reconditioning'"/>
+                    <button name="button_TI"
+                            type="object"
+                            string="Technical Inspection OK"
+                            class="oe_highlight"
+                            invisible="not is_vehicle or trade_in or status != 'waiting_TI'"/>
+                </xpath>
+
+                <xpath expr="//field[@name='image_1920']" position="attributes">
+                    <attribute name="options">{'size': [400]}</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='variants']" position="attributes">
+                    <attribute name="invisible">is_used</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='general_information']" position="before">
+                    <page name="car_information" string="Vehicle Information" invisible="not is_vehicle">
+                        <group>
+                            <group string="Summary">
+                                <field name="is_trade_in" invisible="trade_in"/>
+                                <field name="trade_in" invisible="is_trade_in or not trade_in" readonly="1"/>
+                                <field name="is_used"/>
+                                <field name="is_vehicle" invisible="1"/>
+                                <field name="vehicle_brand_id" required="1"/>
+                                <field name="vehicle_model_id" required="1"/>
+                                <field name="vehicle_type_id" readonly="1"/>
+                                <field name="vehicle_version" required="1"/>
+                                <field name="uom_id" invisible="1"/>
+                                <field name="uom_po_id" invisible="1"/>
+                                <field name="categ_id" invisible="1"/>
+                                <field name="type" invisible="1"/>
+                                <field name="energy_type"/>
+                            </group>
+
+                            <group string="Summary">
+                                <field name="class_of_emission"/>
+                                <field name="gearbox"/>
+                                <field name="body_color"/>
+                                <field name="horsepower_hp"/>
+                                <field name="cylinders"/>
+                                <field class="fw-bold fs-6" name="mileage_km"/>
+                                <field name="purchase_price" widget="monetary"
+                                       options="{'currency_field':'currency_id'}"/>
+                                <field name="list_price" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group string="Identification">
+                                <field name="vin" required="is_used"/>
+                                <field name="country_of_origin_id"/>
+                            </group>
+
+                            <group string="Technical Specs">
+                                <field name="horsepower_hp"/>
+                                <field name="engine_capacity_cc"/>
+                                <field name="cylinders"/>
+                                <field name="doors"/>
+                                <field name="fiscal_power_cv"/>
+                                <field name="fuel_tank_volume_l"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group string="Others">
+                                <field name="co2_g_km"/>
+                                <field name="class_of_emission"/>
+                                <field name="consumption"/>
+                                <field name="mileage_km"/>
+                                <field name="warranty_km"/>
+                            </group>
+
+                            <group string="Commercial Info">
+                                <field name="purchase_price"/>
+                                <field name="list_price"/>
+                                <field name="stock_time_days"/>
+                                <field name="supplier_id"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group string="Dimensions">
+                                <field name="length_mm"/>
+                                <field name="width_mm"/>
+                                <field name="height_mm"/>
+                                <field name="gross_weight_kg"/>
+                                <field name="kerb_weight_kg"/>
+                            </group>
+
+                            <group string="Dates">
+                                <field name="date_arrival" readonly="1"/>
+                                <field name="date_first_registration"/>
+                                <field name="date_purchase" readonly="1"/>
+                                <field name="date_sale" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[@name='general_information']" position="before">
+                    <page string="Vehicle Options" name="page_vehicle_options" invisible="not is_vehicle">
+                        <group>
+                            <field name="vehicle_option_ids"
+                                   widget="many2many"
+                                   domain="[('active','=', True)]"
+                                   options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                   nolabel="1">
+                                <list string="Options">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_vehicle_list" model="ir.ui.view">
+            <field name="name">vehicle.list</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <list string="Vehicles">
+                    <field name="name" string="Vehicle reference"/>
+                    <field name="status"/>
+                    <field name="is_vehicle" column_invisible="1"/>
+                    <field name="vehicle_brand_id"/>
+                    <field name="vehicle_model_id"/>
+                    <field name="vehicle_type_id" readonly="1"/>
+                    <field name="vehicle_version"/>
+                    <field name="stock_time_days"/>
+                    <field class="fw-bold fs-6" name="mileage_km"/>
+                    <field name="purchase_price"/>
+                    <field name="list_price"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_vehicle_kanban" model="ir.ui.view">
+            <field name="name">vehicle.kanban</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <kanban class="kanban-class">
+                    <field name="status" invisible="1"/>
+                    <templates>
+                        <t t-name="card" class="d-flex flex-row">
+                            <widget name="web_ribbon" title="Sold" bg_color="text-bg-danger"
+                                    invisible="status not in ['reserved','payment','waiting_delivery','waiting_TI','delivered']"/>
+                            <widget name="web_ribbon" title="coming soon" bg_color="text-bg-warning"
+                                    invisible="status not in ['waiting_arrival','reconditioning']"/>
+                            <widget name="web_ribbon" title="for sale" bg_color="text-bg-success"
+                                    invisible="status != 'for_sale'"/>
+                            <widget name="web_ribbon" title="Trade-in" bg_color="text-bg-danger"
+                                    invisible="not trade_in"/>
+                            <aside class="o_kanban_aside_full d-flex" style="flex: 0 0 45%; height: 100%;">
+                                <div class="o_kanban_image_fill position-relative w-100">
+                                    <field name="image_1920" alt="Car Image" class="h-100" widget="image"
+                                           options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
+                                </div>
+                            </aside>
+                            <main class="ps-2 ps-md-0">
+                                <field class="fw-bold fs-5" name="vehicle_brand_id"/>
+                                <field class="fw-bold fs-5" name="currency_id" invisible="1"/>
+                                <field class="fw-bold fs-5" name="vehicle_model_id"/>
+                                <field class="fw-bold fs-6" name="gearbox"/>
+                                <field class="fw-bold fs-6" name="energy_type"/>
+                                <span>
+                                    <field class="fw-bold fs-6" name="mileage_km"/>
+                                    km
+                                </span>
+                                <field class="text-success oe_inline oe_bold" name="list_price" widget="monetary"
+                                       options="{'currency_field':'currency_id'}"/>
+                                <field class="text-danger oe_inline oe_bold" name="purchase_price" widget="monetary"
+                                       options="{'currency_field':'currency_id'}" invisible="not trade_in"/>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_new_vehicle" model="ir.actions.act_window">
+            <field name="name">New Vehicles</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="bestcar_commercial.view_vehicle_search"/>
+            <field name="domain">[('is_used','=',False),('is_vehicle','=',True)]</field>
+            <field name="context">{'default_is_used':False,'default_is_vehicle':True}</field>
+        </record>
+        <record id="action_new_vehicle_view_list" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_vehicle_list"/>
+            <field name="sequence" eval="2"/>
+        </record>
+        <record id="action_new_vehicle_view_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">form</field>
+            <field name="sequence" eval="3"/>
+        </record>
+        <record id="action_new_vehicle_view_kanban" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_new_vehicle"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_vehicle_kanban"/>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="action_used_vehicle" model="ir.actions.act_window">
+            <field name="name">Used Vehicles</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="bestcar_commercial.view_vehicle_search"/>
+            <field name="domain">[('is_used','=',True),('is_vehicle','=',True)]</field>
+            <field name="context">{'default_is_used':True,'default_is_vehicle':True,'search_default_filter_available':
+                1}
+            </field>
+        </record>
+        <record id="action_used_vehicle_view_list" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_vehicle_list"/>
+            <field name="sequence" eval="2"/>
+        </record>
+        <record id="action_used_vehicle_view_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">form</field>
+            <field name="sequence" eval="3"/>
+        </record>
+        <record id="action_used_vehicle_view_kanban" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="action_used_vehicle"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_vehicle_kanban"/>
+            <field name="sequence" eval="1"/>
+        </record>
+        <menuitem id="new_vehicle_menu"
+                  name="New Vehicles"
+                  parent="bestcar_commercial.bestcar_commercial_vehicle_menu"
+                  action="action_new_vehicle"
+                  sequence="1"/>
+        <menuitem id="used_vehicle_menu"
+                  name="Used Vehicles"
+                  parent="bestcar_commercial.bestcar_commercial_vehicle_menu"
+                  action="action_used_vehicle"
+                  sequence="0"/>
+    </data>
+</odoo>

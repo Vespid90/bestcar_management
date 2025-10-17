@@ -1,0 +1,26 @@
+<odoo>
+    <record id="action_open_quotation" model="ir.actions.act_window">
+        <field name="name">Quotations</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+    </record>
+    <record id="action_open_sale_orders" model="ir.actions.act_window">
+        <field name="name">Sale Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="sale.sale_order_list_upload"/>
+        <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+    </record>
+    <menuitem
+            id="menu_sale_rfq"
+            name="Quotations"
+            parent="bestcar_sale_menu"
+            action="action_open_quotation"/>
+    <menuitem
+            id="menu_sale_orders"
+            name="Orders"
+            parent="bestcar_sale_menu"
+            action="action_open_sale_orders"/>
+</odoo>

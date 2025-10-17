@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="view_vehicle_type_search" model="ir.ui.view">
+            <field name="name">vehicle.brand.search</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="view_vehicle_type_list" model="ir.ui.view">
+            <field name="name">vehicle.brand.list</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <list string="Vehicles">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_vehicle_type_form" model="ir.ui.view">
+            <field name="name">vehicle.brand.form</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <form string="Model make">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_vehicle_type" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="res_model">vehicle.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_vehicle_type_search"/>
+        </record>
+        <menuitem id="menu_vehicle_type"
+                  name="Categories"
+                  parent="menu_vehicle_configuration"
+                  action="action_vehicle_type"
+                  sequence="3"/>
+    </data>
+</odoo>

@@ -1,30 +1,232 @@
 <odoo>
     <data>
-<!--
-          <record id="object0" model="bestcar_commercial.bestcar_commercial">
-            <field name="name">Object 0</field>
-            <field name="value">0</field>
-          </record>
-
-          <record id="object1" model="bestcar_commercial.bestcar_commercial">
-            <field name="name">Object 1</field>
-            <field name="value">10</field>
-          </record>
-
-          <record id="object2" model="bestcar_commercial.bestcar_commercial">
-            <field name="name">Object 2</field>
-            <field name="value">20</field>
-          </record>
-
-          <record id="object3" model="bestcar_commercial.bestcar_commercial">
-            <field name="name">Object 3</field>
-            <field name="value">30</field>
-          </record>
-
-          <record id="object4" model="bestcar_commercial.bestcar_commercial">
-            <field name="name">Object 4</field>
-            <field name="value">40</field>
-          </record>
--->
+        <record id="vehicle_audi_a1" model="product.template">
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_audi"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_audi_a1"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_citadine"/>
+            <field name="vehicle_version">TDI</field>
+            <field name="vin">1ZVFT80N855169797</field>
+            <field name="energy_type">diesel</field>
+            <field name="horsepower_hp">115</field>
+            <field name="fiscal_power_cv">6</field>
+            <field name="class_of_emission">Euro 6b</field>
+            <field name="engine_capacity_cc">1.6</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">115000</field>
+            <field name="body_color">Electric Blue</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="company_bestcar"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_a1.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_parking_sensors_rear')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')])]"/>
+            <field name="date_first_registration">2018-05-12</field>
+        </record>
+        <record id="vehicle_audi_a3" model="product.template">
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_audi"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_audi_a3"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_hatchback"/>
+            <field name="vehicle_version">Sportback</field>
+            <field name="vin">3D7JV1ET1BG554778</field>
+            <field name="energy_type">petrol</field>
+            <field name="horsepower_hp">110</field>
+            <field name="fiscal_power_cv">6</field>
+            <field name="class_of_emission">Euro 6d</field>
+            <field name="engine_capacity_cc">1.0</field>
+            <field name="gearbox">auto</field>
+            <field name="mileage_km">45000</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="company_bestcar"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_a3.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')])]"/>
+            <field name="date_first_registration">2020-07-24</field>
+        </record>
+        <record id="vehicle_audi_q4" model="product.template">
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_audi"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_audi_q4"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_suv"/>
+            <field name="vehicle_version">45ETron</field>
+            <field name="vin">4T1BK36B47U106995</field>
+            <field name="energy_type">electric</field>
+            <field name="horsepower_hp">285</field>
+            <field name="fiscal_power_cv">5</field>
+            <field name="gearbox">auto</field>
+            <field name="mileage_km">85000</field>
+            <field name="body_color">White</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="company_bestcar"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_audi_q4.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_awd')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_side')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_climate_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_navigation')
+                                                    ,ref('bestcar_commercial.vehicle_option_cruise')
+                                                    ,ref('bestcar_commercial.vehicle_option_led_headlights')
+                                                    ,ref('bestcar_commercial.vehicle_option_heated_seats_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_keyless')
+                                                    ,ref('bestcar_commercial.vehicle_option_wireless_phone_charging')])]"/>
+            <field name="date_first_registration">2022-12-01</field>
+        </record>
+        <record id="vehicle_vw_polo" model="product.template">
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_volkswagen"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_volkswagen_polo"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_citadine"/>
+            <field name="vehicle_version">Style</field>
+            <field name="vin">WBAWC73549E246595</field>
+            <field name="energy_type">diesel</field>
+            <field name="horsepower_hp">95</field>
+            <field name="fiscal_power_cv">5</field>
+            <field name="class_of_emission">Euro 6d</field>
+            <field name="engine_capacity_cc">1.6</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">93000</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="company_bestcar"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_vw_polo.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')])]"/>
+            <field name="date_first_registration">2020-07-24</field>
+        </record>
+        <record id="vehicle_vw_golf" model="product.template">
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_volkswagen"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_volkswagen_golf"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_hatchback"/>
+            <field name="vehicle_version">GTI</field>
+            <field name="vin">1YVHP80C685M10138</field>
+            <field name="energy_type">petrol</field>
+            <field name="horsepower_hp">245</field>
+            <field name="fiscal_power_cv">14</field>
+            <field name="class_of_emission">Euro 6d</field>
+            <field name="engine_capacity_cc">2.0</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">78900</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="company_bestcar"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_vw_golf.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_side')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_climate_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_navigation')
+                                                    ,ref('bestcar_commercial.vehicle_option_led_headlights')])]"/>
+            <field name="date_first_registration">2020-02-17</field>
+        </record>
+        <record id="vehicle_skoda_fabia" model="product.template">
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_skoda"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_skoda_fabia"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_citadine"/>
+            <field name="vehicle_version">TSI</field>
+            <field name="vin">JS2RC41H735219741</field>
+            <field name="energy_type">petrol</field>
+            <field name="horsepower_hp">95</field>
+            <field name="fiscal_power_cv">5</field>
+            <field name="class_of_emission">Euro 6d</field>
+            <field name="engine_capacity_cc">1.0</field>
+            <field name="gearbox">man</field>
+            <field name="mileage_km">35400</field>
+            <field name="body_color">Grey</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="company_bestcar"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_skoda_fabia.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_esc')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')])]"/>
+            <field name="date_first_registration">2022-09-14</field>
+        </record>
+        <record id="vehicle_porsche_taycan" model="product.template">
+            <field name="is_vehicle">True</field>
+            <field name="is_used">True</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="vehicle_brand_id" ref="bestcar_commercial.vehicle_brand_porsche"/>
+            <field name="vehicle_model_id" ref="bestcar_commercial.vehicle_model_porsche_taycan"/>
+            <field name="vehicle_type_id" ref="bestcar_commercial.vehicle_type_coupe_sport"/>
+            <field name="vehicle_version">4S</field>
+            <field name="vin">2B3CL3CG2BH576929</field>
+            <field name="energy_type">electric</field>
+            <field name="horsepower_hp">544</field>
+            <field name="fiscal_power_cv">10</field>
+            <field name="gearbox">auto</field>
+            <field name="mileage_km">72000</field>
+            <field name="body_color">Black</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="company_id" ref="company_bestcar"/>
+            <field name="status">added</field>
+            <field name="image_1920" type="base64" file="bestcar_commercial/static/img/vehicle_porsche_taycan.jpg"/>
+            <field name="vehicle_option_ids" eval="[Command.set([ref('bestcar_commercial.vehicle_option_abs')
+                                                    ,ref('bestcar_commercial.vehicle_option_awd')
+                                                    ,ref('bestcar_commercial.vehicle_option_traction_control')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_side')
+                                                    ,ref('bestcar_commercial.vehicle_option_airbags_curtain')
+                                                    ,ref('bestcar_commercial.vehicle_option_android_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_carplay')
+                                                    ,ref('bestcar_commercial.vehicle_option_bluetooth')
+                                                    ,ref('bestcar_commercial.vehicle_option_parking_sensors_rear')
+                                                    ,ref('bestcar_commercial.vehicle_option_camera_rear')
+                                                    ,ref('bestcar_commercial.vehicle_option_alloy_wheels')
+                                                    ,ref('bestcar_commercial.vehicle_option_climate_auto')
+                                                    ,ref('bestcar_commercial.vehicle_option_navigation')
+                                                    ,ref('bestcar_commercial.vehicle_option_led_headlights')
+                                                    ,ref('bestcar_commercial.vehicle_option_cruise')
+                                                    ,ref('bestcar_commercial.vehicle_option_heated_seats_front')
+                                                    ,ref('bestcar_commercial.vehicle_option_keyless')
+                                                    ,ref('bestcar_commercial.vehicle_option_wireless_phone_charging')])]"/>
+            <field name="date_first_registration">2022-11-07</field>
+        </record>
     </data>
 </odoo>

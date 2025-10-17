@@ -1,0 +1,31 @@
+<odoo>
+    <menuitem id="bestcar_commercial_root"
+              name="Bestcar"
+              web_icon="bestcar_commercial,static/description/icon.png"
+              sequence="0"/>
+    <menuitem id="bestcar_commercial_vehicle_menu"
+              name="Vehicles"
+              parent="bestcar_commercial_root"
+              sequence="10"/>
+    <menuitem id="bestcar_purchase_menu"
+              name="Purchase"
+              parent="bestcar_commercial_root"
+              sequence="20"/>
+    <menuitem id="bestcar_sale_menu"
+              name="Sales"
+              parent="bestcar_commercial_root"
+              sequence="30"/>
+    <menuitem id="bestcar_project_menu"
+              name="Projects"
+              parent="bestcar_commercial_root"
+              sequence="40"/>
+    <menuitem id="bestcar_commercial_contact_menu"
+              name="Contacts"
+              parent="bestcar_commercial_root"
+              sequence="50"
+              action="action_open_bestcar_customer"/>
+    <menuitem id="menu_vehicle_configuration"
+              name="Configuration"
+              parent="bestcar_commercial_root"
+              sequence="60"/>
+</odoo>

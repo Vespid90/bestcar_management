@@ -1,0 +1,44 @@
+<odoo>
+    <record id="view_edit_project_form_inherit" model="ir.ui.view">
+        <field name="name">edit.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group//field[@name='date']" position="after">
+                <field name="vehicle_id" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_kanban_inherit" model="ir.ui.view">
+        <field name="name">project.kanban.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
+                <a class="o_project_kanban_box me-1"
+                   name="action_view_vehicle"
+                   type="object"
+                   invisible="not vehicle_id">
+                    <span class="fa fa-car me-1" title="View vehicle"/>
+                </a>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_open_projects" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="project.view_project_kanban"/>
+        <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+    </record>
+    <menuitem
+            id="menu_project_projects"
+            name="Projects"
+            parent="bestcar_project_menu"
+            action="action_open_projects"/>
+    <menuitem
+            id="menu_project_tasks"
+            name="Tasks"
+            parent="bestcar_project_menu"/>
+</odoo>
