@@ -50,9 +50,10 @@ Pour exécuter ce module, vous aurez besoin de :
 
 ## 4. Installation
 
-Clonez ce dépôt dans le dossier custom de votre instance Odoo :
+Clonez ce dépôt dans votre instance Odoo, au même niveau que vos dossier custom, entreprise, (...) :
+N'oubliez pas d'ajuster votre addon_path dans le odoo.conf !
 
-Une fois l'instalaltion réalisée, il ne vous erstera plus qu'à activer le module "BestCar". Des données démo ont été créées afin que vous puissiez tester le module directement.
+Une fois l'instalaltion réalisée, il ne vous restera plus qu'à activer le module "BestCar". Des données démo ont été créées afin que vous puissiez tester le module directement.
 
 ## 5. Utilisation
 
